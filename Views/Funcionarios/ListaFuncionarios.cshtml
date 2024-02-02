@@ -1,0 +1,42 @@
+@model List<TRABALHO_VOLVO.Funcionario>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Funcionarios</title>
+</head>
+<body>
+    <h2>Lista de Funcionarios</h2>
+
+    @* <ul>
+    @foreach (var funcionario in Model)
+    {
+        <li>
+            <p>Nome: @funcionario.Nomefuncionario</p>
+            <p>Nacionalidade: @funcionario.Nacionalidade</p>
+            <p>Email: @funcionario.Email</p>
+        </li>
+    }
+    </ul> *@
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>CPF/CNPJ</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            
+        </tr>
+        @foreach (var funcionario in Model)
+        {
+            <tr>
+                <td>@funcionario.NomeFuncionario</td>
+                <td>@funcionario.CpfFuncionario</td>
+                <td>@funcionario.NumeroContatoFuncionario</td>
+                
+            </tr>
+        }
+    </table>
+
+</body>
+</html>

@@ -284,3 +284,16 @@ C:\TRABALHO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\scopedcss\bundle\TRABALHO
 C:\TRABALHO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.csproj.CopyComplete
 C:\TRABALHO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.genruntimeconfig.cache
 C:\TRABALHO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\ref\TRABALHO_volvo.dll
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.csproj.AssemblyReference.cache
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.GeneratedMSBuildEditorConfig.editorconfig
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.AssemblyInfoInputs.cache
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.AssemblyInfo.cs
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.csproj.CoreCompileInputs.cache
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.MvcApplicationPartsAssemblyInfo.cs
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.MvcApplicationPartsAssemblyInfo.cache
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.RazorAssemblyInfo.cache
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.RazorAssemblyInfo.cs
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.sourcelink.json
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.dll
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\refint\TRABALHO_volvo.dll
+C:\REPO_VOLVO\Projeto-Final-VOLVO\obj\Debug\net8.0\TRABALHO_volvo.pdb

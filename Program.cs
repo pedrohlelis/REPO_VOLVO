@@ -14,10 +14,6 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-<<<<<<< HEAD
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-=======
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
     app.UseHsts();
 }
 // Adicionar meus controllers

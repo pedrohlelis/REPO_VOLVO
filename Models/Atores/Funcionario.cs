@@ -5,46 +5,42 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TRABALHO_VOLVO
 {
-    public class Funcionario
-    {
-        private int _CodFuncionario;
-        private string? _NomeFuncionario;
-        private string? _CpfFuncionario;
-        private bool _FuncionarioAtivo;
-        private string? _NumeroContatoFuncionario;
-        private int _FkCargosCodCargo;
-        private int _FkConcessionariasCodConc;
+        public class Funcionario
+        {
+                private int _CodFuncionario;
+                private string? _NomeFuncionario;
+                private string? _CpfFuncionario;
+                private bool _FuncionarioAtivo;
+                private string? _NumeroContatoFuncionario;
+                private int _FkCargosCodCargo;
+                private int _FkConcessionariasCodConc;
 
-        [Required]
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodFuncionario { get{return _CodFuncionario;} set{_CodFuncionario = value;} }
-        
-        [Required]
-        [MaxLength(50)]
-        public string? NomeFuncionario { get{return _NomeFuncionario;} set{if(value != null){_NomeFuncionario = value;}} }
-        
-        [Required]
-        [MaxLength(20)]
-        public string? CpfFuncionario { get{return _CpfFuncionario;} set{if(value != null){_CpfFuncionario = value;}} }
+                [Required]
+                [Key]
+                [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+                public int CodFuncionario { get{return _CodFuncionario;} set{_CodFuncionario = value;} }
+                
+                [Required]
+                [MaxLength(50)]
+                public string? NomeFuncionario { get{return _NomeFuncionario;} set{if(value != null){_NomeFuncionario = value;}} }
+                
+                [Required]
+                [MaxLength(20)]
+                public string? CpfFuncionario { get{return _CpfFuncionario;} set{if(value != null){_CpfFuncionario = value;}} }
 
-        [Required]
-        public bool FuncionarioAtivo { get{return _FuncionarioAtivo;} set{} }
+                [Required]
+                public bool FuncionarioAtivo { get{return _FuncionarioAtivo;} set{} }
 
-        [Required]
-        [MaxLength(25)]
-        public string? NumeroContatoFuncionario { get{return _NumeroContatoFuncionario;} set{if(value != null){_NumeroContatoFuncionario = value;}} }
+                [Required]
+                [MaxLength(25)]
+                public string? NumeroContatoFuncionario { get{return _NumeroContatoFuncionario;} set{if(value != null){_NumeroContatoFuncionario = value;}} }
 
-        [Required]
-        [ForeignKey("CodCargo")]
-<<<<<<< HEAD
-        public int FkCargosCodCargo { get{return _FkCargosCodCargo;} set{} }
-=======
-        public int? FkCargosCodCargo { get; set; }
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
+                [Required]
+                [ForeignKey("CodCargo")]
+                public int FkCargosCodCargo { get{return _FkCargosCodCargo;} set{_FkCargosCodCargo = value;} }
 
-        [Required]
-        [ForeignKey("CodConc")]
-        public int FkConcessionariasCodConc { get{return _FkConcessionariasCodConc;} set{}  }
-    }
+                [Required]
+                [ForeignKey("CodConc")]
+                public int FkConcessionariasCodConc { get{return _FkConcessionariasCodConc;} set{}  }
+        }
 }

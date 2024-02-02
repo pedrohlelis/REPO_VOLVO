@@ -1,0 +1,5 @@
+git remote add origin https://github.com/pedrohlelis/REPO_VOLVO.git => adiciona origem
+git add . => 
+git commit -m "<Descricao>" => faz o commit
+git push -u origin master => faz o push das coisas novas para o master
+git pull origin master => puxa as alteracoes e atualiza para a versao atual.
