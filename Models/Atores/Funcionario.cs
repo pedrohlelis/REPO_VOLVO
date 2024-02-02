@@ -37,11 +37,7 @@ namespace TRABALHO_VOLVO
 
         [Required]
         [ForeignKey("CodCargo")]
-<<<<<<< HEAD
-        public int FkCargosCodCargo { get{return _FkCargosCodCargo;} set{} }
-=======
-        public int? FkCargosCodCargo { get; set; }
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
+        public int? FkCargosCodCargo { get{return _FkCargosCodCargo;} set{} }
 
         [Required]
         [ForeignKey("CodConc")]
