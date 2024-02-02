@@ -68,7 +68,7 @@ namespace TRABALHO_VOLVO
                     return; 
                 }
                 item.NomeModelo = modelosCaminhao.NomeModelo;
-                item.ValorModelosCaminhao = modelosCaminhao.ValorModelosCaminhao;
+                item.ValorModeloCaminhao = modelosCaminhao.ValorModeloCaminhao;
                 _context.SaveChanges();
             }
         }
