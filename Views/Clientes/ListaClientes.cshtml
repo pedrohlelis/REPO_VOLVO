@@ -1,0 +1,43 @@
+@model List<TRABALHO_VOLVO.Cliente>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Clientes</title>
+</head>
+<body>
+    <h2>Lista de Clientes</h2>
+
+    @* <ul>
+    @foreach (var cliente in Model)
+    {
+        <li>
+            <p>Nome: @cliente.NomeCliente</p>
+            <p>Nacionalidade: @cliente.Nacionalidade</p>
+            <p>Email: @cliente.Email</p>
+        </li>
+    }
+    </ul> *@
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>CPF/CNPJ</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            
+        </tr>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.NomeCliente</td>
+                <td>@cliente.DocIdentificadorCliente</td>
+                <td>@cliente.EmailCliente</td>
+                <td>@cliente.NumeroContatoCliente</td>
+                
+            </tr>
+        }
+    </table>
+
+</body>
+</html>
