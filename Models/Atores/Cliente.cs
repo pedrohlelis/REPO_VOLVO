@@ -26,14 +26,10 @@ namespace TRABALHO_VOLVO
         
         [Required]
         [MaxLength(20)]
-<<<<<<< HEAD
         public string? DocIdentificadorCliente { get{return _DocIdentificador;} set{if(value != null){_DocIdentificador = value;}} }
 
         [Required]
         public bool ClienteAtivo { get{return _ClienteAtivo;} set{_ClienteAtivo = value;} }
-=======
-        public string? DocIdentificadorCliente { get; set; } 
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
         
         [MaxLength(100)]
         public string? EmailCliente { get{return _EmailCliente;} set{if(value != null){_EmailCliente = value;}} }

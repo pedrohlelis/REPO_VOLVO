@@ -24,19 +24,11 @@ namespace TRABALHO_VOLVO
 
         [Required]
         [MaxLength(40)]
-<<<<<<< HEAD
         public string? NomeConc { get{return _NomeConc;} set{if(value != null){_NomeConc = value;}} }
 
         [Required]
         [MaxLength(10)]
         public string? CepConcessionaria { get{return _CepConcessionaria;} set{if(value != null){_CepConcessionaria = value;}} }
-=======
-        public string? NomeConc { get; set; }
-
-        [Required]
-        [MaxLength(10)]
-        public string? CepConcessionaria { get; set; }
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
         
         [Required]
         public bool ConcessionariaAtivo { get{return _ConcessionariaAtivo;} set{{_ConcessionariaAtivo = value;}}  }
@@ -58,12 +50,7 @@ namespace TRABALHO_VOLVO
         public string? Rua { get{return _Rua;} set{if(value != null){_Rua = value;}} }
 
         [Required]
-<<<<<<< HEAD
         [MaxLength(5)]
         public int Numero { get{return _Numero;} set{_Numero = value;} }
-=======
-        [MaxLength(30)]
-        public string? Numero { get; set; }
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
     }
 }

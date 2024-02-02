@@ -23,10 +23,6 @@ namespace TRABALHO_VOLVO
 
         public double SalarioBase { get{return _SalarioBase;} set{_SalarioBase = value;} }
         
-<<<<<<< HEAD
         public int PorcentagemComissao { get{return _PorcentagemComissao;} set{_PorcentagemComissao = value;} }
-=======
-        public double PorcentagemComissao { get; set; }
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
     }
 }

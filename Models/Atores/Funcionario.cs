@@ -12,7 +12,7 @@ namespace TRABALHO_VOLVO
                 private string? _CpfFuncionario;
                 private bool _FuncionarioAtivo;
                 private string? _NumeroContatoFuncionario;
-                private int _FkCargosCodCargo;
+                private int? _FkCargosCodCargo;
                 private int _FkConcessionariasCodConc;
 
                 [Required]
@@ -37,7 +37,7 @@ namespace TRABALHO_VOLVO
 
                 [Required]
                 [ForeignKey("CodCargo")]
-                public int FkCargosCodCargo { get{return _FkCargosCodCargo;} set{_FkCargosCodCargo = value;} }
+                public int? FkCargosCodCargo { get{return _FkCargosCodCargo;} set{_FkCargosCodCargo = value;} }
 
                 [Required]
                 [ForeignKey("CodConc")]
