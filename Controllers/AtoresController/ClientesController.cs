@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Security.Principal;
 
 namespace TRABALHO_VOLVO
 {
@@ -7,15 +9,16 @@ namespace TRABALHO_VOLVO
     public class ClientesController : Controller
     {
         //Cadastra um novo cliente via Form
-        [HttpPost]
-        public IActionResult CadastrarCliente([FromForm] Cliente mcliente)
+        [HttpPost("CadastrarCliente")]
+        public async Task<IActionResult> CadastrarCliente([FromForm] Cliente mcliente)
         {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                _context.Clientes.Add(mcliente);
-                _context.SaveChanges();
+                using (var _context = new TrabalhoVolvoContext())
+                {
+                    if(mcliente.NomeCliente == "1"){throw new ArgumentOutOfRangeException("testando");}
+                    _context.Clientes.Add(mcliente);
+                    await _context.SaveChangesAsync();
+                }
                 return Ok("Cliente Cadastrado Com Sucesso.");
-            }
         }
 
         //Joga todos os clientes em uma lista e formata em uma table na view "ListaClientes.cshtml"
@@ -36,6 +39,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
+                throw new Exception("testando");
                 var item = _context.Clientes.FirstOrDefault(t => t.CodCliente == id);
                 if(item == null)
                 {

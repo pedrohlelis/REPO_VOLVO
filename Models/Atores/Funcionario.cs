@@ -29,7 +29,7 @@ namespace TRABALHO_VOLVO
                 public string? CpfFuncionario { get{return _CpfFuncionario;} set{if(value != null){_CpfFuncionario = value;}} }
 
                 [Required]
-                public bool FuncionarioAtivo { get{return _FuncionarioAtivo;} set{} }
+                public bool FuncionarioAtivo { get{return _FuncionarioAtivo;} set{_FuncionarioAtivo = value;} }
 
                 [Required]
                 [MaxLength(25)]
@@ -41,6 +41,6 @@ namespace TRABALHO_VOLVO
 
                 [Required]
                 [ForeignKey("CodConc")]
-                public int FkConcessionariasCodConc { get{return _FkConcessionariasCodConc;} set{}  }
+                public int FkConcessionariasCodConc { get{return _FkConcessionariasCodConc;} set{_FkConcessionariasCodConc = value;}  }
         }
 }

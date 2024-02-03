@@ -7,7 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddControllersWithViews();
 
 // Adicionar meu Exception Handler na Build
+builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<AppExceptionHandler>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -16,7 +18,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
 }
-// Adicionar meus controllers
+
 app.MapControllers();
 // Adicionar meu Exception Handler em meu app
 app.UseExceptionHandler( _ => { });

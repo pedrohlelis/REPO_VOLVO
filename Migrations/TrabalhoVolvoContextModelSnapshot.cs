@@ -36,10 +36,10 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<DateOnly>("DataFabricacao")
                         .HasColumnType("date");
 
-                    b.Property<int>("FkClientesClienteId")
+                    b.Property<int>("FkClientesCodCliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("FkModelosCaminhoesModelosCaminhaoId")
+                    b.Property<int>("FkModelosCaminhoesCodModelo")
                         .HasColumnType("int");
 
                     b.Property<double>("Quilometragem")
@@ -82,8 +82,8 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<double>("PorcentagemComissao")
-                        .HasColumnType("float");
+                    b.Property<int>("PorcentagemComissao")
+                        .HasColumnType("int");
 
                     b.Property<double>("SalarioBase")
                         .HasColumnType("float");
@@ -101,14 +101,10 @@ namespace TRABALHO_volvo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodCliente"));
 
-<<<<<<< HEAD
                     b.Property<bool>("ClienteAtivo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("DocIndentificadorCliente")
-=======
                     b.Property<string>("DocIdentificadorCliente")
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -129,11 +125,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodCliente");
 
-<<<<<<< HEAD
-                    b.HasIndex("DocIndentificadorCliente")
-=======
                     b.HasIndex("DocIdentificadorCliente")
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
                         .IsUnique();
 
                     b.ToTable("Clientes");
@@ -170,10 +162,9 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<int>("Numero")
+                        .HasMaxLength(5)
+                        .HasColumnType("int");
 
                     b.Property<string>("Pais")
                         .IsRequired()
@@ -206,12 +197,8 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-<<<<<<< HEAD
-                    b.Property<int>("FkCargosCodCargo")
-=======
                     b.Property<int?>("FkCargosCodCargo")
                         .IsRequired()
->>>>>>> cb1c4a445598c4c102b50ad09dadd4a7e27b4277
                         .HasColumnType("int");
 
                     b.Property<int>("FkConcessionariasCodConc")
@@ -254,7 +241,7 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<double>("ValorModelosCaminhao")
+                    b.Property<double>("ValorModeloCaminhao")
                         .HasColumnType("float");
 
                     b.HasKey("CodModelo");
@@ -319,7 +306,7 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("FkCaminhaoEstoqueCodCaminhao")
+                    b.Property<int>("FkEstoqueCaminhaoCodCaminhao")
                         .HasColumnType("int");
 
                     b.Property<int>("FkFuncionariosCodFuncionario")
@@ -389,10 +376,10 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<DateOnly>("DataVenda")
                         .HasColumnType("date");
 
-                    b.Property<int>("FkCaminhaoEstoqueCodCaminhaoEstoque")
+                    b.Property<int>("FkClientesCodCliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("FkClientesCodCliente")
+                    b.Property<int>("FkEstoqueCaminhoesCodCaminhaoEstoque")
                         .HasColumnType("int");
 
                     b.Property<int>("FkFuncionariosCodFuncionario")
