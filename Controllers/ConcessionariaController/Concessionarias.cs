@@ -6,17 +6,20 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class ConcessionariasController : Controller
     {
-        [HttpPost]
-        public void Post([FromBody] Concessionaria concessionaria)
+        [HttpPost("Cadastrar")]
+        public IActionResult Post([FromForm] Concessionaria concessionaria)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
+                concessionaria.CodConc = 0;
+                concessionaria.ConcessionariaAtivo = true;
                 _context.Concessionarias.Add(concessionaria);
                 _context.SaveChanges();
+                return Ok();
             }
         }
 
-        [HttpGet]
+        [HttpGet("Listar")]
         public List<Concessionaria> Get()
         {
             using (var _context = new TrabalhoVolvoContext())
@@ -25,14 +28,14 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpGet("{Cep}")]
+        [HttpGet("Buscar/{Cep}")]
         public IActionResult Get(string Cep)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
 
-                if(item == null)
+                if (item == null)
                 {
                     return NotFound();
                 }
@@ -40,15 +43,15 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpPut("{Cep}")]
-        public void Put(string Cep,[FromBody] Concessionaria concessionaria)
+        [HttpPut("Atualizar/{Cep}")]
+        public IActionResult Put(string Cep, [FromForm] Concessionaria concessionaria)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
-                if(item == null)
+                if (item == null)
                 {
-                    return; 
+                    return NotFound();
                 }
                 item.NomeConc = concessionaria.NomeConc;
                 item.CepConcessionaria = concessionaria.CepConcessionaria;
@@ -58,21 +61,30 @@ namespace TRABALHO_VOLVO
                 item.Rua = concessionaria.Rua;
                 item.Numero = concessionaria.Numero;
                 _context.SaveChanges();
+                return Ok();
             }
         }
 
-        [HttpPut("Delete/{Cep}")]
-        public void Put(string Cep)
+        [HttpPut("Deletar/{Cep}")]
+        public IActionResult Put(string Cep)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria== Cep);
-                if(item == null)
+                var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
+                if (item == null)
                 {
-                    return; 
+                    return NotFound();
                 }
+                
+                var funcionariosConcessionaria = _context.Funcionarios.Where(f => f.FkConcessionariasCodConc == item.CodConc);
+                foreach (var funcionario in funcionariosConcessionaria)
+                {
+                    funcionario.FuncionarioAtivo = false;
+                }
+
                 item.ConcessionariaAtivo = false;
                 _context.SaveChanges();
+                return Ok();
             }
         }
     }

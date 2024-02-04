@@ -10,17 +10,30 @@ namespace TRABALHO_VOLVO
         private int _CodCaminhaoEstoque;
         private int _FkModelosCaminhaoCodModelo;
         private int _FkConcessionariasCodConc;
+        
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodCaminhaoEstoque { get{return _CodCaminhaoEstoque;} set{_CodCaminhaoEstoque = value;} }
-        
+        public int CodCaminhaoEstoque 
+        { 
+            get { return _CodCaminhaoEstoque; } 
+            set { _CodCaminhaoEstoque = value; } 
+        }
+
         [Required]
         [ForeignKey("CodModelo")]
-        public int FkModelosCaminhaoCodModelo { get{return _FkModelosCaminhaoCodModelo;} set{_FkModelosCaminhaoCodModelo = value;} }
+        public int FkModelosCaminhaoCodModelo 
+        { 
+            get { return _FkModelosCaminhaoCodModelo; } 
+            set { _FkModelosCaminhaoCodModelo = value; } 
+        }
 
         [Required]
         [ForeignKey("CodConc")]
-        public int FkConcessionariasCodConc { get{return _FkConcessionariasCodConc;} set{_FkConcessionariasCodConc = value;} }
+        public int FkConcessionariasCodConc 
+        { 
+            get { return _FkConcessionariasCodConc; } 
+            set { _FkConcessionariasCodConc = value; } 
+        }
     }
 }

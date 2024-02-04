@@ -6,25 +6,24 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class EstoquePecasController : Controller
     {
-        [HttpPost]
-        public IActionResult Post([FromBody] PecaEstoque pecaEstoque)
+        [HttpPost("Cadastrar")]
+        public IActionResult Post([FromForm] PecaEstoque pecaEstoque)
         {
-            var _context = new TrabalhoVolvoContext();
-
-            if(_context.Concessionarias.Any(c => c.CodConc == pecaEstoque.FkConcessionariasCodConc 
-                && _context.TipoPecas.Any(c => c.CodTipoPeca == pecaEstoque.FkTipoPecasCodTipoPeca)))
+            using (var _context = new TrabalhoVolvoContext())
             {
-                _context.EstoquePecas.Add(pecaEstoque);
-                _context.SaveChanges();
-                return Ok();
-            }
-            else
-            {
+                if (_context.Concessionarias.Any(c => c.CodConc == pecaEstoque.FkConcessionariasCodConc
+                    && _context.TipoPecas.Any(c => c.CodTipoPeca == pecaEstoque.FkTipoPecasCodTipoPeca)))
+                {
+                    pecaEstoque.CodPecaEstoque = 0;
+                    _context.EstoquePecas.Add(pecaEstoque);
+                    _context.SaveChanges();
+                    return Ok();
+                }
                 return NotFound();
             }
         }
 
-        [HttpGet]
+        [HttpGet("Listar")]
         public List<PecaEstoque> Get()
         {
             using (var _context = new TrabalhoVolvoContext())
@@ -33,13 +32,13 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpGet("{Codigo}")]
+        [HttpGet("Buscar/{Codigo}")]
         public IActionResult Get(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.EstoquePecas.FirstOrDefault(t => t.CodPecaEstoque == Codigo);
-                if(item == null)
+                if (item == null)
                 {
                     return NotFound();
                 }
@@ -47,18 +46,19 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpDelete("{Codigo}")]
-        public void Delete(int Codigo)
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult Delete(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.EstoquePecas.FirstOrDefault(t => t.CodPecaEstoque == Codigo);
-                if(item == null)
+                if (item == null)
                 {
-                    return; 
+                    return NotFound();
                 }
                 _context.EstoquePecas.Remove(item);
                 _context.SaveChanges();
+                return Ok();
             }
         }
     }

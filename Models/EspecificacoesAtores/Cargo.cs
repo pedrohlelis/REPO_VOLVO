@@ -15,14 +15,30 @@ namespace TRABALHO_VOLVO
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodCargo { get{return _CodCargo;} set{_CodCargo = value;} }
+        public int CodCargo 
+        { 
+            get { return _CodCargo; } 
+            set { _CodCargo = value; }
+        }
 
         [Required]
         [MaxLength(30)]
-        public string? NomeCargo { get{return _NomeCargo;} set{if(value != null){_NomeCargo = value;}} }
+        public string? NomeCargo 
+        { 
+            get { return _NomeCargo; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _NomeCargo = value; } }
+        }
 
-        public double SalarioBase { get{return _SalarioBase;} set{_SalarioBase = value;} }
-        
-        public int PorcentagemComissao { get{return _PorcentagemComissao;} set{_PorcentagemComissao = value;} }
+        public double SalarioBase 
+        { 
+            get { return _SalarioBase; }
+            set { _SalarioBase = value; }
+        }
+
+        public int PorcentagemComissao 
+        { 
+            get { return _PorcentagemComissao; } 
+            set { _PorcentagemComissao = value; }
+        }
     }
 }

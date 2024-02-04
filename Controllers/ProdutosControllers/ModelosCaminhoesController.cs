@@ -6,35 +6,37 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class ModelosCaminhoesController : Controller
     {
-        [HttpPost]
-        public void Post([FromBody] ModelosCaminhao modelosCaminhao)
+        [HttpPost("Cadastrar")]
+        public IActionResult Post([FromForm] ModelosCaminhao modelosCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
+                modelosCaminhao.CodModelo = 0;
+                modelosCaminhao.ModelosAtivo  = true;
                 _context.ModelosCaminhoes.Add(modelosCaminhao);
-                _context.SaveChanges();
-            }
-        }
-
-        [HttpPost("CadastroPecas")]
-        public IActionResult Post([FromBody] PecasModelo pecasModelo)
-        {
-            var _context = new TrabalhoVolvoContext();
-
-            if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo)
-            && _context.TipoPecas.Any(c => c.CodTipoPeca ==pecasModelo.FkTipoPecasCodTipoPeca))
-            {
-                _context.PecasModelos.Add(pecasModelo);
                 _context.SaveChanges();
                 return Ok();
             }
-            else
+        }
+
+        [HttpPost("Cadastrar/Pecas")]
+        public IActionResult Post([FromForm] PecasModelo pecasModelo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
             {
+                if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo)
+                && _context.TipoPecas.Any(c => c.CodTipoPeca == pecasModelo.FkTipoPecasCodTipoPeca))
+                {
+                    pecasModelo.CodPecasModelo = 0;
+                    _context.PecasModelos.Add(pecasModelo);
+                    _context.SaveChanges();
+                    return Ok();
+                }
                 return NotFound();
             }
         }
 
-        [HttpGet]
+        [HttpGet("Listar")]
         public List<ModelosCaminhao> Get()
         {
             using (var _context = new TrabalhoVolvoContext())
@@ -43,13 +45,13 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpGet("{Codigo}")]
+        [HttpGet("Buscar/{Codigo}")]
         public IActionResult Get(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.ModelosCaminhoes.FirstOrDefault(t => t.CodModelo == Codigo);
-                if(item == null)
+                if (item == null)
                 {
                     return NotFound();
                 }
@@ -57,19 +59,20 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpPut("{Codigo}")]
-        public void Put(int Codigo,[FromBody] ModelosCaminhao modelosCaminhao)
+        [HttpPut("Atualizar/{Codigo}")]
+        public IActionResult Put(int Codigo, [FromForm] ModelosCaminhao modelosCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.ModelosCaminhoes.FirstOrDefault(t => t.CodModelo == Codigo);
-                if(item == null)
+                if (item == null)
                 {
-                    return; 
+                    return NotFound();
                 }
                 item.NomeModelo = modelosCaminhao.NomeModelo;
                 item.ValorModeloCaminhao = modelosCaminhao.ValorModeloCaminhao;
                 _context.SaveChanges();
+                return Ok();
             }
         }
     }
