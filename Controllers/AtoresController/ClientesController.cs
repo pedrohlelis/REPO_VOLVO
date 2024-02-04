@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace TRABALHO_VOLVO
 {
@@ -6,6 +7,7 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class ClientesController : Controller
     {
+
         [HttpPost("Cadastrar")]
         public IActionResult Post([FromForm] Cliente cliente)
         {
@@ -13,9 +15,19 @@ namespace TRABALHO_VOLVO
             {
                 cliente.CodCliente = 0;
                 cliente.ClienteAtivo = true;
-                _context.Clientes.Add(cliente);
-                _context.SaveChanges();
-                return Ok();
+                ValidationHelper.ValidateNameFormat(cliente.NomeCliente,"Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.DocIdentificadorCliente,"Formato do Documento Identificador invalido.");
+                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente,"Email invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente,"Formato de telefone invalido.");
+                try
+                {
+                    _context.Clientes.Add(cliente);
+                    _context.SaveChanges();
+                    return Ok("Cliente cadastrado com sucesso.");
+                }catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -51,13 +63,23 @@ namespace TRABALHO_VOLVO
                 var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
                 if (item == null)
                 {
-                    return NotFound();
+                    return NotFound("Nenhum cliente com esse documento foi encontrado.");
                 }
-                item.NomeCliente = cliente.NomeCliente;
-                item.EmailCliente = cliente.EmailCliente;
-                item.NumeroContatoCliente = cliente.NumeroContatoCliente;
-                _context.SaveChanges();
-                return Ok();
+                ValidationHelper.ValidateNameFormat(cliente.NomeCliente,"Nome invalido.");
+                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente,"Email invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente,"Formato de telefone invalido.");
+                try
+                {
+                    item.NomeCliente = cliente.NomeCliente;
+                    item.EmailCliente = cliente.EmailCliente;
+                    item.NumeroContatoCliente = cliente.NumeroContatoCliente;
+                    _context.SaveChanges();
+                    return Ok("Os dados do cliente foram atualizados.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 

@@ -1,5 +1,6 @@
 using TRABALHO_VOLVO;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 // Adicionar meu Exception Handler na Build
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<AppExceptionHandler>();
+builder.Services.AddExceptionHandler<GeneralExceptionHandler>();
 
 builder.Services.AddSwaggerGen();
 
@@ -40,3 +42,5 @@ app.MapControllers();
 //     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+

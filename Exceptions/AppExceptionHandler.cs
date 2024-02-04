@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 // using System.IO;
 // using System.Reflection.PortableExecutable;
@@ -16,32 +16,43 @@ namespace TRABALHO_VOLVO
             var traceId = Activity.Current?.Id ?? httpContext.TraceIdentifier;
 
             var (StatusCode, Title) = MapException(exception);
-            using (StreamWriter writer = new StreamWriter(@"Exceptions\exceptionsLog.txt", true))
+
+            if(StatusCode == default)
             {
-                await writer.WriteLineAsync(JsonConvert.SerializeObject(new
-                {
-                    DataHora = DateTime.Now.ToString("dd/MM/yy HH:mm:ss"),
-                    statusCode = StatusCode,
-                    machineName = Environment.MachineName,
-                    TraceId = traceId,
-                    Error = exception
-                }));
-                writer.Flush();
+                return false;
             }
-            logger.LogError(
-                exception,
-                "Nao foi possivel processar request na maquina {MachineName}. Traceid: {traceID}",
-                Environment.MachineName,
-                traceId
-            );
+
+            // SE QUISER REGISTRAR AS EXCEPTIONS PREVISTAS E MANUSEADAS!!! 
+
+            // using (StreamWriter writer = new StreamWriter(@"Exceptions\HandledExceptionsLog.txt", true))
+            // {
+            //     await writer.WriteLineAsync(JsonConvert.SerializeObject(new
+            //     {
+            //         DataHora = DateTime.Now.ToString("dd/MM/yy HH:mm:ss"),
+            //         statusCode = StatusCode,
+            //         machineName = Environment.MachineName,
+            //         TraceId = traceId,
+            //         Error = exception
+            //     }));
+            //     writer.Flush();
+            // }
+
+
+            //se quiser logar no terminal a exception (isso irá crashar a api com a exception!!!)
+            // logger.LogError(
+            //     exception,
+            //     "Nao foi possivel processar request na maquina {MachineName}. Traceid: {traceID}",
+            //     Environment.MachineName,
+            //     traceId
+            // );
 
             await Results.Problem(
                 title: Title,
-                statusCode: StatusCode,
-                extensions: new Dictionary<string, object?>
-                {
-                    {"traceId", traceId}
-                }
+                statusCode: StatusCode
+                // extensions: new Dictionary<string, object?>
+                // {
+                //     {"traceId", traceId}
+                // }
             ).ExecuteAsync(httpContext);
 
             return true; //significa que o pipeline de manipulacao de excessoes encerra aqui
@@ -52,8 +63,10 @@ namespace TRABALHO_VOLVO
         {
             return exception switch //inserir aqui todas as excessoes e suas mensagens
             {
-                ArgumentOutOfRangeException => (StatusCodes.Status400BadRequest, "Informe os dados corretamente."),
-                _ => (StatusCodes.Status500InternalServerError, "Encontramos um problema e estamos trabalhando para o resolver. Tente novamente mais Tarde.")
+                // DbUpdateException => (StatusCodes.Status500InternalServerError, exception.Message),
+                FormatoInvalidoException => (StatusCodes.Status400BadRequest, exception.Message),
+                ArgumentOutOfRangeException => (StatusCodes.Status400BadRequest, exception.Message),
+                _ => default
             };
         }
 
