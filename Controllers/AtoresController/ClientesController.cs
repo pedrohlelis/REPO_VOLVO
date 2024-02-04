@@ -39,7 +39,6 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                throw new Exception("testando");
                 var item = _context.Clientes.FirstOrDefault(t => t.CodCliente == id);
                 if(item == null)
                 {
