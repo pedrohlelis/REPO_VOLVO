@@ -16,22 +16,41 @@ namespace TRABALHO_VOLVO
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodVenda { get{return _CodVenda;} set{_CodVenda = value;} }
-        
+        public int CodVenda 
+        { 
+            get { return _CodVenda; } 
+            set { _CodVenda = value; } 
+        }
+
         [Required]
-        public DateOnly DataVenda { get{return _DataVenda;} set{_DataVenda = value;} }  
-        
+        public DateOnly DataVenda 
+        { 
+            get { return _DataVenda; } 
+            set { _DataVenda = value; } 
+        }
+
         [Required]
         [ForeignKey("CodCliente")]
-        public int FkClientesCodCliente { get{return _FkClientesCodCliente;} set{_FkClientesCodCliente = value;} }
+        public int FkClientesCodCliente 
+        { 
+            get { return _FkClientesCodCliente; } 
+            set { _FkClientesCodCliente = value; } 
+        }
 
         [Required]
         [ForeignKey("CodFuncionario")]
-        public int FkFuncionariosCodFuncionario { get{return _FkFuncionariosCodFuncionario;} set{_FkFuncionariosCodFuncionario = value;} }
+        public int FkFuncionariosCodFuncionario 
+        { 
+            get { return _FkFuncionariosCodFuncionario; } 
+            set { _FkFuncionariosCodFuncionario = value; } 
+        }
 
         [Required]
         [ForeignKey("CodCaminhaoEstoque")]
-        // alterei de FkCaminhaoEstoqueCodCaminhao para _FkEstoqueCaminhoesCodCaminhaoEstoque!!!
-        public int FkEstoqueCaminhoesCodCaminhaoEstoque { get{return _FkEstoqueCaminhoesCodCaminhaoEstoque;} set{_FkEstoqueCaminhoesCodCaminhaoEstoque = value;} }
+        public int FkEstoqueCaminhoesCodCaminhaoEstoque 
+        { 
+            get { return _FkEstoqueCaminhoesCodCaminhaoEstoque; } 
+            set { _FkEstoqueCaminhoesCodCaminhaoEstoque = value; } 
+        }
     }
 }

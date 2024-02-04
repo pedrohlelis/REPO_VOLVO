@@ -15,17 +15,33 @@ namespace TRABALHO_VOLVO
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodPecaEstoque { get{return _CodPecaEstoque;} set{_CodPecaEstoque = value;} }
+        public int CodPecaEstoque 
+        { 
+            get { return _CodPecaEstoque; } 
+            set { _CodPecaEstoque = value; } 
+        }
 
         [Required]
-        public DateOnly DataFabricacao { get{return _DataFabricacao;} set{_DataFabricacao = value;} }
+        public DateOnly DataFabricacao 
+        { 
+            get { return _DataFabricacao; } 
+            set { _DataFabricacao = value; } 
+        }
 
         [Required]
         [ForeignKey("CodTipoPeca")]
-        public int FkTipoPecasCodTipoPeca { get{return _FkTipoPecaCodTipoPeca;} set{_FkTipoPecaCodTipoPeca = value;} }
+        public int FkTipoPecasCodTipoPeca 
+        { 
+            get { return _FkTipoPecaCodTipoPeca; } 
+            set { _FkTipoPecaCodTipoPeca = value; } 
+        }
 
         [Required]
         [ForeignKey("CodConc")]
-        public int FkConcessionariasCodConc {  get{return _FkConcessionariasCodConc;} set{_FkConcessionariasCodConc = value;} }
+        public int FkConcessionariasCodConc 
+        { 
+            get { return _FkConcessionariasCodConc; } 
+            set { _FkConcessionariasCodConc = value; } 
+        }
     }
 }

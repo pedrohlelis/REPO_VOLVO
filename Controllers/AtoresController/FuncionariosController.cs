@@ -6,38 +6,36 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class FuncionariosController : Controller
     {
-        //Cadastra um novo Funcionario via Form
-        [HttpPost]
-        public IActionResult CadastrarFuncionario([FromForm] Funcionario mfuncionario)
+        [HttpPost("Cadastrar")]
+        public IActionResult Post([FromForm] Funcionario funcionario)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                _context.Funcionarios.Add(mfuncionario);
+                funcionario.CodFuncionario = 0;
+                funcionario.FuncionarioAtivo = true;
+                _context.Funcionarios.Add(funcionario);
                 _context.SaveChanges();
-                return Ok("Funcionario Cadastrado Com Sucesso.");
+                return Ok();
             }
         }
 
-        //Joga todos os Funcionarios em uma lista e formata em uma table na view "ListaFuncionarios.cshtml"
-        [HttpGet("TodosFuncionarios/byConcID/{id}")]
-        public IActionResult GetTodosFuncionarios(int id)
+        [HttpGet("Listar")]
+        public List<Funcionario> Get()
         {
-            List<Funcionario> ListaFuncionarios;
             using (var _context = new TrabalhoVolvoContext())
             {
-                ListaFuncionarios = _context.Funcionarios.ToList();
+                return _context.Funcionarios.ToList();
             }
-            return View("ListaFuncionarios", ListaFuncionarios);
         }
 
-        //Retorna o Funcionario cujo id é = id fornecido
-        [HttpGet("Get/byID/{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("Buscar/{Documento}")]
+        public IActionResult Get(string Documento)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.Funcionarios.FirstOrDefault(t => t.CodFuncionario == id);
-                if(item == null)
+                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
+
+                if (item == null)
                 {
                     return NotFound();
                 }
@@ -45,35 +43,36 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpGet("Get/byDoc/{doc}")]
-        public IActionResult GetByCpf(string doc)
+        [HttpPut("Atualizar/{Documento}")]
+        public IActionResult Put(string Documento, [FromForm] Funcionario funcionario)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == doc);
-                if(item == null)
+                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
+                if (item == null)
                 {
                     return NotFound();
                 }
-                return new ObjectResult(item);
+                item.NomeFuncionario = funcionario.NomeFuncionario;
+                item.NumeroContatoFuncionario = funcionario.NumeroContatoFuncionario;
+                _context.SaveChanges();
+                return Ok();
             }
         }
 
-        //Atualiza os dados do Funcionario cujo CPJ/CNPJ é = Doc fornecido
-        [HttpPut("Update/byDoc/{Doc}")]
-        public void Put(string Doc, [FromForm] Funcionario mfuncionario)
+        [HttpPut("Deletar/{Documento}")]
+        public IActionResult Put(string Documento)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Doc);
-                if(item == null)
+                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
+                if (item == null)
                 {
-                    return;
+                    return NotFound();
                 }
-                // _context.Entry(item).CurrentValues.SetValues(mFuncionario);
-                item.NomeFuncionario = mfuncionario.NomeFuncionario;
-                item.NumeroContatoFuncionario = mfuncionario.NumeroContatoFuncionario;
+                item.FuncionarioAtivo = false;
                 _context.SaveChanges();
+                return Ok();
             }
         }
     }

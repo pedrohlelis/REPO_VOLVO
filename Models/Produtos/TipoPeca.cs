@@ -11,18 +11,35 @@ namespace TRABALHO_VOLVO
         private string? _NomeTipoPeca;
         private bool _PecaAtivo;
         private double _ValorTipoPeca;
+        
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodTipoPeca { get{return _CodTipoPeca;} set{_CodTipoPeca = value;} }
+        public int CodTipoPeca 
+        { 
+            get { return _CodTipoPeca; } 
+            set { _CodTipoPeca = value; }
+        }
 
         [MaxLength(40)]
-        public string? NomeTipoPeca { get{return _NomeTipoPeca;} set{if(value != null){_NomeTipoPeca = value;}} }
+        public string? NomeTipoPeca 
+        { 
+            get { return _NomeTipoPeca; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _NomeTipoPeca = value; } } 
+        }
 
         [Required]
-        public bool PecaAtivo { get{return _PecaAtivo;} set{_PecaAtivo = value;} }
+        public bool PecaAtivo 
+        { 
+            get { return _PecaAtivo; } 
+            set { _PecaAtivo = value; }
+        }
 
         [Required]
-        public double ValorTipoPeca { get{return _ValorTipoPeca;} set{_ValorTipoPeca = value;} }
+        public double ValorTipoPeca 
+        { 
+            get { return _ValorTipoPeca; } 
+            set { _ValorTipoPeca = value; }
+        }
     }
 }
