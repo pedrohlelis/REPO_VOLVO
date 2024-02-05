@@ -53,6 +53,9 @@ namespace TRABALHO_VOLVO
             set { _FkModelosCodModelo = value; } 
         }
 
+        // Acho que esqueceu de adicionar a ForeignKey ?
+        [Required]
+        [ForeignKey("CodConc")]
         public int FkConcessionariasCodConc
         {
             get { return _FkConcessionariasCodConc; }

@@ -205,8 +205,9 @@ namespace TRABALHO_volvo.Migrations
                     ValorServicoManutencao = table.Column<double>(type: "float", nullable: false),
                     QuilometragemCaminhao = table.Column<double>(type: "float", nullable: false),
                     DescricaoManutencao = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false),
                     FkFuncionariosCodFuncionario = table.Column<int>(type: "int", nullable: false),
-                    FkEstoqueCaminhaoCodCaminhao = table.Column<int>(type: "int", nullable: false)
+                    FkCaminhoesCodCaminhao = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,7 +234,7 @@ namespace TRABALHO_volvo.Migrations
                 {
                     CodTipoPeca = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeTipoPeca = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    NomeTipoPeca = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     PecaAtivo = table.Column<bool>(type: "bit", nullable: false),
                     ValorTipoPeca = table.Column<double>(type: "float", nullable: false)
                 },

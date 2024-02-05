@@ -86,7 +86,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.EstoquePecas.FirstOrDefault(t => t.CodPecaEstoque == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum Tipo de peca registrado possui esse codigo.");
                 }
                 return new ObjectResult(item);
             }
@@ -100,11 +100,11 @@ namespace TRABALHO_VOLVO
                 var item = _context.EstoquePecas.FirstOrDefault(t => t.CodPecaEstoque == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum Tipo de peca registrado possui esse codigo.");
                 }
                 _context.EstoquePecas.Remove(item);
                 _context.SaveChanges();
-                return Ok();
+                return Ok("A peca foi removida do estoque com sucesso.");
             }
         }
     }

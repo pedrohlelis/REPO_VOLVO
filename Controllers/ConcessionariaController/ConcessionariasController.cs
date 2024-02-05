@@ -73,7 +73,7 @@ namespace TRABALHO_VOLVO
                 ValidationHelper.ValidateNameFormat(concessionaria.Rua, "Rua invalida.");
                 using (var transaction = _context.Database.BeginTransaction())
                 {
-                        try
+                    try
                     {
                         item.NomeConc = concessionaria.NomeConc;
                         item.CepConcessionaria = concessionaria.CepConcessionaria;
@@ -83,6 +83,7 @@ namespace TRABALHO_VOLVO
                         item.Rua = concessionaria.Rua;
                         item.Numero = concessionaria.Numero;
                         _context.SaveChanges();
+                        transaction.Commit();
                         return Ok("Os dados da concessionaria foram atualizados.");
                     }
                     catch(Exception)
@@ -91,12 +92,10 @@ namespace TRABALHO_VOLVO
                         throw;
                     }
                 }
-                
-                
             }
         }
 
-        [HttpPut("Deletar/{Cep}")]
+        [HttpPut("Desativar/{Cep}")]
         public IActionResult PutDeleteConcessionaria(string Cep)
         {
             using (var _context = new TrabalhoVolvoContext())
@@ -106,16 +105,25 @@ namespace TRABALHO_VOLVO
                 {
                     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
                 }
-                
-                var funcionariosConcessionaria = _context.Funcionarios.Where(f => f.FkConcessionariasCodConc == item.CodConc);
-                foreach (var funcionario in funcionariosConcessionaria)
+                using (var transaction = _context.Database.BeginTransaction())
                 {
-                    funcionario.FuncionarioAtivo = false;
+                    try
+                    {
+                        var funcionariosConcessionaria = _context.Funcionarios.Where(f => f.FkConcessionariasCodConc == item.CodConc);
+                        foreach (var funcionario in funcionariosConcessionaria)
+                        {
+                            funcionario.FuncionarioAtivo = false;
+                        }
+                        item.ConcessionariaAtivo = false;
+                        _context.SaveChanges();
+                        return Ok("A concessionaria foi desativada com sucesso.");
+                    }
+                    catch(Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-
-                item.ConcessionariaAtivo = false;
-                _context.SaveChanges();
-                return Ok();
             }
         }
     }

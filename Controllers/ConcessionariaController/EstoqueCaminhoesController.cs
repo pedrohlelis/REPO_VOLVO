@@ -82,7 +82,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.EstoqueCaminhao.FirstOrDefault(t => t.CodCaminhaoEstoque == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
                 }
                 return new ObjectResult(item);
             }
@@ -96,11 +96,18 @@ namespace TRABALHO_VOLVO
                 var item = _context.EstoqueCaminhao.FirstOrDefault(t => t.CodCaminhaoEstoque == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
                 }
+                try
+                {
                 _context.EstoqueCaminhao.Remove(item);
                 _context.SaveChanges();
-                return Ok();
+                return Ok("O caminhao foi removido do estoque com sucesso.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
     }

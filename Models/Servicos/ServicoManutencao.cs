@@ -13,8 +13,10 @@ namespace TRABALHO_VOLVO
         private double _ValorServicoManutencao;
         private double _QuilometragemCaminhao;
         private string? _DescricaoManutencao;
+        // adicionei o CodConc pra fazer mais sentido
+        private int _FkConcessionariasCodConc;
         private int _FkFuncionariosCodFuncionario;
-        private int _FkEstoqueCaminhoesCodCaminhaoEstoque;
+        private int _FkCaminhoesCodCaminhaoEstoque;
 
         [Required]
         [Key]
@@ -55,6 +57,14 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
+        [ForeignKey("CodConc")]
+        public int FkConcessionariasCodConc 
+        { 
+            get { return _FkConcessionariasCodConc; } 
+            set { _FkConcessionariasCodConc = value; } 
+        }
+
+        [Required]
         [ForeignKey("CodFuncionario")]
         public int FkFuncionariosCodFuncionario 
         { 
@@ -64,10 +74,10 @@ namespace TRABALHO_VOLVO
 
         [Required]
         [ForeignKey("CodCaminhao")]
-        public int FkEstoqueCaminhaoCodCaminhao 
+        public int FkCaminhoesCodCaminhao 
         { 
-            get { return _FkEstoqueCaminhoesCodCaminhaoEstoque; } 
-            set { _FkEstoqueCaminhoesCodCaminhaoEstoque = value; } 
+            get { return _FkCaminhoesCodCaminhaoEstoque; } 
+            set { _FkCaminhoesCodCaminhaoEstoque = value; } 
         }
     }
 }

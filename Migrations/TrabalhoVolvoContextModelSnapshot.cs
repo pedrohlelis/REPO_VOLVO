@@ -394,7 +394,10 @@ namespace TRABALHO_volvo.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("FkEstoqueCaminhaoCodCaminhao")
+                    b.Property<int>("FkCaminhoesCodCaminhao")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FkConcessionariasCodConc")
                         .HasColumnType("int");
 
                     b.Property<int>("FkFuncionariosCodFuncionario")
@@ -439,6 +442,7 @@ namespace TRABALHO_volvo.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodTipoPeca"));
 
                     b.Property<string>("NomeTipoPeca")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 

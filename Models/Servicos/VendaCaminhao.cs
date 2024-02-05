@@ -11,6 +11,7 @@ namespace TRABALHO_VOLVO
         private int _CodVenda;
         private DateOnly _DataVenda;
         private int _FkClientesCodCliente;
+        private int _FkConcessionariasCodConc;
         private int _FkFuncionariosCodFuncionario;
         private int _FkEstoqueCaminhoesCodCaminhaoEstoque;
         [Required]
@@ -35,6 +36,14 @@ namespace TRABALHO_VOLVO
         { 
             get { return _FkClientesCodCliente; } 
             set { _FkClientesCodCliente = value; } 
+        }
+
+        [Required]
+        [ForeignKey("CodConc")]
+        public int FkConcessionariasCodConc 
+        { 
+            get { return _FkConcessionariasCodConc; } 
+            set { _FkConcessionariasCodConc = value; } 
         }
 
         [Required]
