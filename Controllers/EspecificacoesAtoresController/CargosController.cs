@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class CargosController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] Cargo cargo)
+        public IActionResult PostCargo([FromForm] Cargo cargo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -19,7 +19,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<Cargo> Get()
+        public List<Cargo> GetTodosCargos()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -28,7 +28,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetCargo(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -43,7 +43,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Codigo}")]
-        public IActionResult Put(int Codigo, [FromForm] Cargo Cargo)
+        public IActionResult PutCargo(int Codigo, [FromForm] Cargo Cargo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -61,7 +61,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpDelete("Deletar/{Codigo}")]
-        public IActionResult Delete(int Codigo)
+        public IActionResult DeleteCargo(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

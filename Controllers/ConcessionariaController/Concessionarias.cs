@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class ConcessionariasController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] Concessionaria concessionaria)
+        public IActionResult PostConcessionaria([FromForm] Concessionaria concessionaria)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -20,7 +20,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<Concessionaria> Get()
+        public List<Concessionaria> GetTodasConcessionarias()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -29,7 +29,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Cep}")]
-        public IActionResult Get(string Cep)
+        public IActionResult GetConcessionaria(string Cep)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -44,7 +44,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Cep}")]
-        public IActionResult Put(string Cep, [FromForm] Concessionaria concessionaria)
+        public IActionResult PutConcessionaria(string Cep, [FromForm] Concessionaria concessionaria)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -66,7 +66,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Deletar/{Cep}")]
-        public IActionResult Put(string Cep)
+        public IActionResult PutDeleteConcessionaria(string Cep)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

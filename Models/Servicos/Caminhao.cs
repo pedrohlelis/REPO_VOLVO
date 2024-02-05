@@ -9,6 +9,9 @@ namespace TRABALHO_VOLVO
     {
         private int _CodCaminhao;
         private double _Quilometragem;
+        private string? _PlacaCaminhao;
+        private string? _CorCaminhao;
+        private string? _CodChassiCaminhao;
         private DateOnly _DataFabricacao;
         private bool _CaminhaoAtivo;
         private int _FkClientesCodCliente;
@@ -30,6 +33,27 @@ namespace TRABALHO_VOLVO
             set { _Quilometragem = value; } 
         }
 
+        [Required]
+        public string? PlacaCaminhao 
+        { 
+            get { return _PlacaCaminhao; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _PlacaCaminhao = value; } }
+        }
+
+        [Required]
+        public string? CorCaminhao 
+        { 
+            get { return _CorCaminhao; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _CorCaminhao = value; } }
+        }
+
+        [Required]
+        public string? CodChassiCaminhao
+        {
+            get { return _CodChassiCaminhao; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _CodChassiCaminhao = value; } }
+        }
+        
         [Required]
         public DateOnly DataFabricacao 
         { 

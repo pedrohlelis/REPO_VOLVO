@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class FuncionariosController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] Funcionario funcionario)
+        public IActionResult PostFuncionario([FromForm] Funcionario funcionario)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -20,7 +20,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<Funcionario> Get()
+        public List<Funcionario> GetTodosFuncionarios()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -29,7 +29,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Documento}")]
-        public IActionResult Get(string Documento)
+        public IActionResult GetFuncionario(string Documento)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -44,7 +44,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Documento}")]
-        public IActionResult Put(string Documento, [FromForm] Funcionario funcionario)
+        public IActionResult PutFuncionario(string Documento, [FromForm] Funcionario funcionario)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -61,7 +61,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Deletar/{Documento}")]
-        public IActionResult Put(string Documento)
+        public IActionResult PutDeleteFuncionario(string Documento)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

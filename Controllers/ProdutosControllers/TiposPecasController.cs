@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class TiposPecasController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] TipoPeca tipoPeca)
+        public IActionResult PostTiposPeca([FromForm] TipoPeca tipoPeca)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -20,7 +20,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<TipoPeca> Get()
+        public List<TipoPeca> GetTodosTiposPecas()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -29,7 +29,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetTiposPeca(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -43,7 +43,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Codigo}")]
-        public IActionResult Put(int Codigo, [FromForm] TipoPeca tipoPeca)
+        public IActionResult PutTiposPeca(int Codigo, [FromForm] TipoPeca tipoPeca)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
