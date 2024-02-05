@@ -12,7 +12,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                 if (_context.Funcionarios.Any(c => c.CodFuncionario == vendaCaminhao.FkFuncionariosCodFuncionario)
+                if (_context.Funcionarios.Any(c => c.CodFuncionario == vendaCaminhao.FkFuncionariosCodFuncionario)
                     && _context.EstoqueCaminhao.Any(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque)
                     && _context.Clientes.Any(c => c.CodCliente == vendaCaminhao.FkClientesCodCliente))
                 {
@@ -24,7 +24,7 @@ namespace TRABALHO_VOLVO
                 return NotFound();
             }
         }
-        
+
         [HttpGet("Listar")]
         public List<VendaCaminhao> Get()
         {
@@ -33,7 +33,7 @@ namespace TRABALHO_VOLVO
                 return _context.VendaCaminhoes.ToList();
             }
         }
-        
+
         [HttpGet("Buscar/{Codigo}")]
         public IActionResult Get(int Codigo)
         {

@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-// using System.IO;
-// using System.Reflection.PortableExecutable;
-// using System.Security.Cryptography;
 
 namespace TRABALHO_VOLVO
 {
@@ -36,7 +32,6 @@ namespace TRABALHO_VOLVO
             //     }));
             //     writer.Flush();
             // }
-
 
             //se quiser logar no terminal a exception (isso irá crashar a api com a exception!!!)
             // logger.LogError(
