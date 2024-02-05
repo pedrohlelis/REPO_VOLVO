@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class ModelosCaminhoesController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] ModelosCaminhao modelosCaminhao)
+        public IActionResult PostModelosCaminhao([FromForm] ModelosCaminhao modelosCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -20,7 +20,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPost("Cadastrar/Pecas")]
-        public IActionResult Post([FromForm] PecasModelo pecasModelo)
+        public IActionResult PostPecasModelo([FromForm] PecasModelo pecasModelo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -37,7 +37,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<ModelosCaminhao> Get()
+        public List<ModelosCaminhao> GetTodosModelosCaminhoes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -46,7 +46,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetModelosCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -60,7 +60,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Codigo}")]
-        public IActionResult Put(int Codigo, [FromForm] ModelosCaminhao modelosCaminhao)
+        public IActionResult PutModelosCaminhao(int Codigo, [FromForm] ModelosCaminhao modelosCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

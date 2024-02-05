@@ -7,6 +7,8 @@ namespace TRABALHO_VOLVO
     {
         // acho que adicionar numero de chassi seria importante, tanto aqui quando na classe Caminhao. adicionar cor tambem?
         private int _CodCaminhaoEstoque;
+        private string? _CodChassiEstoque;
+        private string? _CorEstoqueCaminhao;
         private int _FkModelosCaminhaoCodModelo;
         private int _FkConcessionariasCodConc;
         
@@ -17,6 +19,20 @@ namespace TRABALHO_VOLVO
         { 
             get { return _CodCaminhaoEstoque; } 
             set { _CodCaminhaoEstoque = value; } 
+        }
+
+        [Required]
+        public string? CodChassiEstoque
+        {
+            get { return _CodChassiEstoque; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _CodChassiEstoque = value; } }
+        }
+
+        [Required]
+        public string? CorEstoqueCaminhao
+        {
+            get { return _CorEstoqueCaminhao; } 
+            set { if (!string.IsNullOrWhiteSpace(value)) { _CorEstoqueCaminhao = value; } }
         }
 
         [Required]

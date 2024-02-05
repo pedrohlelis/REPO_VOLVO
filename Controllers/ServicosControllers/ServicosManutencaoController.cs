@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class ServicoManutencaoController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] ServicoManutencao servicoManutencao)
+        public IActionResult PostServicoManutencao([FromForm] ServicoManutencao servicoManutencao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -24,7 +24,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPost("CadastrarPecaUsada/{CodigoManutencao}/{CodigoPeca}")]
-        public IActionResult Post([FromForm] ServicoTipoPeca servicoTipoPeca)
+        public IActionResult PostServicoTipoPeca([FromForm] ServicoTipoPeca servicoTipoPeca)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -41,7 +41,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<ServicoManutencao> Get()
+        public List<ServicoManutencao> GetTodosServicoManutencoes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -50,7 +50,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetServicoManutencao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -65,7 +65,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Codigo}")]
-        public IActionResult Put(int Codigo, [FromForm] ServicoManutencao servicoManutencao)
+        public IActionResult PutServicoManutencao(int Codigo, [FromForm] ServicoManutencao servicoManutencao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

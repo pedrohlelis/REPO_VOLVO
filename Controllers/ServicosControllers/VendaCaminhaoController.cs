@@ -6,9 +6,8 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class VendaCaminhaoController : Controller
     {
-        // CodCliente && CodFuncionario && CodCaminhaoEstoque
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] VendaCaminhao vendaCaminhao)
+        public IActionResult PostVendaCaminhao([FromForm] VendaCaminhao vendaCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -26,7 +25,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<VendaCaminhao> Get()
+        public List<VendaCaminhao> GetTodasVendaCaminhoes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -35,7 +34,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetVendaCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

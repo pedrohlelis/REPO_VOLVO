@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class EstoqueCaminhoesController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] CaminhaoEstoque caminhaoEstoque)
+        public IActionResult PostEstoqueCaminhao([FromForm] CaminhaoEstoque caminhaoEstoque)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -24,7 +24,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<CaminhaoEstoque> Get()
+        public List<CaminhaoEstoque> GetTodosEstoqueCaminhoes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -33,7 +33,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetEstoqueCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -47,7 +47,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpDelete("Deletar/{Codigo}")]
-        public IActionResult Delete(int Codigo)
+        public IActionResult DeleteEstoqueCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

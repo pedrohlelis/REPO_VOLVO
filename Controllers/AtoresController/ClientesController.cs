@@ -9,7 +9,7 @@ namespace TRABALHO_VOLVO
     {
 
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] Cliente cliente)
+        public IActionResult PostCliente([FromForm] Cliente cliente)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -32,7 +32,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<Cliente> Get()
+        public List<Cliente> GetTodosClientes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -41,7 +41,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Documento}")]
-        public IActionResult Get(string Documento)
+        public IActionResult GetCliente(string Documento)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -56,7 +56,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpPut("Atualizar/{Documento}")]
-        public IActionResult Put(string Documento, [FromForm] Cliente cliente)
+        public IActionResult PutCliente(string Documento, [FromForm] Cliente cliente)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -82,22 +82,5 @@ namespace TRABALHO_VOLVO
                 }
             }
         }
-
-        /* Todos os caminhoes desse cliente ficam inativos? Ele pode deletar a conta?? é preciso isso??
-        [HttpPut("Deletar/{Documento}")]
-        public void Put(string Documento)
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
-                if (item == null)
-                {
-                    return;
-                }
-                item.ClienteAtivo = false;
-                _context.SaveChanges();
-            }
-        }
-        */
     }
 }

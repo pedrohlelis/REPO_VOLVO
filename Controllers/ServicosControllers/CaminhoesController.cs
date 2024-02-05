@@ -7,7 +7,7 @@ namespace TRABALHO_VOLVO
     public class CaminhoesController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult Post([FromForm] Caminhao caminhao)
+        public IActionResult PostCaminhao([FromForm] Caminhao caminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -25,7 +25,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Listar")]
-        public List<Caminhao> Get()
+        public List<Caminhao> GetTodosCaminhoes()
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -34,7 +34,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Buscar/{Codigo}")]
-        public IActionResult Get(int Codigo)
+        public IActionResult GetCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -49,7 +49,7 @@ namespace TRABALHO_VOLVO
         }
     
         [HttpPut("Deletar/{Codigo}")]
-        public IActionResult Put(int Codigo)
+        public IActionResult PutDeleteCaminhao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {

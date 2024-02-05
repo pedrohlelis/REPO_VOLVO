@@ -30,6 +30,21 @@ namespace TRABALHO_VOLVO
                 .IsUnique();
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Caminhao>()
+                .HasIndex(e => e.CodChassiCaminhao)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CaminhaoEstoque>()
+                .HasIndex(e => e.CodChassiEstoque)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AquisicaoEstoqueCaminhao>()
+                .HasIndex(e => e.CodChassiAquisicaoEstoque)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Funcionario>()
                 .HasIndex(e => e.CpfFuncionario)
                 .IsUnique();

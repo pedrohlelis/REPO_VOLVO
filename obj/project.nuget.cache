@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wicg95G25chC61YwK4x/wJtxXvTUn20ohiamUsa7tovcAePItwhcSSRG/e9PPfbFHDIUsifiU7xLNlpUck8fOQ==",
+  "dgSpecHash": "L25xu7/zFZPtRxE6m6gJ0NJPqYSc5Kde1DX/E0w9/6EiPHgjA3nLs2r0sBtRY+szhn1nFknqg+jfG6cjDL3o9Q==",
   "success": true,
   "projectFilePath": "C:\\REPO_VOLVO\\Projeto-Final-VOLVO\\TRABALHO_volvo.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,8 @@
     "C:\\Users\\Pedro\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Pedro\\.nuget\\packages\\netstandard.library\\2.0.1\\netstandard.library.2.0.1.nupkg.sha512",
     "C:\\Users\\Pedro\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\nunit\\3.13.3\\nunit.3.13.3.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\nunit3testadapter\\4.2.1\\nunit3testadapter.4.2.1.nupkg.sha512",
     "C:\\Users\\Pedro\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\Pedro\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Pedro\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
