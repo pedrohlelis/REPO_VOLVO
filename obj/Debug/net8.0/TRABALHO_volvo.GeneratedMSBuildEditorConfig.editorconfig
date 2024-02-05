@@ -9,19 +9,19 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TRABALHO_volvo
 build_property.RootNamespace = TRABALHO_volvo
-build_property.ProjectDir = C:\REPO_VOLVO\Projeto-Final-VOLVO\
+build_property.ProjectDir = C:\TrabalhoVolvoFinal\REPO_VOLVO\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\REPO_VOLVO\Projeto-Final-VOLVO
+build_property.MSBuildProjectDirectory = C:\TrabalhoVolvoFinal\REPO_VOLVO
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/REPO_VOLVO/Projeto-Final-VOLVO/Views/Clientes/ListaClientes.cshtml]
+[C:/TrabalhoVolvoFinal/REPO_VOLVO/Views/Clientes/ListaClientes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcTGlzdGFDbGllbnRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/REPO_VOLVO/Projeto-Final-VOLVO/Views/Funcionarios/ListaFuncionarios.cshtml]
+[C:/TrabalhoVolvoFinal/REPO_VOLVO/Views/Funcionarios/ListaFuncionarios.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvbmFyaW9zXExpc3RhRnVuY2lvbmFyaW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -21,6 +21,7 @@ namespace TRABALHO_VOLVO
             set { _CodTipoPeca = value; }
         }
 
+        [Required]
         [MaxLength(40)]
         public string? NomeTipoPeca 
         { 

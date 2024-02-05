@@ -439,6 +439,7 @@ namespace TRABALHO_volvo.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodTipoPeca"));
 
                     b.Property<string>("NomeTipoPeca")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 

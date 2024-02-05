@@ -12,7 +12,7 @@ using TRABALHO_VOLVO;
 namespace TRABALHO_volvo.Migrations
 {
     [DbContext(typeof(TrabalhoVolvoContext))]
-    [Migration("20240205021158_CreateDatabase")]
+    [Migration("20240205090716_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -442,6 +442,7 @@ namespace TRABALHO_volvo.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodTipoPeca"));
 
                     b.Property<string>("NomeTipoPeca")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 

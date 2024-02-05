@@ -233,7 +233,7 @@ namespace TRABALHO_volvo.Migrations
                 {
                     CodTipoPeca = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeTipoPeca = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    NomeTipoPeca = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     PecaAtivo = table.Column<bool>(type: "bit", nullable: false),
                     ValorTipoPeca = table.Column<double>(type: "float", nullable: false)
                 },
