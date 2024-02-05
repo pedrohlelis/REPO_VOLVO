@@ -59,6 +59,7 @@ namespace TRABALHO_VOLVO
             return exception switch //inserir aqui todas as excessoes e suas mensagens
             {
                 // DbUpdateException => (StatusCodes.Status500InternalServerError, exception.Message),
+                FKNotFoundException => (StatusCodes.Status400BadRequest, exception.Message),
                 FormatoInvalidoException => (StatusCodes.Status400BadRequest, exception.Message),
                 ArgumentOutOfRangeException => (StatusCodes.Status400BadRequest, exception.Message),
                 _ => default

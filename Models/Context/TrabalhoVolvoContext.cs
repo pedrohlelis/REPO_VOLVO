@@ -10,13 +10,15 @@ namespace TRABALHO_VOLVO
         public DbSet<Funcionario> Funcionarios { get; set; } = null!;
         public DbSet<Cliente> Clientes { get; set; } = null!;
         public DbSet<Cargo> Cargos { get; set; } = null!;
-        public DbSet<TipoPeca> TipoPecas { get; set; } = null!;
+        public DbSet<TipoPeca> TiposPeca { get; set; } = null!;
         public DbSet<ModelosCaminhao> ModelosCaminhoes { get; set; } = null!;
         public DbSet<Caminhao> Caminhoes { get; set; } = null!;
         public DbSet<VendaCaminhao> VendaCaminhoes { get; set; } = null!;
-        public DbSet<ServicoManutencao> ServicoManutencoes { get; set; } = null!;
-        public DbSet<ServicoTipoPeca> ServicoTipoPecas { get; set; } = null!;
+        public DbSet<ServicoManutencao> ServicosManutencao { get; set; } = null!;
+        public DbSet<ServicoTipoPeca> ServicoTiposPeca { get; set; } = null!;
         public DbSet<PecasModelo> PecasModelos { get; set; } = null!;
+        public DbSet<AquisicaoEstoqueCaminhao> AquisicoesEstoqueCaminhoes { get; set; } = null!;
+        public DbSet<AquisicaoEstoquePeca> AquisicoesEstoquePecas { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

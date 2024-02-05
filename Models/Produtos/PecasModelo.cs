@@ -9,7 +9,7 @@ namespace TRABALHO_VOLVO
     {
         private int _CodPecasModelo;
         private int _FkModelosCaminhoesCodModelo;
-        private int _FkTipoPecasCodTipoPeca;
+        private int _FkTiposPecaCodTipoPeca;
 
         [Required]
         [Key]
@@ -30,10 +30,10 @@ namespace TRABALHO_VOLVO
 
         [Required]
         [ForeignKey("CodTipoPeca")]
-        public int FkTipoPecasCodTipoPeca 
+        public int FkTiposPecaCodTipoPeca 
         {
-            get { return _FkTipoPecasCodTipoPeca; }
-            set { _FkTipoPecasCodTipoPeca = value; } 
+            get { return _FkTiposPecaCodTipoPeca; }
+            set { _FkTiposPecaCodTipoPeca = value; } 
         }
     }
 }

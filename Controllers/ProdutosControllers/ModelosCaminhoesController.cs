@@ -25,7 +25,7 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo)
-                && _context.TipoPecas.Any(c => c.CodTipoPeca == pecasModelo.FkTipoPecasCodTipoPeca))
+                && _context.TiposPeca.Any(c => c.CodTipoPeca == pecasModelo.FkTiposPecaCodTipoPeca))
                 {
                     pecasModelo.CodPecasModelo = 0;
                     _context.PecasModelos.Add(pecasModelo);

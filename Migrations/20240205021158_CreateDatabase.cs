@@ -12,12 +12,49 @@ namespace TRABALHO_volvo.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AquisicoesEstoqueCaminhoes",
+                columns: table => new
+                {
+                    CodAquisicao = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CorAquisicaoEstoque = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CodChassiAquisicaoEstoque = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DataHora = table.Column<DateTime>(type: "datetime2", maxLength: 30, nullable: false),
+                    FkModelosCodModelo = table.Column<int>(type: "int", nullable: false),
+                    FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AquisicoesEstoqueCaminhoes", x => x.CodAquisicao);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AquisicoesEstoquePecas",
+                columns: table => new
+                {
+                    CodAquisicao = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataFabPecas = table.Column<DateOnly>(type: "date", nullable: false),
+                    FkTiposPecaCodTipoPeca = table.Column<int>(type: "int", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AquisicoesEstoquePecas", x => x.CodAquisicao);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Caminhoes",
                 columns: table => new
                 {
                     CodCaminhao = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quilometragem = table.Column<double>(type: "float", nullable: false),
+                    PlacaCaminhao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorCaminhao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CodChassiCaminhao = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DataFabricacao = table.Column<DateOnly>(type: "date", nullable: false),
                     CaminhaoAtivo = table.Column<bool>(type: "bit", nullable: false),
                     FkClientesCodCliente = table.Column<int>(type: "int", nullable: false),
@@ -86,6 +123,8 @@ namespace TRABALHO_volvo.Migrations
                 {
                     CodCaminhaoEstoque = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CodChassiEstoque = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CorEstoqueCaminhao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FkModelosCaminhaoCodModelo = table.Column<int>(type: "int", nullable: false),
                     FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false)
                 },
@@ -101,7 +140,7 @@ namespace TRABALHO_volvo.Migrations
                     CodPecaEstoque = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataFabricacao = table.Column<DateOnly>(type: "date", nullable: false),
-                    FkTipoPecasCodTipoPeca = table.Column<int>(type: "int", nullable: false),
+                    FkTiposPecaCodTipoPeca = table.Column<int>(type: "int", nullable: false),
                     FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -149,7 +188,7 @@ namespace TRABALHO_volvo.Migrations
                     CodPecasModelo = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FkModelosCaminhoesCodModelo = table.Column<int>(type: "int", nullable: false),
-                    FkTipoPecasCodTipoPeca = table.Column<int>(type: "int", nullable: false)
+                    FkTiposPecaCodTipoPeca = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,7 +196,7 @@ namespace TRABALHO_volvo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicoManutencoes",
+                name: "ServicosManutencao",
                 columns: table => new
                 {
                     CodManutencao = table.Column<int>(type: "int", nullable: false)
@@ -171,25 +210,25 @@ namespace TRABALHO_volvo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicoManutencoes", x => x.CodManutencao);
+                    table.PrimaryKey("PK_ServicosManutencao", x => x.CodManutencao);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicoTipoPecas",
+                name: "ServicoTiposPeca",
                 columns: table => new
                 {
                     CodServicoTipoPeca = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FkCodManutencao = table.Column<int>(type: "int", nullable: false),
-                    FkCodTipoPeca = table.Column<int>(type: "int", nullable: false)
+                    FkTiposPecaCodTipoPeca = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicoTipoPecas", x => x.CodServicoTipoPeca);
+                    table.PrimaryKey("PK_ServicoTiposPeca", x => x.CodServicoTipoPeca);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoPecas",
+                name: "TiposPeca",
                 columns: table => new
                 {
                     CodTipoPeca = table.Column<int>(type: "int", nullable: false)
@@ -200,7 +239,7 @@ namespace TRABALHO_volvo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoPecas", x => x.CodTipoPeca);
+                    table.PrimaryKey("PK_TiposPeca", x => x.CodTipoPeca);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,6 +259,18 @@ namespace TRABALHO_volvo.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AquisicoesEstoqueCaminhoes_CodChassiAquisicaoEstoque",
+                table: "AquisicoesEstoqueCaminhoes",
+                column: "CodChassiAquisicaoEstoque",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Caminhoes_CodChassiCaminhao",
+                table: "Caminhoes",
+                column: "CodChassiCaminhao",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clientes_DocIdentificadorCliente",
                 table: "Clientes",
                 column: "DocIdentificadorCliente",
@@ -232,6 +283,12 @@ namespace TRABALHO_volvo.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_EstoqueCaminhao_CodChassiEstoque",
+                table: "EstoqueCaminhao",
+                column: "CodChassiEstoque",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Funcionarios_CpfFuncionario",
                 table: "Funcionarios",
                 column: "CpfFuncionario",
@@ -241,6 +298,12 @@ namespace TRABALHO_volvo.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AquisicoesEstoqueCaminhoes");
+
+            migrationBuilder.DropTable(
+                name: "AquisicoesEstoquePecas");
+
             migrationBuilder.DropTable(
                 name: "Caminhoes");
 
@@ -269,13 +332,13 @@ namespace TRABALHO_volvo.Migrations
                 name: "PecasModelos");
 
             migrationBuilder.DropTable(
-                name: "ServicoManutencoes");
+                name: "ServicosManutencao");
 
             migrationBuilder.DropTable(
-                name: "ServicoTipoPecas");
+                name: "ServicoTiposPeca");
 
             migrationBuilder.DropTable(
-                name: "TipoPecas");
+                name: "TiposPeca");
 
             migrationBuilder.DropTable(
                 name: "VendaCaminhoes");

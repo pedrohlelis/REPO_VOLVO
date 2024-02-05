@@ -13,7 +13,7 @@ namespace TRABALHO_VOLVO
             {
                 tipoPeca.CodTipoPeca = 0;
                 tipoPeca.PecaAtivo = true;
-                _context.TipoPecas.Add(tipoPeca);
+                _context.TiposPeca.Add(tipoPeca);
                 _context.SaveChanges();
                 return Ok();
             }
@@ -24,7 +24,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                return _context.TipoPecas.ToList();
+                return _context.TiposPeca.ToList();
             }
         }
 
@@ -33,7 +33,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.TipoPecas.FirstOrDefault(t => t.CodTipoPeca == Codigo);
+                var item = _context.TiposPeca.FirstOrDefault(t => t.CodTipoPeca == Codigo);
                 if (item == null)
                 {
                     return NotFound();
@@ -47,7 +47,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var item = _context.TipoPecas.FirstOrDefault(t => t.CodTipoPeca == Codigo);
+                var item = _context.TiposPeca.FirstOrDefault(t => t.CodTipoPeca == Codigo);
                 if (item == null)
                 {
                     return NotFound();

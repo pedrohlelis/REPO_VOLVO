@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,8 +6,8 @@ namespace TRABALHO_VOLVO
     public class ServicoTipoPeca
     {
         private int _CodServicoTipoPeca;
-        private int _FkCodManutencao;
-        private int _FkCodTipoPeca;
+        private int _FkServicosManutencaoCodManutencao;
+        private int _FkTiposPecaCodTipoPeca;
 
         [Required]
         [Key]
@@ -24,16 +22,16 @@ namespace TRABALHO_VOLVO
         [ForeignKey("CodManutencao")]
         public int FkCodManutencao 
         { 
-            get { return _FkCodManutencao; } 
-            set { _FkCodManutencao = value; } 
+            get { return _FkServicosManutencaoCodManutencao; } 
+            set { _FkServicosManutencaoCodManutencao = value; } 
         }
 
         [Required]
         [ForeignKey("CodTipoPeca")]
-        public int FkCodTipoPeca 
+        public int FkTiposPecaCodTipoPeca 
         { 
-            get { return _FkCodTipoPeca; } 
-            set { _FkCodTipoPeca = value; } 
+            get { return _FkTiposPecaCodTipoPeca; } 
+            set { _FkTiposPecaCodTipoPeca = value; } 
         }
     }
 }

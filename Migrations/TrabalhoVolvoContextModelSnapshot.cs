@@ -22,6 +22,68 @@ namespace TRABALHO_volvo.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("TRABALHO_VOLVO.AquisicaoEstoqueCaminhao", b =>
+                {
+                    b.Property<int>("CodAquisicao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodAquisicao"));
+
+                    b.Property<string>("CodChassiAquisicaoEstoque")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CorAquisicaoEstoque")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasMaxLength(30)
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FkConcessionariasCodConc")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FkModelosCodModelo")
+                        .HasColumnType("int");
+
+                    b.HasKey("CodAquisicao");
+
+                    b.HasIndex("CodChassiAquisicaoEstoque")
+                        .IsUnique();
+
+                    b.ToTable("AquisicoesEstoqueCaminhoes");
+                });
+
+            modelBuilder.Entity("TRABALHO_VOLVO.AquisicaoEstoquePeca", b =>
+                {
+                    b.Property<int>("CodAquisicao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodAquisicao"));
+
+                    b.Property<DateOnly>("DataFabPecas")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FkConcessionariasCodConc")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FkTiposPecaCodTipoPeca")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("CodAquisicao");
+
+                    b.ToTable("AquisicoesEstoquePecas");
+                });
+
             modelBuilder.Entity("TRABALHO_VOLVO.Caminhao", b =>
                 {
                     b.Property<int>("CodCaminhao")
@@ -33,6 +95,14 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<bool>("CaminhaoAtivo")
                         .HasColumnType("bit");
 
+                    b.Property<string>("CodChassiCaminhao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CorCaminhao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateOnly>("DataFabricacao")
                         .HasColumnType("date");
 
@@ -42,10 +112,17 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<int>("FkModelosCaminhoesCodModelo")
                         .HasColumnType("int");
 
+                    b.Property<string>("PlacaCaminhao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Quilometragem")
                         .HasColumnType("float");
 
                     b.HasKey("CodCaminhao");
+
+                    b.HasIndex("CodChassiCaminhao")
+                        .IsUnique();
 
                     b.ToTable("Caminhoes");
                 });
@@ -58,6 +135,14 @@ namespace TRABALHO_volvo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodCaminhaoEstoque"));
 
+                    b.Property<string>("CodChassiEstoque")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CorEstoqueCaminhao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("FkConcessionariasCodConc")
                         .HasColumnType("int");
 
@@ -65,6 +150,9 @@ namespace TRABALHO_volvo.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CodCaminhaoEstoque");
+
+                    b.HasIndex("CodChassiEstoque")
+                        .IsUnique();
 
                     b.ToTable("EstoqueCaminhao");
                 });
@@ -263,7 +351,7 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<int>("FkConcessionariasCodConc")
                         .HasColumnType("int");
 
-                    b.Property<int>("FkTipoPecasCodTipoPeca")
+                    b.Property<int>("FkTiposPecaCodTipoPeca")
                         .HasColumnType("int");
 
                     b.HasKey("CodPecaEstoque");
@@ -282,7 +370,7 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<int>("FkModelosCaminhoesCodModelo")
                         .HasColumnType("int");
 
-                    b.Property<int>("FkTipoPecasCodTipoPeca")
+                    b.Property<int>("FkTiposPecaCodTipoPeca")
                         .HasColumnType("int");
 
                     b.HasKey("CodPecasModelo");
@@ -320,7 +408,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodManutencao");
 
-                    b.ToTable("ServicoManutencoes");
+                    b.ToTable("ServicosManutencao");
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.ServicoTipoPeca", b =>
@@ -334,12 +422,12 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<int>("FkCodManutencao")
                         .HasColumnType("int");
 
-                    b.Property<int>("FkCodTipoPeca")
+                    b.Property<int>("FkTiposPecaCodTipoPeca")
                         .HasColumnType("int");
 
                     b.HasKey("CodServicoTipoPeca");
 
-                    b.ToTable("ServicoTipoPecas");
+                    b.ToTable("ServicoTiposPeca");
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.TipoPeca", b =>
@@ -362,7 +450,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodTipoPeca");
 
-                    b.ToTable("TipoPecas");
+                    b.ToTable("TiposPeca");
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.VendaCaminhao", b =>

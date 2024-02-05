@@ -11,11 +11,31 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
+                //vai verificar a integridade das FKs fornecidas
+                if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkCargosCodCargo))
+                {
+                    throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
+                }
+                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == funcionario.FkConcessionariasCodConc))
+                {
+                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
+                }
+                // FKs okay, hora de validar os demais campos
                 funcionario.CodFuncionario = 0;
                 funcionario.FuncionarioAtivo = true;
-                _context.Funcionarios.Add(funcionario);
-                _context.SaveChanges();
-                return Ok();
+                ValidationHelper.ValidateNameFormat(funcionario.NomeFuncionario,"Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(funcionario.CpfFuncionario,"Formato de CPF invalido.");
+                ValidationHelper.ValidateNumericFormat(funcionario.NumeroContatoFuncionario,"Formato de telefone invalido.");
+                //se chegou ate aqui significa que as informacoes inseridas estao ok, hora de tentar registrar no bd!!!
+                try
+                {
+                    _context.Funcionarios.Add(funcionario);
+                    _context.SaveChanges();
+                    return Ok("Funcionario cadastrado com sucesso.");
+                }catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -37,7 +57,7 @@ namespace TRABALHO_VOLVO
 
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum funcionario foi encontrado com esse CPF.");
                 }
                 return new ObjectResult(item);
             }

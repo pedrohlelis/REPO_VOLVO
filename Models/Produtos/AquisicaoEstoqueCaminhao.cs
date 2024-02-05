@@ -11,7 +11,8 @@ namespace TRABALHO_VOLVO
         private string? _CorAquisicaoEstoque;
         private string? _CodChassiAquisicaoEstoque;
         private DateTime _DataHora;
-        private int _FkModeloCodModelo;
+        private int _FkModelosCodModelo;
+        private int _FkConcessionariasCodConc;
         
         [Required]
         [Key]
@@ -46,10 +47,16 @@ namespace TRABALHO_VOLVO
 
         [Required]
         [ForeignKey("CodModelo")]
-        public int FkModeloCodModelo 
+        public int FkModelosCodModelo 
         { 
-            get { return _FkModeloCodModelo; } 
-            set { _FkModeloCodModelo = value; } 
+            get { return _FkModelosCodModelo; } 
+            set { _FkModelosCodModelo = value; } 
+        }
+
+        public int FkConcessionariasCodConc
+        {
+            get { return _FkConcessionariasCodConc; }
+            set { _FkConcessionariasCodConc = value; }
         }
     }
 }

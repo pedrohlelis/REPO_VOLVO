@@ -30,6 +30,31 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        
+        public static void ValidateAlphaNumericFormat(string? value, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value) || (!value.Any(char.IsDigit) && !value.Any(char.IsLetter)))
+            {
+                throw new FormatoInvalidoException(errorMessage);
+            }
+        }
+
+        public static void ValidateAlphaFormat(string? value, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value) || !value.All(char.IsLetter))
+            {
+                throw new FormatoInvalidoException(errorMessage);
+            }
+        }
+
+        public static void ValidateDateOnly(string? value, string errorMessage)
+        {
+            if (DateOnly.TryParse(value, out DateOnly dateOnlyValue))
+            {
+            }
+            else
+            {
+                throw new FormatoInvalidoException(errorMessage);
+            }
+        }
     }
 }
