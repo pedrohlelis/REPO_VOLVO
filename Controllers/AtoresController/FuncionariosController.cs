@@ -51,16 +51,23 @@ namespace TRABALHO_VOLVO
         [HttpGet("Buscar/{Documento}")]
         public IActionResult GetFuncionario(string Documento)
         {
-            using (var _context = new TrabalhoVolvoContext())
+            try
             {
-                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
-
-                if (item == null)
+                using (var _context = new TrabalhoVolvoContext())
                 {
-                    throw new FKNotFoundException("Nenhum funcionario foi encontrado com esse CPF.");
+                    var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
+                    if (item == null)
+                    {
+                        throw new FKNotFoundException("Nenhum funcionario foi encontrado com esse CPF.");
+                    }
+                    return new ObjectResult(item);
                 }
-                return new ObjectResult(item);
             }
+            catch(Exception)
+            {
+                throw;
+            }
+            
         }
 
         [HttpPut("Atualizar/{Documento}")]
@@ -71,15 +78,36 @@ namespace TRABALHO_VOLVO
                 var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum funcionario foi encontrado com esse CPF.");
                 }
-                item.NomeFuncionario = funcionario.NomeFuncionario;
-                item.NumeroContatoFuncionario = funcionario.NumeroContatoFuncionario;
-                _context.SaveChanges();
-                return Ok();
+                //vai verificar a integridade das FKs fornecidas
+                if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkCargosCodCargo))
+                {
+                    throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
+                }
+                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == funcionario.FkConcessionariasCodConc))
+                {
+                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
+                }
+                ValidationHelper.ValidateNameFormat(funcionario.NomeFuncionario,"Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(funcionario.NumeroContatoFuncionario,"Formato de telefone invalido.");
+                //se chegou ate aqui significa que as informacoes inseridas estao ok, hora de tentar atualizar o bd!!!
+                try
+                {
+                    item.NomeFuncionario = funcionario.NomeFuncionario;
+                    item.NumeroContatoFuncionario = funcionario.NumeroContatoFuncionario;
+                    _context.SaveChanges();
+                    return Ok("Os dados do funcionario foram atualizados com sucesso.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
+
+        //Apenas atualizamos o status do funcionario para nao perder nenhum dado devido aos possiveis registros que referenciam esse registro!!!
         [HttpPut("Deletar/{Documento}")]
         public IActionResult PutDeleteFuncionario(string Documento)
         {

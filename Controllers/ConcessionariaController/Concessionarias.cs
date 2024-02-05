@@ -13,9 +13,22 @@ namespace TRABALHO_VOLVO
             {
                 concessionaria.CodConc = 0;
                 concessionaria.ConcessionariaAtivo = true;
-                _context.Concessionarias.Add(concessionaria);
-                _context.SaveChanges();
-                return Ok();
+                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc,"Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria,"Formato do CEP invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Pais, "Pais invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Estado, "Estado invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Cidade, "Cidade invalido.");
+                ValidationHelper.ValidateNameFormat(concessionaria.Rua, "Rua invalida.");
+                try
+                {
+                    _context.Concessionarias.Add(concessionaria);
+                    _context.SaveChanges();
+                    return Ok("Concessionaria registrada com sucesso.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -34,10 +47,9 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
-
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
                 }
                 return new ObjectResult(item);
             }
@@ -51,17 +63,36 @@ namespace TRABALHO_VOLVO
                 var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
                 }
-                item.NomeConc = concessionaria.NomeConc;
-                item.CepConcessionaria = concessionaria.CepConcessionaria;
-                item.Pais = concessionaria.Pais;
-                item.Estado = concessionaria.Estado;
-                item.Cidade = concessionaria.Cidade;
-                item.Rua = concessionaria.Rua;
-                item.Numero = concessionaria.Numero;
-                _context.SaveChanges();
-                return Ok();
+                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc,"Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria,"Formato do CEP invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Pais, "Pais invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Estado, "Estado invalido.");
+                ValidationHelper.ValidateAlphaFormat(concessionaria.Cidade, "Cidade invalido.");
+                ValidationHelper.ValidateNameFormat(concessionaria.Rua, "Rua invalida.");
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                        try
+                    {
+                        item.NomeConc = concessionaria.NomeConc;
+                        item.CepConcessionaria = concessionaria.CepConcessionaria;
+                        item.Pais = concessionaria.Pais;
+                        item.Estado = concessionaria.Estado;
+                        item.Cidade = concessionaria.Cidade;
+                        item.Rua = concessionaria.Rua;
+                        item.Numero = concessionaria.Numero;
+                        _context.SaveChanges();
+                        return Ok("Os dados da concessionaria foram atualizados.");
+                    }
+                    catch(Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+                
+                
             }
         }
 
@@ -73,7 +104,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
                 }
                 
                 var funcionariosConcessionaria = _context.Funcionarios.Where(f => f.FkConcessionariasCodConc == item.CodConc);
