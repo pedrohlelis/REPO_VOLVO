@@ -62,5 +62,50 @@ namespace TRABALHO_VOLVO
                 }
             }
         }
+
+        [HttpGet("ListarModelosConcessionaria/{CodigoConcessionaria}")]
+        public IActionResult GetListarModelosConcessionaria(int CodigoConcessionaria)
+        {
+            try
+            {
+                List<object> listaModelos = ManipulacaoDadosHelper.GetEstoqueCaminhaoPorConcesiionaria(CodigoConcessionaria);
+
+                if (listaModelos.Count > 0)
+                {
+                    return Ok($"Modelos da concessionaria selecionada são: {string.Join(",", listaModelos)}.");
+                }
+                else
+                {
+                    return Ok($"Modelos da concessionaria selecionada insuficientes para relatorio.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet("ListarEstoquePecaPorConcesiionaria/{CodigoConcessionaria}")]
+        public IActionResult GetListarEstoquePecaPorConcesiionaria(int CodigoConcessionaria)
+        {
+            try
+            {
+                List<object> listaPecas = ManipulacaoDadosHelper.GetEstoquePecaPorConcesiionaria(CodigoConcessionaria);
+
+                if (listaPecas.Count > 0)
+                {
+                    return Ok($"Peças da concessionaria selecionada são: {string.Join(",", listaPecas)}.");
+                }
+                else
+                {
+                    return Ok($"Peças da concessionaria selecionada insuficientes para relatorio.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
