@@ -6,27 +6,38 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class FuncionariosController : Controller
     {
+
+        [HttpPost]
+        public void Post([FromBody] Funcionario funcionario)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                _context.Funcionarios.Add(funcionario);
+                _context.SaveChanges();
+            }
+        }
+
         [HttpPost("Cadastrar")]
         public IActionResult PostFuncionario([FromForm] Funcionario funcionario)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkConcessionariasCodConc))
-                {
-                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
-                }
-                else if (!_context.Cargos.Any(c => c.CodCargo == funcionario.FkCargosCodCargo))
-                {
-                    throw new FKNotFoundException("Nenhum Cargo registrado possui esse codigo.");
-                }
-                
+                // if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkConcessionariasCodConc))
+                // {
+                //     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
+                // }
+                // else if (!_context.Cargos.Any(c => c.CodCargo == funcionario.FkCargosCodCargo))
+                // {
+                //     throw new FKNotFoundException("Nenhum Cargo registrado possui esse codigo.");
+                // }
+
                 funcionario.CodFuncionario = 0;
                 funcionario.FuncionarioAtivo = true;
 
                 ValidationHelper.ValidateNameFormat(funcionario.NomeFuncionario, "Nome invalido.");
                 ValidationHelper.ValidateNumericFormat(funcionario.CpfFuncionario, "Formato de CPF invalido.");
                 ValidationHelper.ValidateNumericFormat(funcionario.NumeroContatoFuncionario, "Formato de telefone invalido.");
-                
+
                 try
                 {
                     _context.Funcionarios.Add(funcionario);
@@ -102,7 +113,7 @@ namespace TRABALHO_VOLVO
                     item.NomeFuncionario = funcionario.NomeFuncionario;
                     item.NumeroContatoFuncionario = funcionario.NumeroContatoFuncionario;
                     _context.SaveChanges();
-                    
+
                     return Ok("Os dados do funcionario foram atualizados.");
                 }
                 catch (Exception)
@@ -127,7 +138,7 @@ namespace TRABALHO_VOLVO
                 item.FuncionarioAtivo = false;
                 _context.SaveChanges();
 
-                return Ok("O funcionario status do funcionario foi desativado.");
+                return Ok("O status do funcionario foi desativado.");
             }
         }
     }

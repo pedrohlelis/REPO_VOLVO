@@ -20,63 +20,63 @@ namespace TRABALHO_VOLVO
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodManutencao 
-        { 
-            get { return _CodManutencao; } 
-            set { _CodManutencao = value; } 
+        public int CodManutencao
+        {
+            get { return _CodManutencao; }
+            set { _CodManutencao = value; }
         }
 
         [Required]
-        public DateOnly DataManutencao 
-        { 
-            get { return _DataManutencao; } 
-            set { _DataManutencao = value; } 
+        public DateOnly DataManutencao
+        {
+            get { return _DataManutencao; }
+            set { _DataManutencao = value; }
         }
 
         [Required]
-        public double ValorServicoManutencao 
-        { 
-            get { return _ValorServicoManutencao; } 
-            set { _ValorServicoManutencao = value; } 
+        public double ValorServicoManutencao
+        {
+            get { return _ValorServicoManutencao; }
+            set { _ValorServicoManutencao = value; }
         }
 
         [Required]
-        public double QuilometragemCaminhao 
-        { 
-            get { return _QuilometragemCaminhao; } 
-            set { _QuilometragemCaminhao = value; } 
+        public double QuilometragemCaminhao
+        {
+            get { return _QuilometragemCaminhao; }
+            set { _QuilometragemCaminhao = value; }
         }
 
         [Required]
         [MaxLength(250)]
-        public string? DescricaoManutencao 
-        { 
-            get { return _DescricaoManutencao; } 
-            set { if (!string.IsNullOrWhiteSpace(value)) { _DescricaoManutencao = value; } } 
+        public string? DescricaoManutencao
+        {
+            get { return _DescricaoManutencao; }
+            set { if (!string.IsNullOrWhiteSpace(value)) { _DescricaoManutencao = value; } }
         }
 
         [Required]
-        [ForeignKey("CodConc")]
-        public int FkConcessionariasCodConc 
-        { 
-            get { return _FkConcessionariasCodConc; } 
-            set { _FkConcessionariasCodConc = value; } 
+        [ForeignKey("Concessionarias")]
+        public int FkConcessionariasCodConc
+        {
+            get { return _FkConcessionariasCodConc; }
+            set { _FkConcessionariasCodConc = value; }
         }
 
         [Required]
-        [ForeignKey("CodFuncionario")]
-        public int FkFuncionariosCodFuncionario 
-        { 
-            get { return _FkFuncionariosCodFuncionario; } 
-            set { _FkFuncionariosCodFuncionario = value; } 
+        [ForeignKey("Funcionarios")]
+        public int FkFuncionariosCodFuncionario
+        {
+            get { return _FkFuncionariosCodFuncionario; }
+            set { _FkFuncionariosCodFuncionario = value; }
         }
 
         [Required]
-        [ForeignKey("CodCaminhao")]
-        public int FkCaminhoesCodCaminhao 
-        { 
-            get { return _FkCaminhoesCodCaminhaoEstoque; } 
-            set { _FkCaminhoesCodCaminhaoEstoque = value; } 
+        [ForeignKey("Caminhoes")]
+        public int FkCaminhoesCodCaminhao
+        {
+            get { return _FkCaminhoesCodCaminhaoEstoque; }
+            set { _FkCaminhoesCodCaminhaoEstoque = value; }
         }
     }
 }

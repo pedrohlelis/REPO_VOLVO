@@ -12,26 +12,26 @@ namespace TRABALHO_VOLVO
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodServicoTipoPeca 
-        { 
-            get { return _CodServicoTipoPeca; } 
-            set { _CodServicoTipoPeca = value; } 
+        public int CodServicoTipoPeca
+        {
+            get { return _CodServicoTipoPeca; }
+            set { _CodServicoTipoPeca = value; }
         }
 
         [Required]
-        [ForeignKey("CodManutencao")]
-        public int FkCodManutencao 
-        { 
-            get { return _FkServicosManutencaoCodManutencao; } 
-            set { _FkServicosManutencaoCodManutencao = value; } 
+        [ForeignKey("ServicosManutencao")]
+        public int FkCodManutencao
+        {
+            get { return _FkServicosManutencaoCodManutencao; }
+            set { _FkServicosManutencaoCodManutencao = value; }
         }
 
         [Required]
-        [ForeignKey("CodTipoPeca")]
-        public int FkTiposPecaCodTipoPeca 
-        { 
-            get { return _FkTiposPecaCodTipoPeca; } 
-            set { _FkTiposPecaCodTipoPeca = value; } 
+        [ForeignKey("TiposPeca")]
+        public int FkTiposPecaCodTipoPeca
+        {
+            get { return _FkTiposPecaCodTipoPeca; }
+            set { _FkTiposPecaCodTipoPeca = value; }
         }
     }
 }

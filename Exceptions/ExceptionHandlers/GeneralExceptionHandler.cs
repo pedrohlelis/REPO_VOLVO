@@ -36,15 +36,16 @@ namespace TRABALHO_VOLVO
             //     traceId
             // );
 
-            await Results.Problem(
-                type: null,
-                title: Title,
-                statusCode: StatusCode
-                // extensions: new Dictionary<string, object?>
-                // {
-                //     {"traceId", traceId}
-                // }
-            ).ExecuteAsync(httpContext);
+            // await Results.Problem(
+            //     type: null,
+            //     title: Title,
+            //     statusCode: StatusCode
+            //     // extensions: new Dictionary<string, object?>
+            //     // {
+            //     //     {"traceId", traceId}
+            //     // }
+            // ).ExecuteAsync(httpContext);
+            await httpContext.Response.WriteAsJsonAsync($"statusCode: {StatusCode}, Message: {Title}");
 
             return true;
         }

@@ -33,8 +33,22 @@ namespace TRABALHO_VOLVO
                     try
                     {
                         var caminhao = _context.EstoqueCaminhao.FirstOrDefault(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque);
+                        var modelo = _context.ModelosCaminhoes.FirstOrDefault(c => c.CodModelo == caminhao.FkModelosCaminhoesCodModelo);
                         vendaCaminhao.CodVenda = 0;
+                        vendaCaminhao.ValorVenda = modelo.ValorModeloCaminhao;
+                        var novoCaminhao = new Caminhao
+                        {
+                            CodCaminhao = 0,
+                            Quilometragem = 0,
+                            PlacaCaminhao = "Undefined",
+                            CorCaminhao = caminhao.CorEstoqueCaminhao,
+                            CodChassiCaminhao = caminhao.CodChassiEstoque,
+                            DataFabricacao = caminhao.DataFabricacao,
+                            FkModelosCaminhoesCodModelo = caminhao.FkModelosCaminhoesCodModelo,
+                            FkClientesCodCliente = vendaCaminhao.FkClientesCodCliente
+                        };
                         _context.EstoqueCaminhao.Remove(caminhao);
+                        _context.Caminhoes.Add(novoCaminhao);
                         _context.VendaCaminhoes.Add(vendaCaminhao);
                         _context.SaveChanges();
                         transaction.Commit();

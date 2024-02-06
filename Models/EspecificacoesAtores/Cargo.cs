@@ -10,7 +10,7 @@ namespace TRABALHO_VOLVO
         private int _CodCargo;
         private string? _NomeCargo;
         private double _SalarioBase;
-        private int _PorcentagemComissao;
+        private double _PorcentagemComissao;
 
         [Required]
         [Key]
@@ -35,7 +35,7 @@ namespace TRABALHO_VOLVO
             set { _SalarioBase = value; }
         }
 
-        public int PorcentagemComissao 
+        public double PorcentagemComissao 
         { 
             get { return _PorcentagemComissao; } 
             set { _PorcentagemComissao = value; }

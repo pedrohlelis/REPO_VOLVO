@@ -46,7 +46,6 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
-
                 if (item == null)
                 {
                     return NotFound();

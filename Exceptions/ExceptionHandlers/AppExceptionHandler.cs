@@ -13,7 +13,7 @@ namespace TRABALHO_VOLVO
 
             var (StatusCode, Title) = MapException(exception);
 
-            if(StatusCode == default)
+            if (StatusCode == default)
             {
                 return false;
             }
@@ -40,11 +40,12 @@ namespace TRABALHO_VOLVO
             //     traceId
             // );
 
-            await Results.Problem(
-                type: "",
-                title: Title,
-                statusCode: StatusCode
-            ).ExecuteAsync(httpContext);
+            // await Results.Problem(
+            //     type: "",
+            //     title: Title,
+            //     statusCode: StatusCode
+            // ).ExecuteAsync(httpContext);
+            await httpContext.Response.WriteAsJsonAsync($"statusCode: {StatusCode}, Message: {Title}");
 
             return true; //significa que o pipeline de manipulacao de excessoes encerra aqui
             //return false -> ira chamar o proximo middleware para fazer manipulacao de excessoes

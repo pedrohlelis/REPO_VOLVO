@@ -27,33 +27,6 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpPost("Cadastrar/Pecas")]
-        public IActionResult PostPecasModelo([FromForm] PecasModelo pecasModelo)
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo))
-                {
-                    throw new FKNotFoundException("Nenhum modelo registrado possui esse codigo");
-                }
-                else if(!_context.TiposPeca.Any(c => c.CodTipoPeca == pecasModelo.FkTiposPecaCodTipoPeca)) 
-                {
-                    throw new FKNotFoundException("Nenhum Tipo de peca registrado possui esse codigo");
-                }
-                try
-                {
-                    pecasModelo.CodPecasModelo = 0;
-                    _context.PecasModelos.Add(pecasModelo);
-                    _context.SaveChanges();
-                    return Ok("A peca foi registrada com sucesso.");
-                }
-                catch(Exception)
-                {
-                    throw;
-                }
-            }
-        }
-
         [HttpGet("Listar")]
         public List<ModelosCaminhao> GetTodosModelosCaminhoes()
         {

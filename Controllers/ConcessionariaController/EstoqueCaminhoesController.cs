@@ -16,7 +16,7 @@ namespace TRABALHO_VOLVO
                 {
                     throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
                 }
-                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhaoEstoque.FkModelosCaminhaoCodModelo))
+                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhaoEstoque.FkModelosCaminhoesCodModelo))
                 {
                     throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
                 }
@@ -32,16 +32,6 @@ namespace TRABALHO_VOLVO
                         // feita a validacao tentar adicionar o caminhao ao estoque
                         _context.EstoqueCaminhao.Add(caminhaoEstoque);
                         // Hora de gerar o registro da aquisicao
-                        AquisicaoEstoqueCaminhao NovaAquisicao = new AquisicaoEstoqueCaminhao
-                        {
-                            CodAquisicao = 0,
-                            DataHora = DateTime.Now,
-                            CodChassiAquisicaoEstoque = caminhaoEstoque.CodChassiEstoque,
-                            CorAquisicaoEstoque = caminhaoEstoque.CorEstoqueCaminhao,
-                            FkModelosCodModelo = caminhaoEstoque.FkModelosCaminhaoCodModelo,
-                            FkConcessionariasCodConc = caminhaoEstoque.FkConcessionariasCodConc
-                        };
-                        _context.AquisicoesEstoqueCaminhoes.Add(NovaAquisicao);
                         _context.SaveChanges();
                         transaction.Commit();
                         return Ok("O caminhao foi adicionado ao estoque.");
@@ -62,15 +52,6 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 return _context.EstoqueCaminhao.ToList();
-            }
-        }
-
-        [HttpGet("HistoricoAquisicoes")]
-        public List<AquisicaoEstoqueCaminhao> GetTodasAquisicoesCaminhoes()
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                return _context.AquisicoesEstoqueCaminhoes.ToList();
             }
         }
 

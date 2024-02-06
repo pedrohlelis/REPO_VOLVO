@@ -7,55 +7,31 @@ namespace TRABALHO_VOLVO
     public class EstoquePecasController : Controller
     {
         [HttpPost("Cadastrar")]
-        public IActionResult PostEstoquePeca([FromForm] AquisicaoEstoquePeca AquisicaoPecas)
+        public IActionResult PostEstoquePeca([FromForm] PecaEstoque peca)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
                 //vai verificar a integridade das FKs fornecidas
-                if (!_context.Concessionarias.Any(c => c.CodConc == AquisicaoPecas.FkConcessionariasCodConc))
+                if (!_context.Concessionarias.Any(c => c.CodConc == peca.FkConcessionariasCodConc))
                 {
                     throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
                 }
-                else if (!_context.TiposPeca.Any(c => c.CodTipoPeca == AquisicaoPecas.FkTiposPecaCodTipoPeca))
+                else if (!_context.TiposPeca.Any(c => c.CodTipoPeca == peca.FkTiposPecaCodTipoPeca))
                 {
                     throw new FKNotFoundException("Nenhum Tipo de peca registrado possui esse codigo.");
                 }
                 //se chegou ate aqui significa que as FK inseridas estao ok, hora de tentar registrar no bd!!!
-                using (var transaction = _context.Database.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        AquisicaoPecas.CodAquisicao = 0;
-                        AquisicaoPecas.DataHora = DateTime.Now;
-                        // validar os dados da aquisicao
-                        // feita a validacao registrar aquisicao no historico
-                        _context.AquisicoesEstoquePecas.Add(AquisicaoPecas);
-                        if(AquisicaoPecas.Quantidade > 20)
-                        {
-                            throw new QntdAltaDemaisException("Voce nao pode adicionar mais que 20 pecas de uma vez.");
-                        }
-                        // Hora de registrar as pecas da aquisicao no estoque
-                        for(int i = 0; i < AquisicaoPecas.Quantidade; i++)
-                        {
-                            PecaEstoque NovaAquisicao = new PecaEstoque
-                            {
-                                CodPecaEstoque = 0,
-                                DataFabricacao = AquisicaoPecas.DataFabPecas,
-                                FkConcessionariasCodConc = AquisicaoPecas.FkConcessionariasCodConc,
-                                FkTiposPecaCodTipoPeca = AquisicaoPecas.FkTiposPecaCodTipoPeca
-                            };
-                            _context.EstoquePecas.Add(NovaAquisicao);
-                        }
-                        _context.SaveChanges();
-                        transaction.Commit();
-                        return Ok("As peças foram adicionadas ao estoque.");
-                    }
-                    catch (Exception)
-                    {
-                        // se algo deu errado, fazer o rollback e lançar a exception
-                        transaction.Rollback();
-                        throw;
-                    }
+                    // validar os dados da peca
+                    ValidationHelper.ValidateDateOnly($"{peca.DataFabricacao}", "Data de fabricacao invalida.");
+                    // Hora de registrar as pecas da aquisicao no estoque
+                    _context.SaveChanges();
+                    return Ok("A peça foi adicionada ao estoque.");
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
             }
         }
@@ -66,15 +42,6 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 return _context.EstoquePecas.ToList();
-            }
-        }
-
-        [HttpGet("HistoricoAquisicoes")]
-        public List<AquisicaoEstoquePeca> GetTodasAquisicoesPecas()
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                return _context.AquisicoesEstoquePecas.ToList();
             }
         }
 

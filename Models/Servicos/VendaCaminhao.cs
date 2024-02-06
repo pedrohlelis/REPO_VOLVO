@@ -14,52 +14,62 @@ namespace TRABALHO_VOLVO
         private int _FkConcessionariasCodConc;
         private int _FkFuncionariosCodFuncionario;
         private int _FkEstoqueCaminhoesCodCaminhaoEstoque;
+        private double _ValorVenda;
+
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CodVenda 
-        { 
-            get { return _CodVenda; } 
-            set { _CodVenda = value; } 
+        public int CodVenda
+        {
+            get { return _CodVenda; }
+            set { _CodVenda = value; }
         }
 
         [Required]
-        public DateOnly DataVenda 
-        { 
-            get { return _DataVenda; } 
-            set { _DataVenda = value; } 
+        public DateOnly DataVenda
+        {
+            get { return _DataVenda; }
+            set { _DataVenda = value; }
         }
 
         [Required]
-        [ForeignKey("CodCliente")]
-        public int FkClientesCodCliente 
-        { 
-            get { return _FkClientesCodCliente; } 
-            set { _FkClientesCodCliente = value; } 
+        [ForeignKey("Clientes")]
+
+        public int FkClientesCodCliente
+        {
+            get { return _FkClientesCodCliente; }
+            set { _FkClientesCodCliente = value; }
         }
 
         [Required]
-        [ForeignKey("CodConc")]
-        public int FkConcessionariasCodConc 
-        { 
-            get { return _FkConcessionariasCodConc; } 
-            set { _FkConcessionariasCodConc = value; } 
+        [ForeignKey("Concessionarias")]
+        public int FkConcessionariasCodConc
+        {
+            get { return _FkConcessionariasCodConc; }
+            set { _FkConcessionariasCodConc = value; }
         }
 
         [Required]
-        [ForeignKey("CodFuncionario")]
-        public int FkFuncionariosCodFuncionario 
-        { 
-            get { return _FkFuncionariosCodFuncionario; } 
-            set { _FkFuncionariosCodFuncionario = value; } 
+        [ForeignKey("Funcionarios")]
+        public int FkFuncionariosCodFuncionario
+        {
+            get { return _FkFuncionariosCodFuncionario; }
+            set { _FkFuncionariosCodFuncionario = value; }
         }
 
         [Required]
-        [ForeignKey("CodCaminhaoEstoque")]
-        public int FkEstoqueCaminhoesCodCaminhaoEstoque 
-        { 
-            get { return _FkEstoqueCaminhoesCodCaminhaoEstoque; } 
-            set { _FkEstoqueCaminhoesCodCaminhaoEstoque = value; } 
+        [ForeignKey("EstoqueCaminhao")]
+        public int FkEstoqueCaminhoesCodCaminhaoEstoque
+        {
+            get { return _FkEstoqueCaminhoesCodCaminhaoEstoque; }
+            set { _FkEstoqueCaminhoesCodCaminhaoEstoque = value; }
+        }
+
+        // [Required]
+        public double ValorVenda
+        {
+            get { return _ValorVenda; }
+            set { _ValorVenda = value; }
         }
     }
 }

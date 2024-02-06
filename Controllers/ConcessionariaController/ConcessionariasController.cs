@@ -13,8 +13,8 @@ namespace TRABALHO_VOLVO
             {
                 concessionaria.CodConc = 0;
                 concessionaria.ConcessionariaAtivo = true;
-                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc,"Nome invalido.");
-                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria,"Formato do CEP invalido.");
+                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc, "Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria, "Formato do CEP invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Pais, "Pais invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Estado, "Estado invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Cidade, "Cidade invalido.");
@@ -25,7 +25,7 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok("Concessionaria registrada com sucesso.");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -65,8 +65,8 @@ namespace TRABALHO_VOLVO
                 {
                     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
                 }
-                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc,"Nome invalido.");
-                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria,"Formato do CEP invalido.");
+                ValidationHelper.ValidateNameFormat(concessionaria.NomeConc, "Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(concessionaria.CepConcessionaria, "Formato do CEP invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Pais, "Pais invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Estado, "Estado invalido.");
                 ValidationHelper.ValidateAlphaFormat(concessionaria.Cidade, "Cidade invalido.");
@@ -86,7 +86,7 @@ namespace TRABALHO_VOLVO
                         transaction.Commit();
                         return Ok("Os dados da concessionaria foram atualizados.");
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
@@ -118,7 +118,7 @@ namespace TRABALHO_VOLVO
                         _context.SaveChanges();
                         return Ok("A concessionaria foi desativada com sucesso.");
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
