@@ -56,14 +56,14 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Cargos")]
+        [ForeignKey("FK_Funcionarios_Cargos")]
         public int? FkCargosCodCargo
         {
             get { return _FkCargosCodCargo; }
             set { _FkCargosCodCargo = value; }
         }
 
-        [ForeignKey("Concessionarias")]
+        [ForeignKey("FK_Funcionarios_Concessionarias")]
         public int FkConcessionariasCodConc
         {
             get { return _FkConcessionariasCodConc; }

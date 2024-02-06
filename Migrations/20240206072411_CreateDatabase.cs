@@ -125,7 +125,7 @@ namespace TRABALHO_volvo.Migrations
                     CpfFuncionario = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     FuncionarioAtivo = table.Column<bool>(type: "bit", nullable: false),
                     NumeroContatoFuncionario = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    FkCargosCodCargo = table.Column<int>(type: "int", nullable: true),
+                    FkCargosCodCargo = table.Column<int>(type: "int", nullable: false),
                     FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

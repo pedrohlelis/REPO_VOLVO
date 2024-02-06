@@ -43,7 +43,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("ModelosCaminhoes")]
+        [ForeignKey("FK_EstoqueCaminhao_ModelosCaminhoes")]
         public int FkModelosCaminhoesCodModelo
         {
             get { return _FkModelosCaminhoesCodModelo; }
@@ -51,7 +51,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Concessionarias")]
+        [ForeignKey("FK_EstoqueCaminhao_Concessionarias")]
         public int FkConcessionariasCodConc
         {
             get { return _FkConcessionariasCodConc; }

@@ -12,14 +12,14 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 //vai verificar a integridade das FKs fornecidas
-                if (!_context.Concessionarias.Any(c => c.CodConc == caminhaoEstoque.FkConcessionariasCodConc))
-                {
-                    throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
-                }
-                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhaoEstoque.FkModelosCaminhoesCodModelo))
-                {
-                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
-                }
+                // if (!_context.Concessionarias.Any(c => c.CodConc == caminhaoEstoque.FkConcessionariasCodConc))
+                // {
+                //     throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
+                // }
+                // else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhaoEstoque.FkModelosCaminhoesCodModelo))
+                // {
+                //     throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
+                // }
                 //se chegou ate aqui significa que as FK inseridas estao ok, hora de tentar registrar no bd!!!
                 using (var transaction = _context.Database.BeginTransaction())
                 {

@@ -69,7 +69,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Clientes")]
+        [ForeignKey("FK_Caminhoes_Clientes")]
         public int FkClientesCodCliente
         {
             get { return _FkClientesCodCliente; }
@@ -77,7 +77,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("ModelosCaminhoes")]
+        [ForeignKey("FK_Caminhoes_ModelosCaminhao")]
         public int FkModelosCaminhoesCodModelo
         {
             get { return _FkModelosCaminhoesCodModelo; }

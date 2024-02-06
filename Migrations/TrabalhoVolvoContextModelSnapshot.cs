@@ -216,6 +216,7 @@ namespace TRABALHO_volvo.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("FkCargosCodCargo")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("FkConcessionariasCodConc")

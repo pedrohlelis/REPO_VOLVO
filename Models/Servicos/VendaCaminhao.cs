@@ -33,7 +33,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Clientes")]
+        [ForeignKey("Fk_VendaCaminhoes_Clientes_CodCliente")]
 
         public int FkClientesCodCliente
         {
@@ -42,7 +42,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Concessionarias")]
+        [ForeignKey("Fk_VendaCaminhoes_Concessionarias_CodConc")]
         public int FkConcessionariasCodConc
         {
             get { return _FkConcessionariasCodConc; }
@@ -50,7 +50,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Funcionarios")]
+        [ForeignKey("Fk_VendaCaminhoes_Funcionarios_CodFuncionario")]
         public int FkFuncionariosCodFuncionario
         {
             get { return _FkFuncionariosCodFuncionario; }
@@ -58,7 +58,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("EstoqueCaminhao")]
+        [ForeignKey("Fk_VendaCaminhoes_EstoqueCaminhao_CodCaminhaoEstoque")]
         public int FkEstoqueCaminhoesCodCaminhaoEstoque
         {
             get { return _FkEstoqueCaminhoesCodCaminhaoEstoque; }

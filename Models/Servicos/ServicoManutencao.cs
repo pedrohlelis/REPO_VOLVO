@@ -56,7 +56,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Concessionarias")]
+        [ForeignKey("FK_ServicosManutencao_Concessionarias")]
         public int FkConcessionariasCodConc
         {
             get { return _FkConcessionariasCodConc; }
@@ -64,7 +64,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Funcionarios")]
+        [ForeignKey("FK_ServicosManutencao_Funcionarios")]
         public int FkFuncionariosCodFuncionario
         {
             get { return _FkFuncionariosCodFuncionario; }
@@ -72,7 +72,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Caminhoes")]
+        [ForeignKey("FK_ServicosManutencao_Caminhoes")]
         public int FkCaminhoesCodCaminhao
         {
             get { return _FkCaminhoesCodCaminhaoEstoque; }

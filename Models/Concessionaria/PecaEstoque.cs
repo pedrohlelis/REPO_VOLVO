@@ -29,7 +29,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("TiposPeca")]
+        [ForeignKey("FK_EstoquePecas_TiposPeca")]
         public int FkTiposPecaCodTipoPeca 
         { 
             get { return _FkTiposPecaCodTipoPeca; } 
@@ -37,7 +37,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("Concessionarias")]
+        [ForeignKey("FK_EstoquePecas_Concessionarias")]
         public int FkConcessionariasCodConc 
         { 
             get { return _FkConcessionariasCodConc; } 

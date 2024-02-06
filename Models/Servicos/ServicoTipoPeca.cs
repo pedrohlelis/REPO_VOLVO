@@ -19,7 +19,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("ServicosManutencao")]
+        [ForeignKey("FK_ServicoTiposPeca_ServicosManutencao")]
         public int FkCodManutencao
         {
             get { return _FkServicosManutencaoCodManutencao; }
@@ -27,7 +27,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        [ForeignKey("TiposPeca")]
+        [ForeignKey("Fk_ServicoTiposPeca_TiposPeca")]
         public int FkTiposPecaCodTipoPeca
         {
             get { return _FkTiposPecaCodTipoPeca; }

@@ -15,18 +15,18 @@ namespace TRABALHO_VOLVO
             {
                 //verificar a integridade das FKs, e se o funcionario passado trabalha na concessionaria passada.
                 var conc = _context.Concessionarias.FirstOrDefault(c => c.CodConc == servicoManutencao.FkConcessionariasCodConc);
-                if (conc == null)
-                {
-                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
-                }
-                if (!_context.Funcionarios.Any(c => (c.CodFuncionario == servicoManutencao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
-                {
-                    throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
-                }
-                else if (!_context.Caminhoes.Any(c => c.CodCaminhao == servicoManutencao.FkCaminhoesCodCaminhao))
-                {
-                    throw new FKNotFoundException("Nenhum Caminhao registrado possui esse codigo.");
-                }
+                // if (conc == null)
+                // {
+                //     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
+                // }
+                // if (!_context.Funcionarios.Any(c => (c.CodFuncionario == servicoManutencao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
+                // {
+                //     throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
+                // }
+                // else if (!_context.Caminhoes.Any(c => c.CodCaminhao == servicoManutencao.FkCaminhoesCodCaminhao))
+                // {
+                //     throw new FKNotFoundException("Nenhum Caminhao registrado possui esse codigo.");
+                // }
                 var caminhao = _context.Caminhoes.FirstOrDefault(c => c.CodCaminhao == servicoManutencao.FkCaminhoesCodCaminhao);
                 using (var transaction = _context.Database.BeginTransaction())
                 {
@@ -112,7 +112,6 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 var servico = _context.ServicosManutencao.FirstOrDefault(t => t.CodManutencao == Codigo);
-
                 if (servico == null)
                 {
                     throw new FKNotFoundException("Nenhum Servico registrado possui esse codigo.");

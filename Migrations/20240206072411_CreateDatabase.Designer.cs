@@ -12,7 +12,7 @@ using TRABALHO_VOLVO;
 namespace TRABALHO_volvo.Migrations
 {
     [DbContext(typeof(TrabalhoVolvoContext))]
-    [Migration("20240206044000_CreateDatabase")]
+    [Migration("20240206072411_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -219,6 +219,7 @@ namespace TRABALHO_volvo.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("FkCargosCodCargo")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("FkConcessionariasCodConc")
