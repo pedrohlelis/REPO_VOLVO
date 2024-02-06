@@ -45,5 +45,93 @@ namespace TRABALHO_VOLVO
                 throw;
             }
         }
+
+        public static List<object> GetEstoqueCaminhaoPorConcesiionaria(int Codigo)
+        {
+            try
+            {
+                using (var context = new TrabalhoVolvoContext())
+                {
+                    var concessionariaEscolhida = context.Concessionarias.FirstOrDefault(t => t.CodConc == Codigo);
+
+                    if (concessionariaEscolhida == null)
+                    {
+                        throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
+                    }
+
+                    var result = context.ModelosCaminhoes
+                        .GroupJoin(
+                            context.EstoqueCaminhao
+                                .Where(ec => ec.FkConcessionariasCodConc == Codigo),
+                            nm => nm.CodModelo,
+                            ec => ec.FkModelosCaminhoesCodModelo,
+                            (nm, ecGroup) => new
+                            {
+                                nm.CodModelo,
+                                nm.NomeModelo,
+                                Qtde_Disponivel = ecGroup.Count()
+                            }
+                        )
+                        .ToList();
+
+                    // Converte o resultado para uma lista de objetos
+                    var resultList = result.Select(r => new { r.CodModelo, r.NomeModelo, r.Qtde_Disponivel }).Cast<object>().ToList();
+                    
+                    if (resultList.Count > 0)
+                    {
+                        return resultList;
+                    }
+                    throw new DadosInsuficientesException($"Número de Modelos insuficientes para gerar um relatório da concessionaria {concessionariaEscolhida.NomeConc}.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static List<object> GetEstoquePecaPorConcesiionaria(int Codigo)
+        {
+            try
+            {
+                using (var context = new TrabalhoVolvoContext())
+                {
+                    var concessionariaEscolhida = context.Concessionarias.FirstOrDefault(t => t.CodConc == Codigo);
+
+                    if (concessionariaEscolhida == null)
+                    {
+                        throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
+                    }
+
+                    var result = context.TiposPeca
+                        .GroupJoin(
+                            context.EstoquePecas
+                                .Where(ec => ec.FkConcessionariasCodConc == Codigo),
+                            nm => nm.CodTipoPeca,
+                            ec => ec.FkTiposPecaCodTipoPeca,
+                            (nm, ecGroup) => new
+                            {
+                                nm.CodTipoPeca,
+                                nm.NomeTipoPeca,
+                                Qtde_Disponivel = ecGroup.Count()
+                            }
+                        )
+                        .ToList();
+
+                    // Converte o resultado para uma lista de objetos
+                    var resultList = result.Select(r => new { r.CodTipoPeca, r.NomeTipoPeca, r.Qtde_Disponivel }).Cast<object>().ToList();
+                    
+                    if (resultList.Count > 0)
+                    {
+                        return resultList;
+                    }
+                    throw new DadosInsuficientesException($"Número de Modelos insuficientes para gerar um relatório da concessionaria {concessionariaEscolhida.NomeConc}.");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
