@@ -39,7 +39,7 @@ namespace TRABALHO_VOLVO
                         transaction.Commit();
                         return Ok("O servico foi registrado com sucesso.");
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
@@ -63,7 +63,7 @@ namespace TRABALHO_VOLVO
                     {
                         servicoTipoPeca.CodServicoTipoPeca = 0;
                         var pecaEstoque = _context.EstoquePecas.FirstOrDefault(c => c.FkTiposPecaCodTipoPeca == servicoTipoPeca.FkTiposPecaCodTipoPeca);
-                        if(pecaEstoque == null)
+                        if (pecaEstoque == null)
                         {
                             throw new FKNotFoundException("A concessionaria nao possui estoque desse tipo de peca no momento.");
                         }
@@ -73,7 +73,7 @@ namespace TRABALHO_VOLVO
                         transaction.Commit();
                         return Ok("A peca foi registrada no servico e removida do estoque");
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
@@ -107,7 +107,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpGet("Pecas/byServicoID/{Codigo}")]
-        public IActionResult GetPecasServicoManutencao(int Codigo)
+        public List<int> GetPecasServicoManutencao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
@@ -116,11 +116,10 @@ namespace TRABALHO_VOLVO
                 {
                     throw new FKNotFoundException("Nenhum Servico registrado possui esse codigo.");
                 }
-                var pecas = _context.ServicoTiposPeca
+                return _context.ServicoTiposPeca
                     .Where(s => s.FkCodManutencao == servico.CodManutencao)
                     .Select(s => s.FkTiposPecaCodTipoPeca)
                     .ToList();
-                return new ObjectResult(pecas);
             }
         }
 
@@ -140,8 +139,8 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpPut("Delete/{Codigo}")]
-        public IActionResult DeleteServicoManutencao(int Codigo, [FromForm] ServicoManutencao servicoManutencao)
+        [HttpDelete("Delete/{Codigo}")]
+        public IActionResult DeleteServicoManutencao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
