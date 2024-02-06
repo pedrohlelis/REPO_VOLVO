@@ -55,6 +55,7 @@ namespace TRABALHO_VOLVO
         {
             return exception switch //inserir aqui todas as excessoes e suas mensagens
             {
+                DadosInsuficientesException => (StatusCodes.Status404NotFound, exception.Message),
                 FKNotFoundException => (StatusCodes.Status400BadRequest, exception.Message),
                 FormatoInvalidoException => (StatusCodes.Status400BadRequest, exception.Message),
                 ArgumentOutOfRangeException => (StatusCodes.Status400BadRequest, exception.Message),

@@ -45,10 +45,6 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                if (_context.ServicosManutencao.Any(c => c.CodManutencao == servicoTipoPeca.FkCodManutencao)
-                && _context.TiposPeca.Any(c => c.CodTipoPeca == servicoTipoPeca.FkTiposPecaCodTipoPeca))
-                {
-                }
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try

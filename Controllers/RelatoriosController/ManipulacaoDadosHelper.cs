@@ -2,48 +2,81 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace TRABALHO_VOLVO
 {
     public class ManipulacaoDadosHelper
     {
-        public static double GetGerarPrevisaoRevisaoCaminhaoEspecifico(int Codigo)
+        public static double GerarTempoEntreManutencoesCaminhao(TrabalhoVolvoContext context, int Codigo)
         {
             try
             {
-                using (var context = new TrabalhoVolvoContext())
+                var historicoManutencoes = context.ServicosManutencao
+                    .Where(m => m.FkCaminhoesCodCaminhao == Codigo)
+                    .OrderBy(m => m.DataManutencao)
+                    .ToList();
+                double totalDias = 0;
+                int numManutencoes = historicoManutencoes.Count;
+                if (numManutencoes >= 2)
                 {
-                    var caminhaoEscolhido = context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == Codigo);
-
-                    if (caminhaoEscolhido == null)
+                    for (int i = 1; i < numManutencoes; i++)
                     {
-                        throw new FKNotFoundException("Nenhum Caminhao registrado possui esse codigo.");
+                        totalDias += (historicoManutencoes[i].DataManutencao - historicoManutencoes[i - 1].DataManutencao).TotalDays;
                     }
-
-                    var historicoManutencoes = context.ServicosManutencao
-                        .Where(m => m.FkCaminhoesCodCaminhao == Codigo)
-                        .OrderBy(m => m.DataManutencao)
-                        .ToList();
-
-                    double totalMeses = 0;
-                    int numManutencoes = historicoManutencoes.Count;
-                    
-                    if(numManutencoes >= 2)
-                    {
-                        for (int i = 1; i < numManutencoes; i++)
-                        {
-                            totalMeses += (historicoManutencoes[i].DataManutencao - historicoManutencoes[i - 1].DataManutencao).TotalDays / 30;
-                        }
-                        double mediaMeses = numManutencoes > 1 ? totalMeses / (numManutencoes - 1) : 0;
-                        return mediaMeses;
-                    }
-                    throw new DadosInsuficientesException("Número de manutenções insuficientes para gerar um relatório.");
+                    double mediaDias = numManutencoes > 1 ? totalDias / (numManutencoes - 1) : 0;
+                    return Math.Round(mediaDias, 1);
                 }
+                else { return 0; }
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        public static Dictionary<int, List<double>> GerarModelosTempos(TrabalhoVolvoContext context)
+        {
+            Dictionary<int, List<double>> modelosTempos = new Dictionary<int, List<double>>();
+            List<ModelosCaminhao> ListaModelos = context.ModelosCaminhoes.ToList();
+            foreach (ModelosCaminhao mc in ListaModelos)
+            {
+                List<double> values = new List<double>();
+                modelosTempos.Add(mc.CodModelo, values);
+            }
+            return modelosTempos;
+        }
+        public static Dictionary<int, List<double>> PreencherModelosTempos(TrabalhoVolvoContext context, Dictionary<int, List<double>> modelosTempos)
+        {
+            List<ServicoManutencao> ListaServicosManutencao = context.ServicosManutencao.ToList();
+            foreach (ServicoManutencao sm in ListaServicosManutencao)
+            {
+                Caminhao caminhao = context.Caminhoes.FirstOrDefault(c => c.CodCaminhao == sm.FkCaminhoesCodCaminhao);
+                List<double> valuesList = modelosTempos[caminhao.FkModelosCaminhoesCodModelo];
+                valuesList.Add(GerarTempoEntreManutencoesCaminhao(context, caminhao.CodCaminhao));
+            }
+            return modelosTempos;
+        }
+
+        public static Dictionary<int, double> CalcularMediaTempoModelosTempos(Dictionary<int, List<double>> modelosTempos)
+        {
+            Dictionary<int, double> modelosMediaTempos = new Dictionary<int, double>();
+            foreach (var pair in modelosTempos)
+            {
+                List<double> Tempos = pair.Value;
+                if (Tempos.Count > 0)
+                {
+                    double mediaTempo = Tempos.Average();
+                    modelosMediaTempos.Add(pair.Key, Math.Round(mediaTempo, 1));
+                }
+                else
+                {
+                    modelosMediaTempos.Add(pair.Key, 0);
+                }
+            }
+            return modelosMediaTempos;
         }
     }
 }
