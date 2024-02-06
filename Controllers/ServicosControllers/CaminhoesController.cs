@@ -64,6 +64,7 @@ namespace TRABALHO_VOLVO
                 return new ObjectResult(item);
             }
         }
+
         [HttpPut("Deletar/{Codigo}")]
         public IActionResult PutDeleteCaminhao(int Codigo)
         {
@@ -72,11 +73,38 @@ namespace TRABALHO_VOLVO
                 var item = _context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == Codigo);
                 if (item == null)
                 {
-                    throw new FKNotFoundException("Nenhum caminhao registrado possui esse codigo.");
+                    return NotFound();
                 }
                 item.CaminhaoAtivo = false;
                 _context.SaveChanges();
                 return Ok();
+            }
+        }
+
+        
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteCaminhao(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Caminhoes.FirstOrDefault(c => c.CodCaminhao == Codigo);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                    _context.Caminhoes.Remove(item);
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
     }

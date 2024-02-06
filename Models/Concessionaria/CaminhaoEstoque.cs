@@ -9,6 +9,7 @@ namespace TRABALHO_VOLVO
         private int _CodCaminhaoEstoque;
         private string? _CodChassiEstoque;
         private string? _CorEstoqueCaminhao;
+        private bool _CaminhaoEstoqueAtivo;
         private DateOnly _DataFabricacao;
         private int _FkModelosCaminhoesCodModelo;
         private int _FkConcessionariasCodConc;
@@ -35,6 +36,14 @@ namespace TRABALHO_VOLVO
             get { return _CorEstoqueCaminhao; }
             set { if (!string.IsNullOrWhiteSpace(value)) { _CorEstoqueCaminhao = value; } }
         }
+
+        [Required]
+        public bool CaminhaoEstoqueAtivo 
+        { 
+            get { return _CaminhaoEstoqueAtivo; } 
+            set { _CaminhaoEstoqueAtivo = value; }
+        }
+
         [Required]
         public DateOnly DataFabricacao
         {

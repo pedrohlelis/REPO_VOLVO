@@ -81,5 +81,43 @@ namespace TRABALHO_VOLVO
                 }
             }
         }
+        
+        [HttpPut("Desativar/{Documento}")]
+        public IActionResult PutDeleteCliente(string Documento)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                item.ClienteAtivo = false;
+                _context.SaveChanges();
+
+                return Ok("O cLiente foi desativado.");
+            }
+        }
+
+        [HttpDelete("Deletar/{Documento}")]
+        public IActionResult DeleteCliente(string Documento)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Clientes.Remove(item);
+                _context.SaveChanges();
+
+                return Ok("O cLiente foi deletado.");
+            }
+        }
     }
 }

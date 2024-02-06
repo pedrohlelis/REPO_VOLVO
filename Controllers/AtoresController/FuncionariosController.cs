@@ -141,5 +141,24 @@ namespace TRABALHO_VOLVO
                 return Ok("O status do funcionario foi desativado.");
             }
         }
+
+        [HttpDelete("Deletar/{Documento}")]
+        public IActionResult DeleteFuncionario(string Documento)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Funcionarios.FirstOrDefault(t => t.CpfFuncionario == Documento);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Funcionarios.Remove(item);
+                _context.SaveChanges();
+
+                return Ok("O funcionario foi deletado.");
+            }
+        }
     }
 }

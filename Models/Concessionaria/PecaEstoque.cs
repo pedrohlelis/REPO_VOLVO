@@ -8,6 +8,7 @@ namespace TRABALHO_VOLVO
     public class PecaEstoque
     {
         private int _CodPecaEstoque;
+        private bool _PecaEstoqueAtiva;
         private DateOnly _DataFabricacao;
         private int _FkTiposPecaCodTipoPeca;
         private int _FkConcessionariasCodConc;
@@ -19,6 +20,13 @@ namespace TRABALHO_VOLVO
         { 
             get { return _CodPecaEstoque; } 
             set { _CodPecaEstoque = value; } 
+        }
+
+        [Required]
+        public bool PecaEstoqueAtiva 
+        { 
+            get { return _PecaEstoqueAtiva; } 
+            set { _PecaEstoqueAtiva = value; }
         }
 
         [Required]

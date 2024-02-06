@@ -58,5 +58,69 @@ namespace TRABALHO_VOLVO
                 return Ok();
             }
         }
+        
+        [HttpPut("Desativar/{Codigo}")]
+        public IActionResult PutDeleteTiposPeca(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.TiposPeca.FirstOrDefault(t => t.CodTipoPeca == Codigo);
+
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhuma Peca registrado possui esse Codigo.");
+                }
+
+                try
+                {
+                    var EstoquePeca = _context.EstoquePecas.Where(f => f.FkTiposPecaCodTipoPeca == Codigo);
+
+                    foreach (var estoquePeca in EstoquePeca)
+                    {
+                        estoquePeca.PecaEstoqueAtiva = false;
+                    }
+                    
+                    item.TipoPecaAtivo = false;
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteTiposPeca(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.TiposPeca.FirstOrDefault(c => c.CodTipoPeca == Codigo);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                    var EstoquePeca = _context.EstoquePecas.Where(f => f.FkTiposPecaCodTipoPeca == Codigo);
+
+                    foreach (var estoquePeca in EstoquePeca)
+                    {
+                        _context.EstoquePecas.Remove(estoquePeca);
+                    }
+                    _context.TiposPeca.Remove(item);
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }
