@@ -85,5 +85,24 @@ namespace TRABALHO_VOLVO
                 return new ObjectResult(item);
             }
         }
+
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteCliente(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.VendaCaminhoes.FirstOrDefault(t => t.CodVenda == Codigo);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                _context.VendaCaminhoes.Remove(item);
+                _context.SaveChanges();
+
+                return Ok("A Venda foi deletado.");
+            }
+        }
     }
 }

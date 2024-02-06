@@ -69,6 +69,30 @@ namespace TRABALHO_VOLVO
             }
         }
 
+        [HttpPut("Desativar/{Codigo}")]
+        public IActionResult PutDeleteEstoqueCaminhao(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.EstoqueCaminhao.FirstOrDefault(t => t.CodCaminhaoEstoque == Codigo);
+
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhum Estoque registrado possui esse Codigo.");
+                }
+                try
+                {
+                    item.CaminhaoEstoqueAtivo = false;
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
         [HttpDelete("Deletar/{Codigo}")]
         public IActionResult DeleteEstoqueCaminhao(int Codigo)
         {

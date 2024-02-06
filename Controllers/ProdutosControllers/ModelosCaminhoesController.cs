@@ -81,5 +81,69 @@ namespace TRABALHO_VOLVO
                 }
             }
         }
+        
+        [HttpPut("Desativar/{Codigo}")]
+        public IActionResult PutDeleteModeloCaminhao(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.ModelosCaminhoes.FirstOrDefault(t => t.CodModelo == Codigo);
+
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhum cargo registrado possui esse Codigo.");
+                }
+
+                try
+                {
+                    var EstoqueModelo = _context.EstoqueCaminhao.Where(f => f.FkModelosCaminhoesCodModelo == Codigo);
+
+                    foreach (var estoqueModelo in EstoqueModelo)
+                    {
+                        estoqueModelo.CaminhaoEstoqueAtivo = false;
+                    }
+                    
+                    item.ModelosAtivo = false;
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteModeloCaminhao(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.ModelosCaminhoes.FirstOrDefault(c => c.CodModelo == Codigo);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                     var EstoqueModelo = _context.EstoqueCaminhao.Where(f => f.FkModelosCaminhoesCodModelo == Codigo);
+
+                    foreach (var estoqueModelo in EstoqueModelo)
+                    {
+                        _context.EstoqueCaminhao.Remove(estoqueModelo);
+                    }
+                    _context.ModelosCaminhoes.Remove(item);
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }

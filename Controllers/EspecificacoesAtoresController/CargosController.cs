@@ -60,6 +60,36 @@ namespace TRABALHO_VOLVO
             }
         }
 
+        [HttpPut("Desativar/{Codigo}")]
+        public IActionResult PutDeleteCargo(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Cargos.FirstOrDefault(t => t.CodCargo == Codigo);
+
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhum cargo registrado possui esse Codigo.");
+                }
+                try
+                {
+                    var funcionariosComCargo = _context.Funcionarios.Where(f => f.FkCargosCodCargo == Codigo);
+
+                    foreach (var funcionario in funcionariosComCargo)
+                    {
+                        funcionario.FuncionarioAtivo = false;
+                    }
+                    item.CargoAtivo = false;
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
         [HttpDelete("Deletar/{Codigo}")]
         public IActionResult DeleteCargo(int Codigo)
         {

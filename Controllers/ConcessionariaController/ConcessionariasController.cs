@@ -126,5 +126,41 @@ namespace TRABALHO_VOLVO
                 }
             }
         }
+
+        [HttpDelete("Deletar/{Cep}")]
+        public IActionResult DeleteConcessionaria(string Cep)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.Concessionarias.FirstOrDefault(t => t.CepConcessionaria == Cep);
+
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse CEP.");
+                }
+
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var funcionariosConcessionaria = _context.Funcionarios.Where(f => f.FkConcessionariasCodConc == item.CodConc);
+
+                        foreach (var funcionario in funcionariosConcessionaria)
+                        {
+                            _context.Funcionarios.Remove(funcionario);
+                        }
+                        
+                        _context.Concessionarias.Remove(item);
+                        _context.SaveChanges();
+                        return Ok();
+                    }
+                    catch(Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }

@@ -154,5 +154,24 @@ namespace TRABALHO_VOLVO
                 return Ok("O servico foi apagado com sucesso.");
             }
         }
+        
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteCliente(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.ServicosManutencao.FirstOrDefault(t => t.CodManutencao == Codigo);
+
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                _context.ServicosManutencao.Remove(item);
+                _context.SaveChanges();
+
+                return Ok("O Servico de Manutencao foi deletado.");
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace TRABALHO_VOLVO
     {
         private int _CodCargo;
         private string? _NomeCargo;
+        private bool _CargoAtivo;
         private double _SalarioBase;
         private double _PorcentagemComissao;
 
@@ -27,6 +28,13 @@ namespace TRABALHO_VOLVO
         { 
             get { return _NomeCargo; } 
             set { if (!string.IsNullOrWhiteSpace(value)) { _NomeCargo = value; } }
+        }
+
+        [Required]
+        public bool CargoAtivo 
+        { 
+            get { return _CargoAtivo; } 
+            set { _CargoAtivo = value; }
         }
 
         public double SalarioBase 
