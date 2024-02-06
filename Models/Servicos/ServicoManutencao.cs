@@ -9,7 +9,7 @@ namespace TRABALHO_VOLVO
     public class ServicoManutencao
     {
         private int _CodManutencao;
-        private DateOnly _DataManutencao;
+        private DateTime _DataManutencao;
         private double _ValorServicoManutencao;
         private double _QuilometragemCaminhao;
         private string? _DescricaoManutencao;
@@ -27,7 +27,7 @@ namespace TRABALHO_VOLVO
         }
 
         [Required]
-        public DateOnly DataManutencao
+        public DateTime DataManutencao
         {
             get { return _DataManutencao; }
             set { _DataManutencao = value; }
