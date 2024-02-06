@@ -251,6 +251,7 @@ namespace TRABALHO_volvo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataVenda = table.Column<DateOnly>(type: "date", nullable: false),
                     FkClientesCodCliente = table.Column<int>(type: "int", nullable: false),
+                    FkConcessionariasCodConc = table.Column<int>(type: "int", nullable: false),
                     FkFuncionariosCodFuncionario = table.Column<int>(type: "int", nullable: false),
                     FkEstoqueCaminhoesCodCaminhaoEstoque = table.Column<int>(type: "int", nullable: false)
                 },

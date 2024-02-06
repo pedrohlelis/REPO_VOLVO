@@ -13,7 +13,6 @@ namespace TRABALHO_VOLVO
         private double _ValorServicoManutencao;
         private double _QuilometragemCaminhao;
         private string? _DescricaoManutencao;
-        // adicionei o CodConc pra fazer mais sentido
         private int _FkConcessionariasCodConc;
         private int _FkFuncionariosCodFuncionario;
         private int _FkCaminhoesCodCaminhaoEstoque;

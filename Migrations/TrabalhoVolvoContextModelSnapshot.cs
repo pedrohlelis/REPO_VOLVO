@@ -471,6 +471,9 @@ namespace TRABALHO_volvo.Migrations
                     b.Property<int>("FkClientesCodCliente")
                         .HasColumnType("int");
 
+                    b.Property<int>("FkConcessionariasCodConc")
+                        .HasColumnType("int");
+
                     b.Property<int>("FkEstoqueCaminhoesCodCaminhaoEstoque")
                         .HasColumnType("int");
 

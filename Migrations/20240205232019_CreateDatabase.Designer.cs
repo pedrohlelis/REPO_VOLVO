@@ -12,7 +12,7 @@ using TRABALHO_VOLVO;
 namespace TRABALHO_volvo.Migrations
 {
     [DbContext(typeof(TrabalhoVolvoContext))]
-    [Migration("20240205190656_CreateDatabase")]
+    [Migration("20240205232019_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -472,6 +472,9 @@ namespace TRABALHO_volvo.Migrations
                         .HasColumnType("date");
 
                     b.Property<int>("FkClientesCodCliente")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FkConcessionariasCodConc")
                         .HasColumnType("int");
 
                     b.Property<int>("FkEstoqueCaminhoesCodCaminhaoEstoque")

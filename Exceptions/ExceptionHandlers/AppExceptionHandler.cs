@@ -18,8 +18,7 @@ namespace TRABALHO_VOLVO
                 return false;
             }
 
-            // SE QUISER REGISTRAR AS EXCEPTIONS PREVISTAS E MANUSEADAS!!! 
-
+            // SE QUISER REGISTRAR AS EXCEPTIONS PREVISTAS!!! 
             // using (StreamWriter writer = new StreamWriter(@"Exceptions\HandledExceptionsLog.txt", true))
             // {
             //     await writer.WriteLineAsync(JsonConvert.SerializeObject(new
@@ -42,12 +41,9 @@ namespace TRABALHO_VOLVO
             // );
 
             await Results.Problem(
+                type: "",
                 title: Title,
                 statusCode: StatusCode
-                // extensions: new Dictionary<string, object?>
-                // {
-                //     {"traceId", traceId}
-                // }
             ).ExecuteAsync(httpContext);
 
             return true; //significa que o pipeline de manipulacao de excessoes encerra aqui
@@ -58,7 +54,6 @@ namespace TRABALHO_VOLVO
         {
             return exception switch //inserir aqui todas as excessoes e suas mensagens
             {
-                // DbUpdateException => (StatusCodes.Status500InternalServerError, exception.Message),
                 FKNotFoundException => (StatusCodes.Status400BadRequest, exception.Message),
                 FormatoInvalidoException => (StatusCodes.Status400BadRequest, exception.Message),
                 ArgumentOutOfRangeException => (StatusCodes.Status400BadRequest, exception.Message),

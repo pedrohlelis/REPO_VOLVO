@@ -11,16 +11,34 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                if (_context.Clientes.Any(c => c.CodCliente == caminhao.FkClientesCodCliente)
-                && _context.ModelosCaminhoes.Any(c => c.CodModelo == caminhao.FkModelosCaminhoesCodModelo))
+                //vai verificar a integridade das FKs fornecidas
+                if (!_context.Clientes.Any(c => c.CodCliente == caminhao.FkClientesCodCliente))
+                {
+                    throw new FKNotFoundException("Nenhum cliente registrada possui esse codigo.");
+                }
+                else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhao.FkModelosCaminhoesCodModelo))
+                {
+                    throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
+                }
+                //se chegou ate aqui significa que as FK inseridas estao ok, hora de tentar registrar no bd!!!
+                try
                 {
                     caminhao.CodCaminhao = 0;
                     caminhao.CaminhaoAtivo = true;
+                    // validar os dados do caminhao
+                    ValidationHelper.ValidateAlphaNumericFormat(caminhao.CodChassiCaminhao, "Codigo chassi invalido.");
+                    ValidationHelper.ValidateAlphaFormat(caminhao.CorCaminhao, "Cor de caminhao invalida.");
+                    ValidationHelper.ValidateAlphaNumericFormat(caminhao.CodChassiCaminhao, "Placa invalida.");
+                    // feita a validacao tentar adicionar o caminhao ao estoque
                     _context.Caminhoes.Add(caminhao);
+                    // Hora de gerar o registro da aquisicao
                     _context.SaveChanges();
-                    return Ok();
+                    return Ok("O caminhao foi Registrado com sucesso.");
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -39,15 +57,13 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == Codigo);
-
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum caminhao registrado possui esse codigo.");
                 }
                 return new ObjectResult(item);
             }
         }
-    
         [HttpPut("Deletar/{Codigo}")]
         public IActionResult PutDeleteCaminhao(int Codigo)
         {
@@ -56,7 +72,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum caminhao registrado possui esse codigo.");
                 }
                 item.CaminhaoAtivo = false;
                 _context.SaveChanges();

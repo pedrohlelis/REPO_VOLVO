@@ -37,12 +37,13 @@ namespace TRABALHO_VOLVO
             // );
 
             await Results.Problem(
+                type: null,
                 title: Title,
-                statusCode: StatusCode,
-                extensions: new Dictionary<string, object?>
-                {
-                    {"traceId", traceId}
-                }
+                statusCode: StatusCode
+                // extensions: new Dictionary<string, object?>
+                // {
+                //     {"traceId", traceId}
+                // }
             ).ExecuteAsync(httpContext);
 
             return true;

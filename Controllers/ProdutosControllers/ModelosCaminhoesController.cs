@@ -11,11 +11,19 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                modelosCaminhao.CodModelo = 0;
-                modelosCaminhao.ModelosAtivo  = true;
-                _context.ModelosCaminhoes.Add(modelosCaminhao);
-                _context.SaveChanges();
-                return Ok();
+                try
+                {
+                    modelosCaminhao.CodModelo = 0;
+                    modelosCaminhao.ModelosAtivo  = true;
+                    ValidationHelper.IsValidDouble($"{modelosCaminhao.ValorModeloCaminhao}", "Valor do modelo invalido.");
+                    _context.ModelosCaminhoes.Add(modelosCaminhao);
+                    _context.SaveChanges();
+                    return Ok("O modelo foi registrado com sucesso.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -24,24 +32,41 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo)
-                && _context.TiposPeca.Any(c => c.CodTipoPeca == pecasModelo.FkTiposPecaCodTipoPeca))
+                if (_context.ModelosCaminhoes.Any(c => c.CodModelo == pecasModelo.FkModelosCaminhoesCodModelo))
+                {
+                    throw new FKNotFoundException("Nenhum modelo registrado possui esse codigo");
+                }
+                else if(!_context.TiposPeca.Any(c => c.CodTipoPeca == pecasModelo.FkTiposPecaCodTipoPeca)) 
+                {
+                    throw new FKNotFoundException("Nenhum Tipo de peca registrado possui esse codigo");
+                }
+                try
                 {
                     pecasModelo.CodPecasModelo = 0;
                     _context.PecasModelos.Add(pecasModelo);
                     _context.SaveChanges();
-                    return Ok();
+                    return Ok("A peca foi registrada com sucesso.");
                 }
-                return NotFound();
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
 
         [HttpGet("Listar")]
         public List<ModelosCaminhao> GetTodosModelosCaminhoes()
         {
-            using (var _context = new TrabalhoVolvoContext())
+            try
             {
-                return _context.ModelosCaminhoes.ToList();
+                using (var _context = new TrabalhoVolvoContext())
+                {
+                    return _context.ModelosCaminhoes.ToList();
+                }
+            }
+            catch(Exception)
+            {
+                throw;
             }
         }
 
@@ -67,12 +92,20 @@ namespace TRABALHO_VOLVO
                 var item = _context.ModelosCaminhoes.FirstOrDefault(t => t.CodModelo == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum modelo registrado possui esse codigo.");
                 }
-                item.NomeModelo = modelosCaminhao.NomeModelo;
-                item.ValorModeloCaminhao = modelosCaminhao.ValorModeloCaminhao;
-                _context.SaveChanges();
-                return Ok();
+                try
+                {
+                    ValidationHelper.IsValidDouble($"{modelosCaminhao.ValorModeloCaminhao}", "Valor do modelo invalido.");
+                    item.NomeModelo = modelosCaminhao.NomeModelo;
+                    item.ValorModeloCaminhao = modelosCaminhao.ValorModeloCaminhao;
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
     }

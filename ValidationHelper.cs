@@ -56,5 +56,17 @@ namespace TRABALHO_VOLVO
                 throw new FormatoInvalidoException(errorMessage);
             }
         }
+
+        public static bool IsValidDouble(string value, string errorMessage)
+        {
+            if (double.TryParse(value, out double result))
+            {
+                return true;
+            }
+            else
+            {
+                throw new FormatoInvalidoException(errorMessage);
+            }
+        }
     }
 }
