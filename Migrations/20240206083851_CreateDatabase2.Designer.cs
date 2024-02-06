@@ -12,8 +12,8 @@ using TRABALHO_VOLVO;
 namespace TRABALHO_volvo.Migrations
 {
     [DbContext(typeof(TrabalhoVolvoContext))]
-    [Migration("20240206072411_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240206083851_CreateDatabase2")]
+    partial class CreateDatabase2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,6 +73,9 @@ namespace TRABALHO_volvo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodCaminhaoEstoque"));
 
+                    b.Property<bool>("CaminhaoEstoqueAtivo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CodChassiEstoque")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -102,6 +105,9 @@ namespace TRABALHO_volvo.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodCargo"));
+
+                    b.Property<bool>("CargoAtivo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomeCargo")
                         .IsRequired()
@@ -283,6 +289,9 @@ namespace TRABALHO_volvo.Migrations
 
                     b.Property<int>("FkTiposPecaCodTipoPeca")
                         .HasColumnType("int");
+
+                    b.Property<bool>("PecaEstoqueAtiva")
+                        .HasColumnType("bit");
 
                     b.HasKey("CodPecaEstoque");
 

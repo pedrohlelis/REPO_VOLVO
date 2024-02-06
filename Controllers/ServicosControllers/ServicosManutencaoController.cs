@@ -15,18 +15,10 @@ namespace TRABALHO_VOLVO
             {
                 //verificar a integridade das FKs, e se o funcionario passado trabalha na concessionaria passada.
                 var conc = _context.Concessionarias.FirstOrDefault(c => c.CodConc == servicoManutencao.FkConcessionariasCodConc);
-                // if (conc == null)
-                // {
-                //     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
-                // }
-                // if (!_context.Funcionarios.Any(c => (c.CodFuncionario == servicoManutencao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
-                // {
-                //     throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
-                // }
-                // else if (!_context.Caminhoes.Any(c => c.CodCaminhao == servicoManutencao.FkCaminhoesCodCaminhao))
-                // {
-                //     throw new FKNotFoundException("Nenhum Caminhao registrado possui esse codigo.");
-                // }
+                if (!_context.Funcionarios.Any(c => (c.CodFuncionario == servicoManutencao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
+                {
+                    throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
+                }
                 var caminhao = _context.Caminhoes.FirstOrDefault(c => c.CodCaminhao == servicoManutencao.FkCaminhoesCodCaminhao);
                 using (var transaction = _context.Database.BeginTransaction())
                 {
@@ -139,22 +131,6 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpDelete("Delete/{Codigo}")]
-        public IActionResult DeleteServicoManutencao(int Codigo)
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                var item = _context.ServicosManutencao.FirstOrDefault(t => t.CodManutencao == Codigo);
-                if (item == null)
-                {
-                    throw new FKNotFoundException("Nenhum Servico registrado possui esse codigo.");
-                }
-                _context.ServicosManutencao.Remove(item);
-                _context.SaveChanges();
-                return Ok("O servico foi apagado com sucesso.");
-            }
-        }
-        
         [HttpDelete("Deletar/{Codigo}")]
         public IActionResult DeleteCliente(int Codigo)
         {
@@ -164,13 +140,18 @@ namespace TRABALHO_VOLVO
 
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum Servico registrado possui esse codigo.");
                 }
-
-                _context.ServicosManutencao.Remove(item);
-                _context.SaveChanges();
-
-                return Ok("O Servico de Manutencao foi deletado.");
+                try
+                {
+                    _context.ServicosManutencao.Remove(item);
+                    _context.SaveChanges();
+                    return Ok("O Servico de Manutencao foi deletado.");
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
     }

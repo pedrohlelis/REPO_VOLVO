@@ -11,53 +11,38 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                var conc = _context.Concessionarias.FirstOrDefault(c => c.CodConc == vendaCaminhao.FkConcessionariasCodConc);
-                // if (conc == null)
-                // {
-                //     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
-                // }
-                // else if(!_context.Clientes.Any(c => c.CodCliente == vendaCaminhao.FkClientesCodCliente))
-                // {
-                //     throw new FKNotFoundException("Nenhum Cliente registrado possui esse codigo.");
-                // }
-                // else if (!_context.Funcionarios.Any(c => (c.CodFuncionario == vendaCaminhao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
-                // {
-                //     throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
-                // }
-                // else if (!_context.EstoqueCaminhao.Any(c => (c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque) && c.FkConcessionariasCodConc == conc.CodConc))
-                // {
-                //     throw new FKNotFoundException("Nenhum caminhao registrado no estoque da concessionaria possui esse codigo.");
-                // }
+                ValidationHelper.ValidatePostVenda(vendaCaminhao, _context);
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try
                     {
-                        var caminhao = _context.EstoqueCaminhao.FirstOrDefault(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque);
-                        var modelo = _context.ModelosCaminhoes.FirstOrDefault(c => c.CodModelo == caminhao.FkModelosCaminhoesCodModelo);
-                        vendaCaminhao.CodVenda = 0;
-                        vendaCaminhao.ValorVenda = modelo.ValorModeloCaminhao;
+                        var estoqueCaminhao = _context.EstoqueCaminhao.FirstOrDefault(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque);
+                        var modelo = _context.ModelosCaminhoes.FirstOrDefault(c => c.CodModelo == estoqueCaminhao.FkModelosCaminhoesCodModelo);
                         var novoCaminhao = new Caminhao
                         {
                             CodCaminhao = 0,
                             Quilometragem = 0,
                             PlacaCaminhao = "Undefined",
-                            CorCaminhao = caminhao.CorEstoqueCaminhao,
-                            CodChassiCaminhao = caminhao.CodChassiEstoque,
-                            DataFabricacao = caminhao.DataFabricacao,
-                            FkModelosCaminhoesCodModelo = caminhao.FkModelosCaminhoesCodModelo,
+                            CorCaminhao = estoqueCaminhao.CorEstoqueCaminhao,
+                            CodChassiCaminhao = estoqueCaminhao.CodChassiEstoque,
+                            DataFabricacao = estoqueCaminhao.DataFabricacao,
+                            FkModelosCaminhoesCodModelo = estoqueCaminhao.FkModelosCaminhoesCodModelo,
                             FkClientesCodCliente = vendaCaminhao.FkClientesCodCliente
                         };
-                        _context.EstoqueCaminhao.Remove(caminhao);
-                        _context.Caminhoes.Add(novoCaminhao);
+                        vendaCaminhao.CodVenda = 0;
+                        vendaCaminhao.ValorVenda = modelo.ValorModeloCaminhao;
                         _context.VendaCaminhoes.Add(vendaCaminhao);
+                        _context.Caminhoes.Add(novoCaminhao);
+                        estoqueCaminhao.CaminhaoEstoqueAtivo = false;
                         _context.SaveChanges();
                         transaction.Commit();
                         return Ok("Venda registrada com sucesso.");
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         transaction.Rollback();
-                        throw;
+                        ValidationHelper.FilterExceptionsPostVendaCaminhao(e.InnerException.Message);
+                        throw new NotImplementedException();
                     }
                 }
             }
@@ -92,16 +77,20 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 var item = _context.VendaCaminhoes.FirstOrDefault(t => t.CodVenda == Codigo);
-
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhuma venda registrada possui esse codigo");
                 }
-
-                _context.VendaCaminhoes.Remove(item);
-                _context.SaveChanges();
-
-                return Ok("A Venda foi deletado.");
+                try
+                {
+                    _context.VendaCaminhoes.Remove(item);
+                    _context.SaveChanges();
+                    return Ok("A Venda foi deletada.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
             }
         }
     }

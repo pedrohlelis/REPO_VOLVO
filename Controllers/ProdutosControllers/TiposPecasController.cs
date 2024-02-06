@@ -15,7 +15,7 @@ namespace TRABALHO_VOLVO
                 tipoPeca.PecaAtivo = true;
                 _context.TiposPeca.Add(tipoPeca);
                 _context.SaveChanges();
-                return Ok();
+                return Ok("Tipo de peça cadastrado com sucesso.");
             }
         }
 
@@ -80,7 +80,7 @@ namespace TRABALHO_VOLVO
                         estoquePeca.PecaEstoqueAtiva = false;
                     }
                     
-                    item.TipoPecaAtivo = false;
+                    item.PecaAtivo = false;
                     _context.SaveChanges();
                     return Ok();
                 }
@@ -115,7 +115,6 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok();
                 }
-                
                 catch(Exception)
                 {
                     throw;
