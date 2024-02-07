@@ -5,18 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TRABALHO_VOLVO
 {
+    // Classe que representa um caminhão.
     public class Caminhao
     {
-        private int _CodCaminhao;
-        private double _Quilometragem;
-        private string? _PlacaCaminhao;
-        private string? _CorCaminhao;
-        private string? _CodChassiCaminhao;
-        private DateOnly _DataFabricacao;
-        private bool _CaminhaoAtivo;
-        private int _FkClientesCodCliente;
-        private int _FkModelosCaminhoesCodModelo;
+        private int _CodCaminhao; // Identificador único do caminhão.
+        private double _Quilometragem; // Quilometragem do caminhão.
+        private string? _PlacaCaminhao; // Placa do caminhão.
+        private string? _CorCaminhao; // Cor do caminhão.
+        private string? _CodChassiCaminhao; // Código do chassi do caminhão.
+        private DateOnly _DataFabricacao; // Data de fabricação do caminhão.
+        private bool _CaminhaoAtivo; // Indica se o caminhão está ativo.
+        private int _FkClientesCodCliente; // Chave estrangeira para o cliente associado ao caminhão.
+        private int _FkModelosCaminhoesCodModelo; // Chave estrangeira para o modelo do caminhão.
 
+        // Propriedade que representa o código do caminhão.
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,6 +28,7 @@ namespace TRABALHO_VOLVO
             set { _CodCaminhao = value; }
         }
 
+        // Propriedade que representa a quilometragem do caminhão.
         [Required]
         public double Quilometragem
         {
@@ -33,6 +36,7 @@ namespace TRABALHO_VOLVO
             set { _Quilometragem = value; }
         }
 
+        // Propriedade que representa a placa do caminhão.
         [Required]
         public string? PlacaCaminhao
         {
@@ -40,6 +44,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _PlacaCaminhao = value; } }
         }
 
+        // Propriedade que representa a cor do caminhão.
         [Required]
         public string? CorCaminhao
         {
@@ -47,6 +52,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _CorCaminhao = value; } }
         }
 
+        // Propriedade que representa o código do chassi do caminhão.
         [Required]
         public string? CodChassiCaminhao
         {
@@ -54,6 +60,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _CodChassiCaminhao = value; } }
         }
 
+        // Propriedade que representa a data de fabricação do caminhão.
         [Required]
         public DateOnly DataFabricacao
         {
@@ -61,6 +68,7 @@ namespace TRABALHO_VOLVO
             set { _DataFabricacao = value; }
         }
 
+        // Propriedade que indica se o caminhão está ativo.
         [Required]
         public bool CaminhaoAtivo
         {
@@ -68,6 +76,7 @@ namespace TRABALHO_VOLVO
             set { _CaminhaoAtivo = value; }
         }
 
+        // Propriedade que representa a chave estrangeira para o cliente associado ao caminhão.
         [Required]
         [ForeignKey("FK_Caminhoes_Clientes")]
         public int FkClientesCodCliente
@@ -76,6 +85,7 @@ namespace TRABALHO_VOLVO
             set { _FkClientesCodCliente = value; }
         }
 
+        // Propriedade que representa a chave estrangeira para o modelo do caminhão.
         [Required]
         [ForeignKey("FK_Caminhoes_ModelosCaminhao")]
         public int FkModelosCaminhoesCodModelo

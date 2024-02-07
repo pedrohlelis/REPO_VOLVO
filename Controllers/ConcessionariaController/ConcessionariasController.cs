@@ -114,8 +114,22 @@ namespace TRABALHO_VOLVO
                         {
                             funcionario.FuncionarioAtivo = false;
                         }
+
+                        var estoqueCaminhaoConcessionaria = _context.EstoqueCaminhao.Where(f => f.FkConcessionariasCodConc == item.CodConc);
+                        foreach (var estoque in estoqueCaminhaoConcessionaria)
+                        {
+                            estoque.CaminhaoEstoqueAtivo = false;
+                        }
+
+                        var estoquePecaConcessionaria = _context.EstoquePecas.Where(f => f.FkConcessionariasCodConc == item.CodConc);
+                        foreach (var estoque in estoqueCaminhaoConcessionaria)
+                        {
+                            estoque.CaminhaoEstoqueAtivo = false;
+                        }
+                        
                         item.ConcessionariaAtivo = false;
                         _context.SaveChanges();
+                        transaction.Commit();
                         return Ok("A concessionaria foi desativada com sucesso.");
                     }
                     catch (Exception)
@@ -153,6 +167,7 @@ namespace TRABALHO_VOLVO
                         ManipulacaoDadosHelper.RegistrarDelete("Concessionarias", "Concessionaria", item);
                         _context.Concessionarias.Remove(item);
                         _context.SaveChanges();
+                        transaction.Commit();
                         return Ok();
                     }
                     catch (Exception)

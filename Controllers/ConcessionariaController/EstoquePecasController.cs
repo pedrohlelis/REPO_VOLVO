@@ -92,5 +92,27 @@ namespace TRABALHO_VOLVO
             }
         }
 
+        [HttpDelete("Deletar/{Codigo}")]
+        public IActionResult DeleteEstoquePeca(int Codigo)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var item = _context.EstoquePecas.FirstOrDefault(t => t.CodPecaEstoque == Codigo);
+                if (item == null)
+                {
+                    throw new FKNotFoundException("Nenhuma peça registrada possui esse codigo.");
+                }
+                try
+                {
+                    _context.EstoquePecas.Remove(item);
+                    _context.SaveChanges();
+                    return Ok("A peça foi removida do estoque com sucesso.");
+                }
+                catch(Exception)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }

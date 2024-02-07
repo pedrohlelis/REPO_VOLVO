@@ -3,17 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TRABALHO_VOLVO
 {
+    // Classe que representa um caminhão em estoque.
     public class CaminhaoEstoque
     {
-        // acho que adicionar numero de chassi seria importante, tanto aqui quando na classe Caminhao. adicionar cor tambem?
-        private int _CodCaminhaoEstoque;
-        private string? _CodChassiEstoque;
-        private string? _CorEstoqueCaminhao;
-        private bool _CaminhaoEstoqueAtivo;
-        private DateOnly _DataFabricacao;
-        private int _FkModelosCaminhoesCodModelo;
-        private int _FkConcessionariasCodConc;
+        private int _CodCaminhaoEstoque; // Identificador único do caminhão em estoque.
+        private string? _CodChassiEstoque; // Código do chassi do caminhão em estoque.
+        private string? _CorEstoqueCaminhao; // Cor do caminhão em estoque.
+        private bool _CaminhaoEstoqueAtivo; // Indica se o caminhão em estoque está ativo.
+        private DateOnly _DataFabricacao; // Data de fabricação do caminhão em estoque.
+        private int _FkModelosCaminhoesCodModelo; // Chave estrangeira para o código do modelo de caminhão associado.
+        private int _FkConcessionariasCodConc; // Chave estrangeira para o código da concessionária associada.
 
+        // Propriedade que representa o código do caminhão em estoque.
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,6 +24,7 @@ namespace TRABALHO_VOLVO
             set { _CodCaminhaoEstoque = value; }
         }
 
+        // Propriedade que representa o código do chassi do caminhão em estoque.
         [Required]
         public string? CodChassiEstoque
         {
@@ -30,6 +32,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _CodChassiEstoque = value; } }
         }
 
+        // Propriedade que representa a cor do caminhão em estoque.
         [Required]
         public string? CorEstoqueCaminhao
         {
@@ -37,6 +40,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _CorEstoqueCaminhao = value; } }
         }
 
+        // Propriedade que indica se o caminhão em estoque está ativo.
         [Required]
         public bool CaminhaoEstoqueAtivo 
         { 
@@ -44,6 +48,7 @@ namespace TRABALHO_VOLVO
             set { _CaminhaoEstoqueAtivo = value; }
         }
 
+        // Propriedade que representa a data de fabricação do caminhão em estoque.
         [Required]
         public DateOnly DataFabricacao
         {
@@ -51,6 +56,7 @@ namespace TRABALHO_VOLVO
             set { _DataFabricacao = value; }
         }
 
+        // Propriedade que representa a chave estrangeira para o código do modelo de caminhão associado.
         [Required]
         [ForeignKey("FK_EstoqueCaminhao_ModelosCaminhoes")]
         public int FkModelosCaminhoesCodModelo
@@ -59,6 +65,7 @@ namespace TRABALHO_VOLVO
             set { _FkModelosCaminhoesCodModelo = value; }
         }
 
+        // Propriedade que representa a chave estrangeira para o código da concessionária associada.
         [Required]
         [ForeignKey("FK_EstoqueCaminhao_Concessionarias")]
         public int FkConcessionariasCodConc

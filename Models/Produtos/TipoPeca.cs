@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TRABALHO_VOLVO
 {
+    // Classe que representa um tipo de peça.
     public class TipoPeca
     {
-        private int _CodTipoPeca;
-        private string? _NomeTipoPeca;
-        private bool _PecaAtivo;
-        private double _ValorTipoPeca;
-        
+        private int _CodTipoPeca; // Identificador único do tipo de peça.
+        private string? _NomeTipoPeca; // Nome do tipo de peça.
+        private bool _PecaAtivo; // Indica se o tipo de peça está ativo.
+        private double _ValorTipoPeca; // Valor do tipo de peça.
+
+        // Propriedade que representa o código do tipo de peça.
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,6 +23,7 @@ namespace TRABALHO_VOLVO
             set { _CodTipoPeca = value; }
         }
 
+        // Propriedade que representa o nome do tipo de peça.
         [Required]
         [MaxLength(40)]
         public string? NomeTipoPeca 
@@ -29,6 +32,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _NomeTipoPeca = value; } } 
         }
 
+        // Propriedade que indica se o tipo de peça está ativo.
         [Required]
         public bool PecaAtivo 
         { 
@@ -36,6 +40,7 @@ namespace TRABALHO_VOLVO
             set { _PecaAtivo = value; }
         }
 
+        // Propriedade que representa o valor do tipo de peça.
         [Required]
         public double ValorTipoPeca 
         { 

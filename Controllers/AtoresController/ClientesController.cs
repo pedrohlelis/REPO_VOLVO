@@ -100,6 +100,12 @@ namespace TRABALHO_VOLVO
                     throw new FKNotFoundException("Nenhum cliente com esse documento foi encontrado.");
                 }
 
+                var caminhaoCliente = _context.Caminhoes.Where(f => f.FkClientesCodCliente == item.CodCliente);
+                foreach (var caminhao in caminhaoCliente)
+                {
+                    caminhao.CaminhaoAtivo = false;
+                }
+
                 item.ClienteAtivo = false;
                 _context.SaveChanges();
 

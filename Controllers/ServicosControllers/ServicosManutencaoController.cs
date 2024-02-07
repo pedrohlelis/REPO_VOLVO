@@ -128,7 +128,7 @@ namespace TRABALHO_VOLVO
         }
 
         [HttpDelete("Deletar/{Codigo}")]
-        public IActionResult DeleteCliente(int Codigo)
+        public IActionResult DeleteServicoManutencao(int Codigo)
         {
             using (var _context = new TrabalhoVolvoContext())
             {
