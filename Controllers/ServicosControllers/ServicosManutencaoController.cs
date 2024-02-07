@@ -140,6 +140,7 @@ namespace TRABALHO_VOLVO
                 }
                 try
                 {
+                    ManipulacaoDadosHelper.RegistrarDelete("ServicosManutencao", "ServicoManutencao", item);
                     _context.ServicosManutencao.Remove(item);
                     _context.SaveChanges();
                     return Ok("O Servico de Manutencao foi deletado.");

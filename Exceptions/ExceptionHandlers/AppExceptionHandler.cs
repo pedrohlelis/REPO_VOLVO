@@ -19,7 +19,7 @@ namespace TRABALHO_VOLVO
             }
 
             // SE QUISER REGISTRAR AS EXCEPTIONS PREVISTAS!!! 
-            // using (StreamWriter writer = new StreamWriter(@"Exceptions\HandledExceptionsLog.txt", true))
+            // using (StreamWriter writer = new StreamWriter(@"logs\handledExceptionsLog.txt", true))
             // {
             //     await writer.WriteLineAsync(JsonConvert.SerializeObject(new
             //     {
@@ -55,6 +55,7 @@ namespace TRABALHO_VOLVO
         {
             return exception switch //inserir aqui todas as excessoes e suas mensagens
             {
+                DuplicateUniqueValueException => (StatusCodes.Status404NotFound, exception.Message),
                 DadosInsuficientesException => (StatusCodes.Status404NotFound, exception.Message),
                 FKNotFoundException => (StatusCodes.Status400BadRequest, exception.Message),
                 FormatoInvalidoException => (StatusCodes.Status400BadRequest, exception.Message),

@@ -58,7 +58,7 @@ namespace TRABALHO_VOLVO
                 return Ok();
             }
         }
-        
+
         [HttpPut("Desativar/{Codigo}")]
         public IActionResult PutDeleteTiposPeca(int Codigo)
         {
@@ -79,12 +79,12 @@ namespace TRABALHO_VOLVO
                     {
                         estoquePeca.PecaEstoqueAtiva = false;
                     }
-                    
+
                     item.PecaAtivo = false;
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -109,13 +109,15 @@ namespace TRABALHO_VOLVO
 
                     foreach (var estoquePeca in EstoquePeca)
                     {
+                        ManipulacaoDadosHelper.RegistrarDelete("EstoquePecas", "PecaEstoque", item);
                         _context.EstoquePecas.Remove(estoquePeca);
                     }
+                    ManipulacaoDadosHelper.RegistrarDelete("TiposPeca", "TipoPeca", item);
                     _context.TiposPeca.Remove(item);
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }

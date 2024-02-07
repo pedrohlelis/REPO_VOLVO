@@ -83,7 +83,7 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -108,6 +108,7 @@ namespace TRABALHO_VOLVO
                 {
                     funcionario.FkCargosCodCargo = null;
                 }
+                ManipulacaoDadosHelper.RegistrarDelete("Cargos", "Cargo", cargoParaExcluir);
                 _context.Cargos.Remove(cargoParaExcluir);
                 _context.SaveChanges();
                 return Ok();

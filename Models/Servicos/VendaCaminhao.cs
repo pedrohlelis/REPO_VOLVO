@@ -65,7 +65,7 @@ namespace TRABALHO_VOLVO
             set { _FkEstoqueCaminhoesCodCaminhaoEstoque = value; }
         }
 
-        // [Required]
+        [Required]
         public double ValorVenda
         {
             get { return _ValorVenda; }

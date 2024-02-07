@@ -12,22 +12,16 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                // if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkConcessionariasCodConc))
-                // {
-                //     throw new FKNotFoundException("Nenhuma Concessionaria registrada possui esse codigo.");
-                // }
-                // else if (!_context.Cargos.Any(c => c.CodCargo == funcionario.FkCargosCodCargo))
-                // {
-                //     throw new FKNotFoundException("Nenhum Cargo registrado possui esse codigo.");
-                // }
-
+                if (!_context.Concessionarias.Any(c => c.CodConc == funcionario.FkConcessionariasCodConc && c.ConcessionariaAtivo == true))
+                {
+                    throw new FKNotFoundException("Nenhuma Concessionaria ativa registrada possui esse codigo.");
+                }
                 funcionario.CodFuncionario = 0;
                 funcionario.FuncionarioAtivo = true;
-
+                ValidationHelper.CheckUniqueDoc(_context, funcionario.CpfFuncionario);
                 ValidationHelper.ValidateNameFormat(funcionario.NomeFuncionario, "Nome invalido.");
                 ValidationHelper.ValidateNumericFormat(funcionario.CpfFuncionario, "Formato de CPF invalido.");
                 ValidationHelper.ValidateNumericFormat(funcionario.NumeroContatoFuncionario, "Formato de telefone invalido.");
-
                 try
                 {
                     _context.Funcionarios.Add(funcionario);
@@ -143,7 +137,7 @@ namespace TRABALHO_VOLVO
                 {
                     return NotFound();
                 }
-
+                ManipulacaoDadosHelper.RegistrarDelete("Funcionarios", "Funcionario", item);
                 _context.Funcionarios.Remove(item);
                 _context.SaveChanges();
 

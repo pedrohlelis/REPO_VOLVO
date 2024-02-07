@@ -14,13 +14,13 @@ namespace TRABALHO_VOLVO
                 try
                 {
                     modelosCaminhao.CodModelo = 0;
-                    modelosCaminhao.ModelosAtivo  = true;
+                    modelosCaminhao.ModelosAtivo = true;
                     ValidationHelper.IsValidDouble($"{modelosCaminhao.ValorModeloCaminhao}", "Valor do modelo invalido.");
                     _context.ModelosCaminhoes.Add(modelosCaminhao);
                     _context.SaveChanges();
                     return Ok("O modelo foi registrado com sucesso.");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -37,7 +37,7 @@ namespace TRABALHO_VOLVO
                     return _context.ModelosCaminhoes.ToList();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -75,13 +75,13 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
             }
         }
-        
+
         [HttpPut("Desativar/{Codigo}")]
         public IActionResult PutDeleteModeloCaminhao(int Codigo)
         {
@@ -102,12 +102,12 @@ namespace TRABALHO_VOLVO
                     {
                         estoqueModelo.CaminhaoEstoqueAtivo = false;
                     }
-                    
+
                     item.ModelosAtivo = false;
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -128,18 +128,20 @@ namespace TRABALHO_VOLVO
 
                 try
                 {
-                     var EstoqueModelo = _context.EstoqueCaminhao.Where(f => f.FkModelosCaminhoesCodModelo == Codigo);
+                    var EstoqueModelo = _context.EstoqueCaminhao.Where(f => f.FkModelosCaminhoesCodModelo == Codigo);
 
                     foreach (var estoqueModelo in EstoqueModelo)
                     {
+                        ManipulacaoDadosHelper.RegistrarDelete("EstoqueCaminhao", "CaminhaoEstoque", estoqueModelo);
                         _context.EstoqueCaminhao.Remove(estoqueModelo);
                     }
+                    ManipulacaoDadosHelper.RegistrarDelete("ModelosCaminhoes", "ModelosCaminhao", item);
                     _context.ModelosCaminhoes.Remove(item);
                     _context.SaveChanges();
                     return Ok();
                 }
-                
-                catch(Exception)
+
+                catch (Exception)
                 {
                     throw;
                 }

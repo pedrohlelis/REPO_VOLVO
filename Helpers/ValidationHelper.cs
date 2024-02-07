@@ -5,11 +5,41 @@ namespace TRABALHO_VOLVO
 {
     public class ValidationHelper
     {
-        public static void CheckIntPK(string value, string errorMessage)
+        public static void CheckUniqueChassi(TrabalhoVolvoContext context, string chassi)
         {
-            if (string.IsNullOrWhiteSpace(value) || !value.All(c => char.IsDigit(c)))
+            List<string> ChassisCadastrados = new List<string>();
+            List<Caminhao> caminhoes = context.Caminhoes.ToList();
+            List<CaminhaoEstoque> caminhoesEstoque = context.EstoqueCaminhao.Where(c => c.CaminhaoEstoqueAtivo == true).ToList();
+            foreach (Caminhao c in caminhoes)
             {
-                throw new FormatoInvalidoException(errorMessage);
+                ChassisCadastrados.Add(c.CodChassiCaminhao);
+            };
+            foreach (CaminhaoEstoque ce in caminhoesEstoque)
+            {
+                ChassisCadastrados.Add(ce.CodChassiEstoque);
+            };
+            if (ChassisCadastrados.Contains(chassi))
+            {
+                throw new DuplicateUniqueValueException("Esse Codigo Chassi ja pertence a outro caminhao. Tente Novamente.");
+            }
+        }
+
+        public static void CheckUniqueDoc(TrabalhoVolvoContext context, string doc)
+        {
+            List<string> DocsCadastrados = new List<string>();
+            List<Cliente> clientes = context.Clientes.ToList();
+            List<Funcionario> funcionarios = context.Funcionarios.ToList();
+            foreach (Cliente c in clientes)
+            {
+                DocsCadastrados.Add(c.DocIdentificadorCliente);
+            };
+            foreach (Funcionario f in funcionarios)
+            {
+                DocsCadastrados.Add(f.CpfFuncionario);
+            };
+            if (DocsCadastrados.Contains(doc))
+            {
+                throw new DuplicateUniqueValueException("CPF ou CNPJ ja pertence a em outro cadastro. Tente Novamente.");
             }
         }
 
@@ -85,6 +115,11 @@ namespace TRABALHO_VOLVO
             if (!_context.Funcionarios.Any(c => (c.CodFuncionario == vendaCaminhao.FkFuncionariosCodFuncionario) && c.FkConcessionariasCodConc == conc.CodConc))
             {
                 throw new FKNotFoundException("Nenhum Funcionario registrado nessa concessionaria possui esse codigo.");
+            }
+            Funcionario funcionario = _context.Funcionarios.FirstOrDefault(c => c.CodFuncionario == vendaCaminhao.FkFuncionariosCodFuncionario);
+            if (funcionario.FuncionarioAtivo != true)
+            {
+                throw new AtorDesativadoException("Nenhum Funcionario Ativo registrado nessa concessionaria possui esse codigo.");
             }
         }
         public static void FilterExceptionsPostVendaCaminhao(string message)

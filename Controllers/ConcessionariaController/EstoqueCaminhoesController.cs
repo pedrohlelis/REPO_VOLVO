@@ -12,21 +12,18 @@ namespace TRABALHO_VOLVO
             using (var _context = new TrabalhoVolvoContext())
             {
                 //vai verificar a integridade das FKs fornecidas
-                // if (!_context.Concessionarias.Any(c => c.CodConc == caminhaoEstoque.FkConcessionariasCodConc))
-                // {
-                //     throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
-                // }
-                // else if (!_context.ModelosCaminhoes.Any(c => c.CodModelo == caminhaoEstoque.FkModelosCaminhoesCodModelo))
-                // {
-                //     throw new FKNotFoundException("Nenhum Modelo de caminhao registrado possui esse codigo.");
-                // }
-                //se chegou ate aqui significa que as FK inseridas estao ok, hora de tentar registrar no bd!!!
+                if (!_context.Concessionarias.Any(c => c.CodConc == caminhaoEstoque.FkConcessionariasCodConc && c.ConcessionariaAtivo == true))
+                {
+                    throw new FKNotFoundException("Nenhuma concessionaria registrada possui esse codigo.");
+                }
+
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try
                     {
                         caminhaoEstoque.CodCaminhaoEstoque = 0;
                         // validar os dados do caminhao
+                        ValidationHelper.CheckUniqueChassi(_context, caminhaoEstoque.CodChassiEstoque);
                         ValidationHelper.ValidateAlphaNumericFormat(caminhaoEstoque.CodChassiEstoque, "Codigo chassi invalido.");
                         ValidationHelper.ValidateAlphaFormat(caminhaoEstoque.CorEstoqueCaminhao, "Cor de caminhao invalida.");
                         // feita a validacao tentar adicionar o caminhao ao estoque
@@ -86,7 +83,7 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -105,11 +102,12 @@ namespace TRABALHO_VOLVO
                 }
                 try
                 {
-                _context.EstoqueCaminhao.Remove(item);
-                _context.SaveChanges();
-                return Ok("O caminhao foi removido do estoque com sucesso.");
+                    ManipulacaoDadosHelper.RegistrarDelete("EstoqueCaminhao", "CaminhaoEstoque", item);
+                    _context.EstoqueCaminhao.Remove(item);
+                    _context.SaveChanges();
+                    return Ok("O caminhao foi removido do estoque com sucesso.");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }

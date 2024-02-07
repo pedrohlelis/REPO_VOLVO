@@ -149,12 +149,13 @@ namespace TRABALHO_VOLVO
                         {
                             _context.Funcionarios.Remove(funcionario);
                         }
-                        
+
+                        ManipulacaoDadosHelper.RegistrarDelete("Concessionarias", "Concessionaria", item);
                         _context.Concessionarias.Remove(item);
                         _context.SaveChanges();
                         return Ok();
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;

@@ -26,6 +26,7 @@ namespace TRABALHO_VOLVO
                     caminhao.CodCaminhao = 0;
                     caminhao.CaminhaoAtivo = true;
                     // validar os dados do caminhao
+                    ValidationHelper.CheckUniqueChassi(_context, caminhao.CodChassiCaminhao);
                     ValidationHelper.ValidateAlphaNumericFormat(caminhao.CodChassiCaminhao, "Codigo chassi invalido.");
                     ValidationHelper.ValidateAlphaFormat(caminhao.CorCaminhao, "Cor de caminhao invalida.");
                     ValidationHelper.ValidateAlphaNumericFormat(caminhao.CodChassiCaminhao, "Placa invalida.");
@@ -73,7 +74,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == Codigo);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum caminhao registrado possui esse codigo.");
                 }
                 item.CaminhaoAtivo = false;
                 _context.SaveChanges();
@@ -81,7 +82,6 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        
         [HttpDelete("Deletar/{Codigo}")]
         public IActionResult DeleteCaminhao(int Codigo)
         {
@@ -91,17 +91,17 @@ namespace TRABALHO_VOLVO
 
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum caminhao registrado possui esse codigo.");
                 }
-
                 try
                 {
+                    ManipulacaoDadosHelper.RegistrarDelete("Caminhoes", "Caminhao", item);
                     _context.Caminhoes.Remove(item);
                     _context.SaveChanges();
                     return Ok();
                 }
-                
-                catch(Exception)
+
+                catch (Exception)
                 {
                     throw;
                 }

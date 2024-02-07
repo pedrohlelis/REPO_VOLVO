@@ -22,32 +22,32 @@ namespace TRABALHO_VOLVO
             optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=TrabalhoVolvo;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
         }
 
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     modelBuilder.Entity<Cliente>()
-        //         .HasIndex(e => e.DocIdentificadorCliente)
-        //         .IsUnique();
-        //     base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cliente>()
+                .HasIndex(e => e.DocIdentificadorCliente)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
 
-        //     modelBuilder.Entity<Caminhao>()
-        //         .HasIndex(e => e.CodChassiCaminhao)
-        //         .IsUnique();
-        //     base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Caminhao>()
+                .HasIndex(e => e.CodChassiCaminhao)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
 
-        //     modelBuilder.Entity<CaminhaoEstoque>()
-        //         .HasIndex(e => e.CodChassiEstoque)
-        //         .IsUnique();
-        //     base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CaminhaoEstoque>()
+                .HasIndex(e => e.CodChassiEstoque)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
 
-        //     modelBuilder.Entity<Funcionario>()
-        //         .HasIndex(e => e.CpfFuncionario)
-        //         .IsUnique();
-        //     base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Funcionario>()
+                .HasIndex(e => e.CpfFuncionario)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
 
-        //     modelBuilder.Entity<Concessionaria>()
-        //         .HasIndex(e => e.CepConcessionaria)
-        //         .IsUnique();
-        //     base.OnModelCreating(modelBuilder);
-        // }
+            modelBuilder.Entity<Concessionaria>()
+                .HasIndex(e => e.CepConcessionaria)
+                .IsUnique();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

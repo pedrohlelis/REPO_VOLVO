@@ -16,7 +16,12 @@ namespace TRABALHO_VOLVO
                 {
                     try
                     {
-                        var estoqueCaminhao = _context.EstoqueCaminhao.FirstOrDefault(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque);
+                        var estoqueCaminhao = _context.EstoqueCaminhao.FirstOrDefault(c => c.CodCaminhaoEstoque == vendaCaminhao.FkEstoqueCaminhoesCodCaminhaoEstoque
+                                                                                            && c.CaminhaoEstoqueAtivo == true);
+                        if (estoqueCaminhao == null)
+                        {
+                            throw new FKNotFoundException("Voce esta sem estoque para realizar essa venda!");
+                        }
                         var modelo = _context.ModelosCaminhoes.FirstOrDefault(c => c.CodModelo == estoqueCaminhao.FkModelosCaminhoesCodModelo);
                         var novoCaminhao = new Caminhao
                         {
@@ -83,11 +88,12 @@ namespace TRABALHO_VOLVO
                 }
                 try
                 {
+                    ManipulacaoDadosHelper.RegistrarDelete("VendaCaminhoes", "VendaCaminhao", item);
                     _context.VendaCaminhoes.Remove(item);
                     _context.SaveChanges();
                     return Ok("A Venda foi deletada.");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }

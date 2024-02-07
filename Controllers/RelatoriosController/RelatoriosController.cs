@@ -68,16 +68,8 @@ namespace TRABALHO_VOLVO
         {
             try
             {
-                List<object> listaModelos = ManipulacaoDadosHelper.GetEstoqueCaminhaoPorConcessionaria(CodigoConcessionaria);
-
-                if (listaModelos.Count > 0)
-                {
-                    return Ok($"Modelos da concessionaria selecionada são: {string.Join(",", listaModelos)}.");
-                }
-                else
-                {
-                    return Ok($"Modelos da concessionaria selecionada insuficientes para relatorio.");
-                }
+                List<object> estoqueCaminhoes = ManipulacaoDadosHelper.GetEstoqueCaminhaoPorConcessionaria(CodigoConcessionaria);
+                return Ok($"{string.Join(",", estoqueCaminhoes)}.");
             }
             catch (Exception)
             {
@@ -85,21 +77,13 @@ namespace TRABALHO_VOLVO
             }
         }
 
-
         [HttpGet("ListarEstoquePecasPorConcessionaria/{CodigoConcessionaria}")]
-        public IActionResult GetListarEstoquePecaPorConcesiionaria(int CodigoConcessionaria)
+        public IActionResult GetListarEstoquePecaPorConcessionaria(int CodigoConcessionaria)
         {
             try
             {
                 List<object> listaPecas = ManipulacaoDadosHelper.GetEstoquePecaPorConcesiionaria(CodigoConcessionaria);
-                if (listaPecas.Count > 0)
-                {
-                    return Ok($"Peças da concessionaria selecionada são: {string.Join(",", listaPecas)}.");
-                }
-                else
-                {
-                    return Ok($"Peças da concessionaria selecionada insuficientes para relatorio.");
-                }
+                return Ok($"{string.Join(",", listaPecas)}.");
             }
             catch (Exception)
             {

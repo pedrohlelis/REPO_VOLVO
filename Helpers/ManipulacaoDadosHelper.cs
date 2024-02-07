@@ -5,11 +5,29 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace TRABALHO_VOLVO
 {
     public class ManipulacaoDadosHelper
     {
+        public async static void RegistrarDelete(string tabela, string model, Object objeto)
+        {
+            using (StreamWriter writer = new StreamWriter(@"logs\DeletesLog.txt", true))
+            {
+                await writer.WriteLineAsync(JsonConvert.SerializeObject(new
+                {
+                    DataHora = DateTime.Now.ToString("dd/MM/yy HH:mm:ss"),
+                    Por = Environment.MachineName,
+                    Model = model,
+                    Tabela = tabela,
+                    Objeto = objeto
+                }));
+                writer.Flush();
+            }
+        }
+
         public static double GerarTempoEntreManutencoesCaminhao(TrabalhoVolvoContext context, int Codigo)
         {
             try
@@ -121,6 +139,7 @@ namespace TRABALHO_VOLVO
                 throw;
             }
         }
+
 
         public static List<object> GetEstoquePecaPorConcesiionaria(int Codigo)
         {

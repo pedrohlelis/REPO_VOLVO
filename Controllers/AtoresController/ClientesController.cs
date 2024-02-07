@@ -13,7 +13,7 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                ValidationHelper.CheckIntPK($"{cliente.CodCliente}", "Codigo Cliente invalido.");
+                ValidationHelper.CheckUniqueDoc(_context, cliente.DocIdentificadorCliente);
                 ValidationHelper.ValidateNameFormat(cliente.NomeCliente, "Nome invalido.");
                 ValidationHelper.ValidateNumericFormat(cliente.DocIdentificadorCliente, "Formato do Documento Identificador invalido.");
                 ValidationHelper.ValidateEmailFormat(cliente.EmailCliente, "Email invalido.");
@@ -26,8 +26,12 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok("Cliente cadastrado com sucesso.");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    if (e.InnerException.Message == "Cannot insert duplicate key row in object 'dbo.Clientes' with unique index 'IX_Clientes_DocIdentificadorCliente'. The duplicate key value is (123123).")
+                    {
+                        throw new DuplicateUniqueValueException($"O Documento '{cliente.DocIdentificadorCliente}' ja esta cadastrado. Tente Novamente.");
+                    }
                     throw;
                 }
             }
@@ -50,7 +54,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum cliente com esse documento foi encontrado.");
                 }
                 return new ObjectResult(item);
             }
@@ -64,7 +68,7 @@ namespace TRABALHO_VOLVO
                 var item = _context.Clientes.FirstOrDefault(t => t.DocIdentificadorCliente == Documento);
                 if (item == null)
                 {
-                    return NotFound("Nenhum cliente com esse documento foi encontrado.");
+                    throw new FKNotFoundException("Nenhum cliente com esse documento foi encontrado.");
                 }
                 ValidationHelper.ValidateNameFormat(cliente.NomeCliente, "Nome invalido.");
                 ValidationHelper.ValidateEmailFormat(cliente.EmailCliente, "Email invalido.");
@@ -93,7 +97,7 @@ namespace TRABALHO_VOLVO
 
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum cliente com esse documento foi encontrado.");
                 }
 
                 item.ClienteAtivo = false;
@@ -112,13 +116,13 @@ namespace TRABALHO_VOLVO
 
                 if (item == null)
                 {
-                    return NotFound();
+                    throw new FKNotFoundException("Nenhum cliente com esse documento foi encontrado.");
                 }
-
+                ManipulacaoDadosHelper.RegistrarDelete("Clientes", "Cliente", item);
                 _context.Clientes.Remove(item);
                 _context.SaveChanges();
 
-                return Ok("O cLiente foi deletado.");
+                return Ok("O cliente foi deletado.");
             }
         }
     }
