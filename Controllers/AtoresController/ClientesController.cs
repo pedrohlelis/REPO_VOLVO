@@ -13,7 +13,6 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                ValidationHelper.CheckIntPK($"{cliente.CodCliente}", "Codigo Cliente invalido.");
                 ValidationHelper.ValidateNameFormat(cliente.NomeCliente, "Nome invalido.");
                 ValidationHelper.ValidateNumericFormat(cliente.DocIdentificadorCliente, "Formato do Documento Identificador invalido.");
                 ValidationHelper.ValidateEmailFormat(cliente.EmailCliente, "Email invalido.");
@@ -94,6 +93,12 @@ namespace TRABALHO_VOLVO
                 if (item == null)
                 {
                     return NotFound();
+                }
+
+                var caminhaoCliente = _context.Caminhoes.Where(f => f.FkClientesCodCliente == item.CodCliente);
+                foreach (var caminhao in caminhaoCliente)
+                {
+                    caminhao.CaminhaoAtivo = false;
                 }
 
                 item.ClienteAtivo = false;
