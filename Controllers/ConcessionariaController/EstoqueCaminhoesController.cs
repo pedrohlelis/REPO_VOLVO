@@ -105,9 +105,9 @@ namespace TRABALHO_VOLVO
                 }
                 try
                 {
-                _context.EstoqueCaminhao.Remove(item);
-                _context.SaveChanges();
-                return Ok("O caminhao foi removido do estoque com sucesso.");
+                    _context.EstoqueCaminhao.Remove(item);
+                    _context.SaveChanges();
+                    return Ok("O caminhao foi removido do estoque com sucesso.");
                 }
                 catch(Exception)
                 {
