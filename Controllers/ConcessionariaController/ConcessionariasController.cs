@@ -141,7 +141,6 @@ namespace TRABALHO_VOLVO
             }
         }
 
-
         [HttpDelete("Deletar/{Cep}")]
         public IActionResult DeleteConcessionaria(string Cep)
         {
@@ -167,6 +166,7 @@ namespace TRABALHO_VOLVO
                         
                         _context.Concessionarias.Remove(item);
                         _context.SaveChanges();
+                        transaction.Commit();
                         return Ok();
                     }
                     catch(Exception)
