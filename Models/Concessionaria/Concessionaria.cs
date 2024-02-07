@@ -5,18 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TRABALHO_VOLVO
 {
+    // Classe que representa uma concessionária.
     public class Concessionaria
     {
-        private int _CodConc;
-        private string? _NomeConc;
-        private string? _CepConcessionaria;
-        private bool _ConcessionariaAtivo;
-        private string? _Pais;
-        private string? _Estado;
-        private string? _Cidade;
-        private string? _Rua;
-        private string? _Numero;
+        private int _CodConc; // Identificador único da concessionária.
+        private string? _NomeConc; // Nome da concessionária.
+        private string? _CepConcessionaria; // CEP da concessionária.
+        private bool _ConcessionariaAtivo; // Indica se a concessionária está ativa.
+        private string? _Pais; // País da concessionária.
+        private string? _Estado; // Estado da concessionária.
+        private string? _Cidade; // Cidade da concessionária.
+        private string? _Rua; // Rua da concessionária.
+        private string? _Numero; // Número da concessionária.
 
+        // Propriedade que representa o código da concessionária.
         [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,6 +28,7 @@ namespace TRABALHO_VOLVO
             set { _CodConc = value; }
         }
 
+        // Propriedade que representa o nome da concessionária.
         [Required]
         [MaxLength(40)]
         public string? NomeConc
@@ -34,6 +37,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _NomeConc = value; } }
         }
 
+        // Propriedade que representa o CEP da concessionária.
         [Required]
         [MaxLength(10)]
         public string? CepConcessionaria
@@ -42,6 +46,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _CepConcessionaria = value; } }
         }
 
+        // Propriedade que indica se a concessionária está ativa.
         [Required]
         public bool ConcessionariaAtivo
         {
@@ -49,6 +54,7 @@ namespace TRABALHO_VOLVO
             set { { _ConcessionariaAtivo = value; } }
         }
 
+        // Propriedade que representa o país da concessionária.
         [Required]
         [MaxLength(30)]
         public string? Pais
@@ -57,6 +63,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _Pais = value.ToUpper(); } }
         }
 
+        // Propriedade que representa o estado da concessionária.
         [Required]
         [MaxLength(30)]
         public string? Estado
@@ -65,6 +72,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _Estado = value.ToUpper(); } }
         }
 
+        // Propriedade que representa a cidade da concessionária.
         [Required]
         [MaxLength(30)]
         public string? Cidade
@@ -73,6 +81,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _Cidade = value.ToUpper(); } }
         }
 
+        // Propriedade que representa a rua da concessionária.
         [Required]
         [MaxLength(30)]
         public string? Rua
@@ -81,6 +90,7 @@ namespace TRABALHO_VOLVO
             set { if (!string.IsNullOrWhiteSpace(value)) { _Rua = value; } }
         }
 
+        // Propriedade que representa o número da concessionária.
         [Required]
         [MaxLength(5)]
         public string? Numero
