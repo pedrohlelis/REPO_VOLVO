@@ -18,10 +18,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\REPO_VOLVO\Projeto-Final-VOLVO
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/REPO_VOLVO/Projeto-Final-VOLVO/Views/Clientes/ListaClientes.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcTGlzdGFDbGllbnRlcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/REPO_VOLVO/Projeto-Final-VOLVO/Views/Funcionarios/ListaFuncionarios.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvbmFyaW9zXExpc3RhRnVuY2lvbmFyaW9zLmNzaHRtbA==
+[C:/REPO_VOLVO/Projeto-Final-VOLVO/Views/ContatarClientesManutencao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGF0YXJDbGllbnRlc01hbnV0ZW5jYW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

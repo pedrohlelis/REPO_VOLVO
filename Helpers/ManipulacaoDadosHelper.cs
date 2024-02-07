@@ -55,6 +55,22 @@ namespace TRABALHO_VOLVO
             }
         }
 
+        public static double GetTempoDesdeUltimaManutencao(TrabalhoVolvoContext context, Caminhao caminhao)
+        {
+            var historicoManutencoes = context.ServicosManutencao
+                    .Where(m => m.FkCaminhoesCodCaminhao == caminhao.CodCaminhao)
+                    .OrderBy(m => m.DataManutencao)
+                    .ToList();
+            if (historicoManutencoes == null || historicoManutencoes.Count() == 0)
+            {
+                return 0;
+            }
+            DateTime dataUltimaManutencao = historicoManutencoes[historicoManutencoes.Count() - 1].DataManutencao;
+
+            double tempoDecorrido = (DateTime.Now - dataUltimaManutencao).TotalDays;
+            return tempoDecorrido;
+        }
+
         public static Dictionary<int, List<double>> GerarModelosTempos(TrabalhoVolvoContext context)
         {
             Dictionary<int, List<double>> modelosTempos = new Dictionary<int, List<double>>();
@@ -96,6 +112,9 @@ namespace TRABALHO_VOLVO
             }
             return modelosMediaTempos;
         }
+
+
+
         public static List<object> GetEstoqueCaminhaoPorConcessionaria(int Codigo)
         {
             try

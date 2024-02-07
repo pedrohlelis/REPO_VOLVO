@@ -1,1 +1,0 @@
-{"DataHora":"07/02/24 01:19:46","Tabela":"Clientes","Objeto":{"CodCliente":3,"NomeCliente":"Pedro Lelis","DocIdentificadorCliente":"123123","ClienteAtivo":true,"EmailCliente":"Pedro.Lelis@gmail.com","NumeroContatoCliente":"82039402"}}

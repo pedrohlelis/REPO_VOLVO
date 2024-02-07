@@ -63,6 +63,48 @@ namespace TRABALHO_VOLVO
             }
         }
 
+        [HttpGet("GetListaClientesContatarManutencao")]
+        public IActionResult GetListaClientesContatarManutencao()
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                try
+                {
+                    //====================================== PARTE 1 =====================================================
+                    Dictionary<int, List<double>> modelosTemposInicial = ManipulacaoDadosHelper.GerarModelosTempos(_context);
+                    //====================================== PARTE 2 =====================================================
+                    Dictionary<int, List<double>> modelosTemposPreenchida = ManipulacaoDadosHelper.PreencherModelosTempos(_context, modelosTemposInicial);
+                    //====================================== PARTE 3 =====================================================
+                    Dictionary<int, double> modelosMediaTempos = ManipulacaoDadosHelper.CalcularMediaTempoModelosTempos(modelosTemposPreenchida);
+                    //====================================== PARTE 4 =====================================================
+                    List<Caminhao> caminhoes = _context.Caminhoes.Where(c => c.CaminhaoAtivo == true).ToList();
+                    Dictionary<Cliente, List<Caminhao>> clientesContatoCaminhoes = new Dictionary<Cliente, List<Caminhao>>();
+                    foreach (Caminhao c in caminhoes)
+                    {
+                        double tempoDecorrido = ManipulacaoDadosHelper.GetTempoDesdeUltimaManutencao(_context, c);
+                        if (tempoDecorrido >= modelosMediaTempos[c.FkModelosCaminhoesCodModelo])
+                        {
+                            Cliente cliente = _context.Clientes.Find(c.FkClientesCodCliente);
+                            if (!clientesContatoCaminhoes.ContainsKey(cliente))
+                            {
+                                List<Caminhao> caminhoesAtrasados = [c];
+                                clientesContatoCaminhoes.Add(cliente, caminhoesAtrasados);
+                            }
+                            else
+                            {
+                                clientesContatoCaminhoes[cliente].Add(c);
+                            }
+                        }
+                    }
+                    return View(@"Views\ContatarClientesManutencao.cshtml", clientesContatoCaminhoes);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
         [HttpGet("ListarEstoqueCaminhoesPorConcessionaria/{CodigoConcessionaria}")]
         public IActionResult GetListarModelosConcessionaria(int CodigoConcessionaria)
         {
