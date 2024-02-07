@@ -10,7 +10,7 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class RelatoriosController : Controller
     {
-        [HttpGet("PreverRevisaoCaminhao/{CodigoCaminhao}")]
+        [HttpGet("CalcularMediaTempoEntreManutencoesCaminhao/{CodigoCaminhao}")]
         public IActionResult GetPreverRevisaoCaminhao(int CodigoCaminhao)
         {
             using (var _context = new TrabalhoVolvoContext())
@@ -63,12 +63,12 @@ namespace TRABALHO_VOLVO
             }
         }
 
-        [HttpGet("ListarModelosConcessionaria/{CodigoConcessionaria}")]
+        [HttpGet("ListarEstoqueCaminhoesPorConcessionaria/{CodigoConcessionaria}")]
         public IActionResult GetListarModelosConcessionaria(int CodigoConcessionaria)
         {
             try
             {
-                List<object> listaModelos = ManipulacaoDadosHelper.GetEstoqueCaminhaoPorConcesiionaria(CodigoConcessionaria);
+                List<object> listaModelos = ManipulacaoDadosHelper.GetEstoqueCaminhaoPorConcessionaria(CodigoConcessionaria);
 
                 if (listaModelos.Count > 0)
                 {
@@ -86,13 +86,12 @@ namespace TRABALHO_VOLVO
         }
 
 
-        [HttpGet("ListarEstoquePecaPorConcesiionaria/{CodigoConcessionaria}")]
+        [HttpGet("ListarEstoquePecasPorConcessionaria/{CodigoConcessionaria}")]
         public IActionResult GetListarEstoquePecaPorConcesiionaria(int CodigoConcessionaria)
         {
             try
             {
                 List<object> listaPecas = ManipulacaoDadosHelper.GetEstoquePecaPorConcesiionaria(CodigoConcessionaria);
-
                 if (listaPecas.Count > 0)
                 {
                     return Ok($"Peças da concessionaria selecionada são: {string.Join(",", listaPecas)}.");

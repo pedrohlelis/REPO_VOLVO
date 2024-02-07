@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TRABALHO_volvo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4bd1298166e2197d0bdc494db5773f5e2e681cfb")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2fdf61b431922a7bdd92979559ae0e2c073368a0")]
+>>>>>>> cb08846aa9b001bc75298ebfddc494b2720074d3
 [assembly: System.Reflection.AssemblyProductAttribute("TRABALHO_volvo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TRABALHO_volvo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

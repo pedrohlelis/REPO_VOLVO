@@ -13,18 +13,20 @@ namespace TRABALHO_VOLVO
         {
             using (var _context = new TrabalhoVolvoContext())
             {
-                cliente.CodCliente = 0;
-                cliente.ClienteAtivo = true;
-                ValidationHelper.ValidateNameFormat(cliente.NomeCliente,"Nome invalido.");
-                ValidationHelper.ValidateNumericFormat(cliente.DocIdentificadorCliente,"Formato do Documento Identificador invalido.");
-                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente,"Email invalido.");
-                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente,"Formato de telefone invalido.");
+                ValidationHelper.CheckIntPK($"{cliente.CodCliente}", "Codigo Cliente invalido.");
+                ValidationHelper.ValidateNameFormat(cliente.NomeCliente, "Nome invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.DocIdentificadorCliente, "Formato do Documento Identificador invalido.");
+                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente, "Email invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente, "Formato de telefone invalido.");
                 try
                 {
+                    cliente.CodCliente = 0;
+                    cliente.ClienteAtivo = true;
                     _context.Clientes.Add(cliente);
                     _context.SaveChanges();
                     return Ok("Cliente cadastrado com sucesso.");
-                }catch(Exception)
+                }
+                catch (Exception)
                 {
                     throw;
                 }
@@ -64,9 +66,9 @@ namespace TRABALHO_VOLVO
                 {
                     return NotFound("Nenhum cliente com esse documento foi encontrado.");
                 }
-                ValidationHelper.ValidateNameFormat(cliente.NomeCliente,"Nome invalido.");
-                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente,"Email invalido.");
-                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente,"Formato de telefone invalido.");
+                ValidationHelper.ValidateNameFormat(cliente.NomeCliente, "Nome invalido.");
+                ValidationHelper.ValidateEmailFormat(cliente.EmailCliente, "Email invalido.");
+                ValidationHelper.ValidateNumericFormat(cliente.NumeroContatoCliente, "Formato de telefone invalido.");
                 try
                 {
                     item.NomeCliente = cliente.NomeCliente;
@@ -75,13 +77,13 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok("Os dados do cliente foram atualizados.");
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
             }
         }
-        
+
         [HttpPut("Desativar/{Documento}")]
         public IActionResult PutDeleteCliente(string Documento)
         {

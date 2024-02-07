@@ -7,16 +7,6 @@ namespace TRABALHO_VOLVO
     public class FuncionariosController : Controller
     {
 
-        [HttpPost]
-        public void Post([FromBody] Funcionario funcionario)
-        {
-            using (var _context = new TrabalhoVolvoContext())
-            {
-                _context.Funcionarios.Add(funcionario);
-                _context.SaveChanges();
-            }
-        }
-
         [HttpPost("Cadastrar")]
         public IActionResult PostFuncionario([FromForm] Funcionario funcionario)
         {
