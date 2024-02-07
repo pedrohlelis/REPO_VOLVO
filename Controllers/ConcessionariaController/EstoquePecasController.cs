@@ -40,10 +40,18 @@ namespace TRABALHO_VOLVO
         [HttpGet("Listar")]
         public List<PecaEstoque> GetTodasEstoquePecas()
         {
-            using (var _context = new TrabalhoVolvoContext())
+            try
             {
-                return _context.EstoquePecas.ToList();
+                using (var _context = new TrabalhoVolvoContext())
+                {
+                    return _context.EstoquePecas.ToList();
+                }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         [HttpGet("Buscar/{Codigo}")]
@@ -77,7 +85,7 @@ namespace TRABALHO_VOLVO
                     _context.SaveChanges();
                     return Ok();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }

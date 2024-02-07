@@ -5,6 +5,14 @@ namespace TRABALHO_VOLVO
 {
     public class ValidationHelper
     {
+        public static void CheckIntPK(string value, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(value) || !value.All(c => char.IsDigit(c)))
+            {
+                throw new FormatoInvalidoException(errorMessage);
+            }
+        }
+
         public static void ValidateNameFormat(string? value, string errorMessage)
         {
             if (string.IsNullOrWhiteSpace(value) || !value.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
@@ -51,6 +59,7 @@ namespace TRABALHO_VOLVO
         {
             if (DateOnly.TryParse(value, out DateOnly dateOnlyValue))
             {
+                return;
             }
             else
             {

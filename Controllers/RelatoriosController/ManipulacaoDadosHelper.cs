@@ -78,7 +78,7 @@ namespace TRABALHO_VOLVO
             }
             return modelosMediaTempos;
         }
-        public static List<object> GetEstoqueCaminhaoPorConcesiionaria(int Codigo)
+        public static List<object> GetEstoqueCaminhaoPorConcessionaria(int Codigo)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace TRABALHO_VOLVO
 
                     // Converte o resultado para uma lista de objetos
                     var resultList = result.Select(r => new { r.CodModelo, r.NomeModelo, r.Qtde_Disponivel }).Cast<object>().ToList();
-                    
+
                     if (resultList.Count > 0)
                     {
                         return resultList;
@@ -152,7 +152,7 @@ namespace TRABALHO_VOLVO
 
                     // Converte o resultado para uma lista de objetos
                     var resultList = result.Select(r => new { r.CodTipoPeca, r.NomeTipoPeca, r.Qtde_Disponivel }).Cast<object>().ToList();
-                    
+
                     if (resultList.Count > 0)
                     {
                         return resultList;

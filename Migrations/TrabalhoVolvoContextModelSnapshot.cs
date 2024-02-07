@@ -59,7 +59,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodCaminhao");
 
-                    b.ToTable("Caminhoes");
+                    b.ToTable("Caminhoes", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.CaminhaoEstoque", b =>
@@ -92,7 +92,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodCaminhaoEstoque");
 
-                    b.ToTable("EstoqueCaminhao");
+                    b.ToTable("EstoqueCaminhao", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.Cargo", b =>
@@ -119,7 +119,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodCargo");
 
-                    b.ToTable("Cargos");
+                    b.ToTable("Cargos", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.Cliente", b =>
@@ -154,7 +154,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodCliente");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.Concessionaria", b =>
@@ -205,7 +205,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodConc");
 
-                    b.ToTable("Concessionarias");
+                    b.ToTable("Concessionarias", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.Funcionario", b =>
@@ -243,7 +243,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodFuncionario");
 
-                    b.ToTable("Funcionarios");
+                    b.ToTable("Funcionarios", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.ModelosCaminhao", b =>
@@ -267,7 +267,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodModelo");
 
-                    b.ToTable("ModelosCaminhoes");
+                    b.ToTable("ModelosCaminhoes", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.PecaEstoque", b =>
@@ -292,7 +292,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodPecaEstoque");
 
-                    b.ToTable("EstoquePecas");
+                    b.ToTable("EstoquePecas", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.ServicoManutencao", b =>
@@ -328,7 +328,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodManutencao");
 
-                    b.ToTable("ServicosManutencao");
+                    b.ToTable("ServicosManutencao", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.ServicoTipoPeca", b =>
@@ -347,7 +347,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodServicoTipoPeca");
 
-                    b.ToTable("ServicoTiposPeca");
+                    b.ToTable("ServicoTiposPeca", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.TipoPeca", b =>
@@ -371,7 +371,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodTipoPeca");
 
-                    b.ToTable("TiposPeca");
+                    b.ToTable("TiposPeca", (string)null);
                 });
 
             modelBuilder.Entity("TRABALHO_VOLVO.VendaCaminhao", b =>
@@ -402,7 +402,7 @@ namespace TRABALHO_volvo.Migrations
 
                     b.HasKey("CodVenda");
 
-                    b.ToTable("VendaCaminhoes");
+                    b.ToTable("VendaCaminhoes", (string)null);
                 });
 #pragma warning restore 612, 618
         }
