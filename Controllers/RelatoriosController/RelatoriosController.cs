@@ -10,6 +10,38 @@ namespace TRABALHO_VOLVO
     [ApiController]
     public class RelatoriosController : Controller
     {
+
+        [HttpGet("CalcularTempoDesdeManutencoesCaminhao/{CodigoCaminhao}")]
+        public IActionResult GetTempoUltimaManutencao(int CodigoCaminhao)
+        {
+            using (var _context = new TrabalhoVolvoContext())
+            {
+                var caminhaoEscolhido = _context.Caminhoes.FirstOrDefault(t => t.CodCaminhao == CodigoCaminhao);
+
+                if (caminhaoEscolhido == null)
+                {
+                    throw new FKNotFoundException("Nenhum Caminhao registrado possui esse codigo.");
+                }
+
+                double Dias = ManipulacaoDadosHelper.GetTempoDesdeUltimaManutencao(_context, caminhaoEscolhido);
+                try
+                {
+                    if (Dias > 0)
+                    {
+                        return Ok($"Tempo desde a ultima manutençao do caminhão selecionado é {Dias} dias.");
+                    }
+                    else
+                    {
+                        return Ok($"O caminhão selecionado nao possui manutencoes registradas.");
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
         [HttpGet("CalcularMediaTempoEntreManutencoesCaminhao/{CodigoCaminhao}")]
         public IActionResult GetPreverRevisaoCaminhao(int CodigoCaminhao)
         {

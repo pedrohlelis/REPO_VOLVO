@@ -39,7 +39,7 @@ namespace TRABALHO_VOLVO
             };
             if (DocsCadastrados.Contains(doc))
             {
-                throw new DuplicateUniqueValueException("CPF ou CNPJ ja pertence a em outro cadastro. Tente Novamente.");
+                throw new DuplicateUniqueValueException("CPF ou CNPJ ja pertence a um outro cadastro. Tente Novamente.");
             }
         }
 

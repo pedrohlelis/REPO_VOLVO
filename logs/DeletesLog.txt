@@ -1,0 +1,2 @@
+{"DataHora":"08/02/24 12:36:39","Por":"PEDRO-PC","Model":"Cliente","Tabela":"Clientes","Objeto":{"CodCliente":7,"NomeCliente":"Rafael Silva","DocIdentificadorCliente":"07575126902","ClienteAtivo":true,"EmailCliente":"Rafael.Silva@gmail.com","NumeroContatoCliente":"410989292"}}
+{"DataHora":"08/02/24 12:38:19","Por":"PEDRO-PC","Model":"Cliente","Tabela":"Clientes","Objeto":{"CodCliente":8,"NomeCliente":"Rafael Silva","DocIdentificadorCliente":"07575126902","ClienteAtivo":true,"EmailCliente":"Rafael.Silva@gmail.com","NumeroContatoCliente":"410989292"}}

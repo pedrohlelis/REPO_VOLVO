@@ -94,6 +94,7 @@ namespace TRABALHO_VOLVO
             return modelosTempos;
         }
 
+        
         public static Dictionary<int, double> CalcularMediaTempoModelosTempos(Dictionary<int, List<double>> modelosTempos)
         {
             Dictionary<int, double> modelosMediaTempos = new Dictionary<int, double>();
@@ -131,7 +132,7 @@ namespace TRABALHO_VOLVO
                     var result = context.ModelosCaminhoes
                         .GroupJoin(
                             context.EstoqueCaminhao
-                                .Where(ec => ec.FkConcessionariasCodConc == Codigo),
+                                .Where(ec => ec.FkConcessionariasCodConc == Codigo && ec.CaminhaoEstoqueAtivo),
                             nm => nm.CodModelo,
                             ec => ec.FkModelosCaminhoesCodModelo,
                             (nm, ecGroup) => new

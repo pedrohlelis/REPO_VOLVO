@@ -29,24 +29,7 @@ namespace TRABALHO_VOLVO
                 }));
                 writer.Flush();
             }
-            // logger.LogError(
-            //     exception,
-            //     "Nao foi possivel processar request na maquina {MachineName}. Traceid: {traceID}",
-            //     Environment.MachineName,
-            //     traceId
-            // );
-
-            // await Results.Problem(
-            //     type: null,
-            //     title: Title,
-            //     statusCode: StatusCode
-            //     // extensions: new Dictionary<string, object?>
-            //     // {
-            //     //     {"traceId", traceId}
-            //     // }
-            // ).ExecuteAsync(httpContext);
             await httpContext.Response.WriteAsJsonAsync($"statusCode: {StatusCode}, Message: {Title}");
-
             return true;
         }
 
