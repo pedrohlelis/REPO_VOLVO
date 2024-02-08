@@ -31,6 +31,7 @@ namespace TRABALHO_VOLVO
                             CorCaminhao = estoqueCaminhao.CorEstoqueCaminhao,
                             CodChassiCaminhao = estoqueCaminhao.CodChassiEstoque,
                             DataFabricacao = estoqueCaminhao.DataFabricacao,
+                            CaminhaoAtivo = true,
                             FkModelosCaminhoesCodModelo = estoqueCaminhao.FkModelosCaminhoesCodModelo,
                             FkClientesCodCliente = vendaCaminhao.FkClientesCodCliente
                         };
